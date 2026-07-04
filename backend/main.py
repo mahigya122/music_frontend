@@ -111,7 +111,7 @@ separated_files = {}
 
 # Concurrency Control
 # Limit max concurrent heavy analysis tasks to prevent OOM/CPU saturation
-MAX_CONCURRENT_ANALYSIS = 2
+MAX_CONCURRENT_ANALYSIS = 1
 analysis_semaphore = threading.Semaphore(MAX_CONCURRENT_ANALYSIS)
 
 def cleanup_loop():
@@ -143,9 +143,10 @@ async def lifespan(app: FastAPI):
     # Preload models on startup
     print("[Startup] Preloading models...")
     try:
-        from analysis import _get_separator
+        from analysis import _get_separator, _get_separator_6stem
         # This will load the model into memory
         _get_separator()
+        _get_separator_6stem()
         print("[Startup] ✓ Models preloaded and ready")
     except Exception as e:
         print(f"[Startup] ⚠️ Model preload failed: {e}")

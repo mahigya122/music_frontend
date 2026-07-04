@@ -54,8 +54,8 @@ class DemucsSeparator:
         
         print(f"[Demucs] Running inference on {wav.shape[1]/sr:.1f}s of audio (CPU)...")
         with torch.no_grad():
-            # Use overlap=0.1 and shifts=0 for maximum speed on CPU
-            sources = apply_model(self.model, wav[None], shifts=0, overlap=0.1, progress=True)[0]
+            # Use overlap=0.0 and shifts=0 for maximum speed on CPU
+            sources = apply_model(self.model, wav[None], shifts=0, overlap=0.0, progress=True)[0]
         
         sources = sources * ref.std() + ref.mean()
         return sr, dict(zip(self.model.sources, sources))
@@ -103,8 +103,8 @@ class DemucsSeparator6Stem:
         
         print(f"[Demucs 6-Stem] Running inference on {wav.shape[1]/sr:.1f}s of audio (CPU)... This may take 5-10 minutes.")
         with torch.no_grad():
-            # Use overlap=0.1 and shifts=0 for maximum speed on CPU
-            sources = apply_model(self.model, wav[None], shifts=0, overlap=0.1, progress=True)[0]
+            # Use overlap=0.0 and shifts=0 for maximum speed on CPU
+            sources = apply_model(self.model, wav[None], shifts=0, overlap=0.0, progress=True)[0]
         
         sources = sources * ref.std() + ref.mean()
         return sr, dict(zip(self.model.sources, sources))

@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional
 import numpy as np
+import os
 
 # Try to import madmom, but don't fail if it's not available
 try:
@@ -28,7 +29,8 @@ except Exception as e:
 
 
 # Cache directory for storing analysis results
-CACHE_DIR = Path("cache")
+# Use /data if available (Hugging Face persistent volume), otherwise fallback to local cache
+CACHE_DIR = Path("/data/cache") if os.path.exists("/data") else Path("cache")
 CHORD_CACHE_DIR = CACHE_DIR / "chords"
 KEY_CACHE_DIR = CACHE_DIR / "keys"
 TEMPO_CACHE_DIR = CACHE_DIR / "tempo"
