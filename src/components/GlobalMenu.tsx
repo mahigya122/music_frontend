@@ -21,6 +21,7 @@ import {
     Github,
     Sun,
     Moon,
+    Coffee,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePWAInstall } from "@/hooks/usePWAInstall";
@@ -387,6 +388,19 @@ export const GlobalMenu = () => {
                                             <span className="text-sm font-medium text-emerald-400/90">App Installed</span>
                                         </div>
                                     )}
+
+                                    <motion.a
+                                        href="https://buymeacoffee.com/your-username-here"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        whileHover={{ scale: 1.01 }}
+                                        whileTap={{ scale: 0.99 }}
+                                        className="relative w-full flex items-center justify-center gap-2.5 px-4 py-3 rounded-xl transition-all overflow-hidden group"
+                                    >
+                                        <div className="absolute inset-0 bg-gradient-to-r from-amber-500/[0.08] to-amber-500/[0.02] border border-amber-500/[0.2] rounded-xl group-hover:from-amber-500/[0.15] group-hover:to-amber-500/[0.05] transition-all" />
+                                        <Coffee className="w-4 h-4 text-amber-500/80 relative z-10 group-hover:text-amber-400 transition-colors" />
+                                        <span className="text-sm font-semibold text-amber-500/90 relative z-10 group-hover:text-amber-400 transition-colors">Buy me a coffee</span>
+                                    </motion.a>
 
                                     <div className="flex items-center justify-between relative z-10">
                                         <div className="flex items-center gap-1.5">
