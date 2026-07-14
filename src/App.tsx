@@ -10,6 +10,7 @@ import { GlobalMenu } from "@/components/GlobalMenu";
 import { InstallPrompt } from "@/components/InstallPrompt";
 import Lenis from "lenis";
 import PostHogPageView from "@/analytics/PageView";
+import GAPageView from "@/analytics/GAPageView";
 
 
 const Index = lazy(() => import("./pages/Index"));
@@ -101,6 +102,7 @@ const App = () => {
         <ErrorBoundary>
           <AnimatePresence mode="wait">
             <PostHogPageView />
+            <GAPageView />
             <Routes location={location} key={location.pathname}>
               <Route
                 path="/"
