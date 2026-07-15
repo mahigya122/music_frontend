@@ -1,20 +1,20 @@
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Music2, Layers, Disc, Music, BookOpen, Bot, Wand2, Headphones, Guitar, Trophy, Mic } from "lucide-react";
+import { ArrowRight, Music2, Layers, Disc, Music, BookOpen, Bot, Wand2, Headphones, Guitar, Trophy, Mic, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Footer from "@/components/Footer";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 
-// Featured AI tools (first row: 2 cards side by side)
+// Featured AI tools (first row: 3 cards side by side)
 const featuredTools = [
   { title: "Chord AI", desc: "Neural audio chord detection and harmonic transcription.", icon: Bot, to: "/chord-ai", color: "from-violet-500/20 to-purple-500/20" },
   { title: "Stem Separator", desc: "AI 6-stem separation: vocals, drums, bass, guitar, piano, other.", icon: Mic, to: "/stem-separator", color: "from-pink-500/20 to-rose-500/20" },
+  { title: "Vocal Splitter", desc: "AI-powered vocal and instrumental separation.", icon: Wand2, to: "/vocal-splitter", color: "from-cyan-500/20 to-blue-500/20" },
 ];
 
-// Standard tool cards (4 per row on large screens)
+// Standard tool cards (3 per row on large screens)
 const toolCards = [
-  { title: "Vocal Splitter", desc: "AI-powered vocal and instrumental separation.", icon: Wand2, to: "/vocal-splitter", color: "from-cyan-500/20 to-blue-500/20" },
   { title: "Fretboard", desc: "Interactive neck with adaptive note labeling.", icon: Music2, to: "/fretboard", color: "from-emerald-500/20 to-teal-500/20" },
   { title: "Chord Library", desc: "1,000+ voicings with interactive diagrams.", icon: Layers, to: "/chords", color: "from-blue-500/20 to-indigo-500/20" },
   { title: "Scale Explorer", desc: "Visualize modes and exotic scales instantly.", icon: Disc, to: "/scales", color: "from-purple-500/20 to-pink-500/20" },
@@ -23,6 +23,7 @@ const toolCards = [
   { title: "Ear Training", desc: "Gamified interval recognition and pitch training.", icon: Trophy, to: "/ear-training", color: "from-yellow-500/20 to-amber-500/20" },
   { title: "Tuner", desc: "Real-time chromatic tuner with cent precision.", icon: Guitar, to: "/tuner", color: "from-rose-500/20 to-pink-500/20" },
   { title: "Jam Studio", desc: "Loop chord progressions with piano & pad backing.", icon: Headphones, to: "/jam", color: "from-indigo-500/20 to-violet-500/20" },
+  { title: "Blog & Guides", desc: "Music theory, ear training, and AI production articles.", icon: FileText, to: "/blog", color: "from-sky-500/20 to-cyan-500/20" },
 ];
 
 const Index = () => {
@@ -196,7 +197,7 @@ const Index = () => {
               className="mt-20 space-y-5"
             >
               {/* Featured AI Tools Row */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-5">
                 {featuredTools.map((tool) => (
                   <motion.div
                     key={tool.title}
