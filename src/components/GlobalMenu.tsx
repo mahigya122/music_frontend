@@ -6,7 +6,6 @@ import {
     X,
     Home,
     Headphones,
-    Grid3X3,
     Music,
     Layers,
     Clock,
@@ -19,8 +18,6 @@ import {
     Split,
     Sparkles,
     Github,
-    Sun,
-    Moon,
     Coffee,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -79,31 +76,13 @@ export const GlobalMenu = () => {
     const [focusedIndex, setFocusedIndex] = useState(-1);
     const location = useLocation();
     const { isInstalled, isInstallable, promptInstall } = usePWAInstall();
-    
-    // Theme state - true = light mode, false = dark mode
-    const [isLightMode, setIsLightMode] = useState(() => {
-        const saved = localStorage.getItem('theme');
-        if (saved === 'light') return true;
-        if (saved === 'dark') return false;
-        return window.matchMedia('(prefers-color-scheme: light)').matches;
-    });
 
-    // Apply theme class to html element
+    // Force Dark Mode on Mount
     useEffect(() => {
-        if (isLightMode) {
-            document.documentElement.classList.add('light');
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        } else {
-            document.documentElement.classList.add('dark');
-            document.documentElement.classList.remove('light');
-            localStorage.setItem('theme', 'dark');
-        }
-    }, [isLightMode]);
-
-    const toggleTheme = () => {
-        setIsLightMode(!isLightMode);
-    };
+        document.documentElement.classList.add("dark");
+        document.documentElement.classList.remove("light");
+        localStorage.setItem("theme", "dark");
+    }, []);
 
     const close = useCallback(() => {
         setIsOpen(false);
@@ -161,267 +140,235 @@ export const GlobalMenu = () => {
         };
     }, [isOpen]);
 
+    // Framer motion variants for the fullscreen layout
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        show: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.04,
+                delayChildren: 0.1
+            }
+        },
+        exit: {
+            opacity: 0,
+            transition: {
+                staggerChildren: 0.02,
+                staggerDirection: -1
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        show: { 
+            opacity: 1, 
+            y: 0, 
+            transition: { 
+                type: "spring", 
+                stiffness: 260, 
+                damping: 25 
+            } 
+        },
+        exit: { opacity: 0, y: -10, transition: { duration: 0.15 } }
+    };
+
     let flatIndex = 0;
 
     return (
         <>
-            {/* Floating Buttons Container */}
-            <div className="fixed top-5 right-5 z-[90] flex items-center gap-3">
-                {/* Theme Toggle Button - Sun for Light mode, Moon for Dark mode */}
+            {/* Elegant Floating Hamburger Menu Button */}
+            <div className="fixed top-5 right-5 z-[90]">
                 <motion.button
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    whileHover={{ scale: 1.08 }}
-                    whileTap={{ scale: 0.92 }}
-                    onClick={toggleTheme}
-                    className="w-12 h-12 bg-white/80 dark:bg-[#111]/80 backdrop-blur-xl border border-black/[0.08] dark:border-white/[0.08] rounded-2xl flex items-center justify-center hover:bg-black/[0.04] dark:hover:bg-white/[0.08] transition-all shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] group"
-                    aria-label="Toggle theme"
-                >
-                    {isLightMode ? (
-                        <Sun className="w-5 h-5 text-black/70 dark:text-white/70 group-hover:text-black dark:group-hover:text-white transition-colors" />
-                    ) : (
-                        <Moon className="w-5 h-5 text-black/70 dark:text-white/70 group-hover:text-black dark:group-hover:text-white transition-colors" />
-                    )}
-                </motion.button>
-
-                {/* Main Menu Button */}
-                <motion.button
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    whileHover={{ scale: 1.08 }}
-                    whileTap={{ scale: 0.92 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => setIsOpen(true)}
-                    className="w-12 h-12 bg-white/80 dark:bg-[#111]/80 backdrop-blur-xl border border-black/[0.08] dark:border-white/[0.08] rounded-2xl flex items-center justify-center hover:bg-black/[0.04] dark:hover:bg-white/[0.08] transition-all shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] group"
+                    className="w-12 h-12 bg-zinc-950/80 backdrop-blur-xl border border-white/[0.08] rounded-2xl flex items-center justify-center hover:bg-zinc-900 transition-all shadow-[0_8px_32px_rgba(0,0,0,0.5)] group"
                     aria-label="Open navigation menu"
                 >
-                    <Menu className="w-5 h-5 text-black/70 dark:text-white/70 group-hover:text-black dark:group-hover:text-white transition-colors" />
+                    <Menu className="w-5 h-5 text-zinc-400 group-hover:text-zinc-100 transition-colors" />
                 </motion.button>
             </div>
 
-            {/* Full-Screen Overlay */}
+            {/* Premium Full-Screen Overlay Menu */}
             <AnimatePresence>
                 {isOpen && (
-                    <>
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="fixed inset-0 bg-black/70 backdrop-blur-md z-[100]"
-                            onClick={close}
-                        />
+                    <motion.div
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="show"
+                        exit="exit"
+                        className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-3xl overflow-y-auto px-6 py-6 sm:px-12 sm:py-8 flex flex-col justify-between"
+                        id="global-menu-panel"
+                    >
+                        {/* Ambient decorative glowing backgrounds */}
+                        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-rose-500/[0.02] rounded-full blur-[120px] pointer-events-none" />
+                        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-blue-500/[0.02] rounded-full blur-[100px] pointer-events-none" />
 
-                        <motion.div
-                            initial={{ x: "100%", opacity: 0.5 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            exit={{ x: "100%", opacity: 0 }}
-                            transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                            className="fixed top-0 right-0 h-full w-[420px] max-w-[92vw] z-[101] flex flex-col overscroll-contain"
-                            id="global-menu-panel"
-                        >
-                            <div className="absolute inset-0 bg-[#070707]/95 backdrop-blur-2xl border-l border-white/[0.06]" />
-                            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/[0.03] rounded-full blur-[100px] pointer-events-none" />
-                            <div className="absolute bottom-0 right-0 w-48 h-48 bg-blue-500/[0.03] rounded-full blur-[80px] pointer-events-none" />
-
-                            <div className="relative z-10 flex flex-col h-full min-h-0">
-                                <div className="flex items-center justify-between px-6 py-5">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-white/10 to-white/[0.03] border border-white/[0.08] flex items-center justify-center overflow-hidden">
-                                            <img src="/logo.png" alt="Guitariz" className="w-6 h-6 rounded-md" />
-                                        </div>
-                                        <div>
-                                            <span className="text-sm font-semibold text-white tracking-tight">Guitariz</span>
-                                            <span className="text-[10px] text-white/30 ml-1.5 font-medium">Studio</span>
-                                        </div>
-                                    </div>
-                                    <motion.button
-                                        whileHover={{ scale: 1.1, rotate: 90 }}
-                                        whileTap={{ scale: 0.9 }}
-                                        onClick={close}
-                                        className="w-9 h-9 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] flex items-center justify-center transition-colors border border-white/[0.06]"
-                                        aria-label="Close menu"
-                                    >
-                                        <X className="w-4 h-4 text-white/60" />
-                                    </motion.button>
+                        {/* Top Header */}
+                        <motion.div variants={itemVariants} className="max-w-6xl mx-auto w-full flex items-center justify-between z-10">
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-white/10 to-white/[0.03] border border-white/[0.08] flex items-center justify-center overflow-hidden">
+                                    <img src="/logo.png" alt="Guitariz" className="w-7 h-7 rounded-md" />
                                 </div>
-
-                                <div className="mx-6 h-[1px] bg-gradient-to-r from-white/[0.06] via-white/[0.04] to-transparent" />
-
-                                <nav className="flex-1 min-h-0 overflow-y-auto custom-scrollbar px-4 py-4">
-                                    <motion.div
-                                        initial={{ opacity: 0, x: 20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.05, duration: 0.3 }}
-                                    >
-                                        <Link
-                                            to="/"
-                                            onClick={close}
-                                            data-menu-index={0}
-                                            className={cn(
-                                                "flex items-center gap-3.5 px-4 py-3 rounded-xl transition-all group relative",
-                                                focusedIndex === 0 && "ring-1 ring-white/20",
-                                                location.pathname === "/"
-                                                    ? "bg-white/[0.06] text-white"
-                                                    : "text-white/50 hover:text-white hover:bg-white/[0.04]"
-                                            )}
-                                        >
-                                            <div className={cn(
-                                                "w-9 h-9 rounded-lg flex items-center justify-center transition-all shrink-0",
-                                                location.pathname === "/"
-                                                    ? "bg-white/10 border border-white/10"
-                                                    : "bg-white/[0.03] border border-white/[0.05] group-hover:bg-white/[0.06] group-hover:border-white/[0.1]"
-                                            )}>
-                                                <Home className="w-4 h-4" />
-                                            </div>
-                                            <div className="flex-1 min-w-0">
-                                                <span className="text-sm font-medium">Home</span>
-                                                <p className="text-[11px] text-white/30 truncate">Dashboard & overview</p>
-                                            </div>
-                                            {location.pathname === "/" && (
-                                                <motion.div
-                                                    layoutId="menu-active-indicator"
-                                                    className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.5)]"
-                                                />
-                                            )}
-                                        </Link>
-                                    </motion.div>
-
-                                    {menuCategories.map((category, catIdx) => (
-                                        <div key={category.title} className="mt-5">
-                                            <motion.div
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                transition={{ delay: 0.1 + catIdx * 0.05 }}
-                                                className="flex items-center gap-2 px-4 mb-2"
-                                            >
-                                                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/25">
-                                                    {category.title}
-                                                </span>
-                                                <div className="flex-1 h-[1px] bg-white/[0.04]" />
-                                            </motion.div>
-
-                                            <div className="space-y-0.5">
-                                                {category.items.map((item, itemIdx) => {
-                                                    const currentFlatIndex = ++flatIndex;
-                                                    const isActive = location.pathname === item.href;
-                                                    const isFocused = focusedIndex === currentFlatIndex;
-                                                    const globalDelay = 0.08 + (catIdx * 0.04) + (itemIdx * 0.03);
-
-                                                    return (
-                                                        <motion.div
-                                                            key={item.label}
-                                                            initial={{ opacity: 0, x: 20 }}
-                                                            animate={{ opacity: 1, x: 0 }}
-                                                            transition={{ delay: globalDelay, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                                                        >
-                                                            <Link
-                                                                to={item.href}
-                                                                onClick={close}
-                                                                data-menu-index={currentFlatIndex}
-                                                                className={cn(
-                                                                    "flex items-center gap-3.5 px-4 py-3 rounded-xl transition-all group relative",
-                                                                    isFocused && "ring-1 ring-white/20",
-                                                                    isActive
-                                                                        ? "bg-white/[0.06] text-white"
-                                                                        : "text-white/50 hover:text-white hover:bg-white/[0.04]"
-                                                                )}
-                                                            >
-                                                                <div className={cn(
-                                                                    "w-9 h-9 rounded-lg flex items-center justify-center transition-all shrink-0",
-                                                                    isActive
-                                                                        ? "bg-emerald-500/15 border border-emerald-500/20 text-emerald-400"
-                                                                        : "bg-white/[0.03] border border-white/[0.05] group-hover:bg-white/[0.06] group-hover:border-white/[0.1]"
-                                                                )}>
-                                                                    <item.icon className="w-4 h-4" />
-                                                                </div>
-                                                                <div className="flex-1 min-w-0">
-                                                                    <div className="flex items-center gap-2">
-                                                                        <span className="text-sm font-medium">{item.label}</span>
-                                                                        {item.badge && (
-                                                                            <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded-md bg-gradient-to-r from-violet-500/20 to-blue-500/20 text-violet-300 border border-violet-500/20">
-                                                                                {item.badge}
-                                                                            </span>
-                                                                        )}
-                                                                    </div>
-                                                                    <p className="text-[11px] text-white/30 truncate">{item.description}</p>
-                                                                </div>
-                                                                {isActive && (
-                                                                    <motion.div
-                                                                        layoutId="menu-active-indicator"
-                                                                        className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.5)]"
-                                                                    />
-                                                                )}
-                                                            </Link>
-                                                        </motion.div>
-                                                    );
-                                                })}
-                                            </div>
-                                        </div>
-                                    ))}
-                                </nav>
-
-                                <div className="relative px-6 py-5 space-y-3 border-t border-white/[0.04]">
-                                    <div className="absolute inset-0 bg-gradient-to-t from-white/[0.01] to-transparent pointer-events-none" />
-
-                                    {!isInstalled && (
-                                        <motion.button
-                                            whileHover={{ scale: 1.01 }}
-                                            whileTap={{ scale: 0.99 }}
-                                            onClick={async () => {
-                                                if (isInstallable) {
-                                                    await promptInstall();
-                                                } else {
-                                                    setShowInstallGuide(true);
-                                                }
-                                            }}
-                                            className="relative w-full flex items-center justify-center gap-2.5 px-4 py-3 rounded-xl transition-all overflow-hidden group"
-                                        >
-                                            <div className="absolute inset-0 bg-gradient-to-r from-white/[0.08] to-white/[0.04] border border-white/[0.1] rounded-xl group-hover:from-white/[0.12] group-hover:to-white/[0.06] transition-all" />
-                                            <Download className={cn("w-4 h-4 text-white/80 relative z-10", isInstallable && "animate-bounce")} />
-                                            <span className="text-sm font-semibold text-white/90 relative z-10">Install App</span>
-                                        </motion.button>
-                                    )}
-
-                                    {isInstalled && (
-                                        <div className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/[0.08] border border-emerald-500/[0.15]">
-                                            <Check className="w-4 h-4 text-emerald-400" />
-                                            <span className="text-sm font-medium text-emerald-400/90">App Installed</span>
-                                        </div>
-                                    )}
-
-                                    <motion.a
-                                        href="https://ko-fi.com/abhi9vaidya"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        whileHover={{ scale: 1.01 }}
-                                        whileTap={{ scale: 0.99 }}
-                                        className="relative w-full flex items-center justify-center gap-2.5 px-4 py-3 rounded-xl transition-all overflow-hidden group"
-                                    >
-                                        <div className="absolute inset-0 bg-gradient-to-r from-amber-500/[0.08] to-amber-500/[0.02] border border-amber-500/[0.2] rounded-xl group-hover:from-amber-500/[0.15] group-hover:to-amber-500/[0.05] transition-all" />
-                                        <Coffee className="w-4 h-4 text-amber-500/80 relative z-10 group-hover:text-amber-400 transition-colors" />
-                                        <span className="text-sm font-semibold text-amber-500/90 relative z-10 group-hover:text-amber-400 transition-colors">Buy me a coffee</span>
-                                    </motion.a>
-
-                                    <div className="flex items-center justify-between relative z-10">
-                                        <div className="flex items-center gap-1.5">
-                                            <Sparkles className="w-3 h-3 text-white/15" />
-                                            <span className="text-[10px] text-white/20 font-medium">v1.7 • Open Source</span>
-                                        </div>
-                                        <a
-                                            href="https://github.com/abhi9vaidya/Guitariz"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center gap-1 text-[10px] text-white/20 hover:text-white/50 transition-colors"
-                                        >
-                                            <Github className="w-3 h-3" />
-                                            <span>GitHub</span>
-                                        </a>
-                                    </div>
+                                <div>
+                                    <span className="text-base font-semibold text-zinc-100 tracking-tight">Guitariz</span>
+                                    <span className="text-xs text-rose-500 ml-1.5 font-medium tracking-wider">STUDIO</span>
                                 </div>
                             </div>
+                            <motion.button
+                                whileHover={{ scale: 1.05, rotate: 90 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={close}
+                                className="w-10 h-10 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] flex items-center justify-center transition-colors border border-white/[0.06]"
+                                aria-label="Close menu"
+                            >
+                                <X className="w-5 h-5 text-zinc-400" />
+                            </motion.button>
                         </motion.div>
-                    </>
+
+                        {/* Main Grid Content */}
+                        <div className="max-w-6xl mx-auto w-full py-12 md:py-16 my-auto z-10 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+                            {/* Dashboard / Home Link Span */}
+                            <motion.div variants={itemVariants} className="md:col-span-12">
+                                <Link
+                                    to="/"
+                                    onClick={close}
+                                    data-menu-index={0}
+                                    className={cn(
+                                        "flex items-center gap-4 p-4 rounded-2xl transition-all border group relative overflow-hidden",
+                                        focusedIndex === 0 ? "border-rose-500/30 bg-rose-500/[0.03]" : "border-white/[0.04] bg-white/[0.01] hover:border-white/[0.08] hover:bg-white/[0.03]",
+                                        location.pathname === "/" && "border-rose-500/20 bg-rose-500/[0.02]"
+                                    )}
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-r from-rose-500/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                                    <div className="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center shrink-0">
+                                        <Home className="w-5 h-5" />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <span className="text-sm font-semibold text-zinc-200 group-hover:text-zinc-100 transition-colors">Home Studio Dashboard</span>
+                                        <p className="text-xs text-zinc-500 group-hover:text-zinc-400 transition-colors mt-0.5">Access all professional audio analysis and music theory tools</p>
+                                    </div>
+                                </Link>
+                            </motion.div>
+
+                            {/* Dynamic Category Columns */}
+                            {menuCategories.map((category, catIdx) => (
+                                <div key={category.title} className="md:col-span-4 flex flex-col gap-6">
+                                    <motion.div variants={itemVariants} className="flex items-center gap-3">
+                                        <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">
+                                            {category.title}
+                                        </span>
+                                        <div className="flex-1 h-[1px] bg-white/[0.06]" />
+                                    </motion.div>
+
+                                    <div className="flex flex-col gap-3">
+                                        {category.items.map((item, itemIdx) => {
+                                            const currentFlatIndex = ++flatIndex;
+                                            const isActive = location.pathname === item.href;
+                                            const isFocused = focusedIndex === currentFlatIndex;
+
+                                            return (
+                                                <motion.div key={item.label} variants={itemVariants}>
+                                                    <Link
+                                                        to={item.href}
+                                                        onClick={close}
+                                                        data-menu-index={currentFlatIndex}
+                                                        className={cn(
+                                                            "flex items-center gap-3.5 p-3.5 rounded-2xl border transition-all group relative overflow-hidden",
+                                                            isFocused ? "border-rose-500/30 bg-rose-500/[0.03]" : "border-white/[0.04] bg-white/[0.01] hover:border-rose-500/20 hover:bg-white/[0.03]",
+                                                            isActive && "border-rose-500/30 bg-rose-500/[0.03]"
+                                                        )}
+                                                    >
+                                                        <div className="absolute inset-0 bg-gradient-to-r from-rose-500/[0.01] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                        <div className={cn(
+                                                            "w-9 h-9 rounded-lg flex items-center justify-center transition-all shrink-0",
+                                                            isActive
+                                                                ? "bg-rose-500/15 border border-rose-500/25 text-rose-400 shadow-[0_0_15px_rgba(244,63,94,0.1)]"
+                                                                : "bg-white/[0.03] border border-white/[0.05] text-zinc-400 group-hover:bg-rose-500/10 group-hover:border-rose-500/20 group-hover:text-rose-400"
+                                                        )}>
+                                                            <item.icon className="w-4 h-4" />
+                                                        </div>
+                                                        <div className="flex-1 min-w-0">
+                                                            <div className="flex items-center gap-2">
+                                                                <span className={cn(
+                                                                    "text-sm font-medium transition-colors",
+                                                                    isActive ? "text-zinc-100 font-semibold" : "text-zinc-300 group-hover:text-zinc-100"
+                                                                )}>
+                                                                    {item.label}
+                                                                </span>
+                                                                {item.badge && (
+                                                                    <span className="px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded-md bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                                                                        {item.badge}
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                            <p className="text-[11px] text-zinc-500 group-hover:text-zinc-400 transition-colors mt-0.5 truncate">{item.description}</p>
+                                                        </div>
+                                                    </Link>
+                                                </motion.div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Bottom Footer Actions */}
+                        <motion.div variants={itemVariants} className="max-w-6xl mx-auto w-full pt-6 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-6 z-10 text-xs text-zinc-500">
+                            {/* Coffee link */}
+                            <a
+                                href="https://ko-fi.com/abhi9vaidya"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-2.5 px-4 py-2 rounded-xl bg-amber-500/[0.04] border border-amber-500/[0.15] hover:bg-amber-500/[0.08] hover:border-amber-500/30 text-amber-500 transition-all font-semibold"
+                            >
+                                <Coffee className="w-4 h-4" />
+                                <span>Support: Buy me a coffee</span>
+                            </a>
+
+                            {/* PWA Install Button */}
+                            {!isInstalled ? (
+                                <button
+                                    onClick={async () => {
+                                        if (isInstallable) {
+                                            await promptInstall();
+                                        } else {
+                                            setShowInstallGuide(true);
+                                        }
+                                    }}
+                                    className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.03] border border-white/[0.08] hover:bg-white/[0.06] hover:border-white/20 text-zinc-300 transition-all"
+                                >
+                                    <Download className="w-4 h-4 text-rose-500" />
+                                    <span>Install App PWA</span>
+                                </button>
+                            ) : (
+                                <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500/5 border border-emerald-500/10 text-emerald-400">
+                                    <Check className="w-4 h-4" />
+                                    <span>PWA Installed</span>
+                                </div>
+                            )}
+
+                            {/* GitHub Info */}
+                            <div className="flex items-center gap-4">
+                                <a
+                                    href="https://github.com/abhi9vaidya/Guitariz"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 text-zinc-500 hover:text-zinc-350 transition-colors"
+                                >
+                                    <Github className="w-4 h-4" />
+                                    <span>Open Source GitHub</span>
+                                </a>
+                                <span className="flex items-center gap-1.5 text-zinc-600 font-medium">
+                                    <Sparkles className="w-3 h-3 text-zinc-700" />
+                                    v1.7.0
+                                </span>
+                            </div>
+                        </motion.div>
+                    </motion.div>
                 )}
             </AnimatePresence>
 

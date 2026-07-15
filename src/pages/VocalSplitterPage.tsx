@@ -479,7 +479,7 @@ const VocalSplitterPage = () => {
   }, [teardownSources]);
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden selection:bg-white/10">
+    <div className="min-h-screen bg-[#030303] relative overflow-hidden selection:bg-white/10">
 
 
 
@@ -494,33 +494,33 @@ const VocalSplitterPage = () => {
 
           {/* Header */}
           <div className="mb-16 text-center space-y-6">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-border bg-card text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-white/5 bg-white/[0.02] text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
               <Wand2 className="w-3 h-3" />
               <span>AI-Powered Source Separation</span>
             </div>
 
             <div className="space-y-4">
-              <h1 className="text-5xl md:text-7xl font-light tracking-tighter text-foreground">
+              <h1 className="text-5xl md:text-7xl font-light tracking-tighter text-white">
                 Vocal <span className="text-muted-foreground font-thin">Splitter</span>
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed font-light">
                 Separate vocals and instrumentals with precision. Adjust levels independently and export clean stems for remixing or karaoke.
               </p>
-              <div className="mt-4 px-4 py-2 rounded-lg bg-muted/40 border border-border max-w-2xl mx-auto">
+              <div className="mt-4 px-4 py-2 rounded-lg bg-white/[0.02] border border-white/5 max-w-2xl mx-auto">
                 <p className="text-xs text-muted-foreground">
-                  <strong className="text-foreground">Note:</strong> This feature requires the backend server to be running. For local testing, start the backend with <code className="px-1 py-0.5 rounded bg-muted text-foreground">python backend/main.py</code>
+                  <strong className="text-white">Note:</strong> This feature requires the backend server to be running. For local testing, start the backend with <code className="px-1 py-0.5 rounded bg-white/5 text-white">python backend/main.py</code>
                 </p>
               </div>
             </div>
           </div>
 
           {/* Main Content */}
-          <div className="glass-card rounded-[2.5rem] border border-border bg-card/95 shadow-2xl overflow-hidden min-h-[600px] flex flex-col p-10">
+          <div className="glass-card rounded-[2.5rem] border border-white/5 bg-[#0a0a0a]/90 shadow-2xl overflow-hidden min-h-[600px] flex flex-col p-10">
             {!selectedFile ? (
               <div
                 className={cn(
                   "flex-1 border-2 border-dashed rounded-[2rem] transition-all flex flex-col items-center justify-center p-12 text-center cursor-pointer",
-                  dragActive ? "border-primary/20 bg-primary/5" : "border-border hover:border-muted-foreground/30"
+                  dragActive ? "border-white/20 bg-white/[0.03]" : "border-white/5 hover:border-white/10"
                 )}
                 onDragOver={(e) => { e.preventDefault(); setDragActive(true); }}
                 onDragLeave={() => setDragActive(false)}
@@ -538,10 +538,10 @@ const VocalSplitterPage = () => {
                   accept="audio/*"
                   onChange={(e) => e.target.files?.[0] && handleFileSelect(e.target.files[0])}
                 />
-                <div className="w-24 h-24 bg-muted rounded-full flex items-center justify-center mb-8 border border-border">
+                <div className="w-24 h-24 bg-white/[0.03] rounded-full flex items-center justify-center mb-8 border border-white/5">
                   <Upload className="w-10 h-10 text-muted-foreground" />
                 </div>
-                <h3 className="text-2xl font-light text-foreground mb-3">Upload Audio File</h3>
+                <h3 className="text-2xl font-light text-white mb-3">Upload Audio File</h3>
                 <p className="text-muted-foreground max-w-sm font-light">
                   Drag and drop or click to select an audio file to split into vocals and instrumentals.
                 </p>
@@ -549,10 +549,10 @@ const VocalSplitterPage = () => {
             ) : (
               <div className="space-y-8">
                 {/* File Info */}
-                <div className="flex items-center justify-between p-6 rounded-2xl bg-muted/40 border border-border">
+                <div className="flex items-center justify-between p-6 rounded-2xl bg-white/[0.02] border border-white/5">
                   <div>
                     <p className="text-sm text-muted-foreground uppercase tracking-widest font-bold mb-1">Selected File</p>
-                    <h3 className="text-xl font-medium text-foreground">{selectedFile.name}</h3>
+                    <h3 className="text-xl font-medium text-white">{selectedFile.name}</h3>
                   </div>
                   <Button
                     onClick={() => {
@@ -571,7 +571,7 @@ const VocalSplitterPage = () => {
                   <Button
                     onClick={processSeparation}
                     disabled={processing}
-                    className="w-full h-16 rounded-2xl bg-primary text-primary-foreground hover:bg-primary/90 text-lg font-semibold"
+                    className="w-full h-16 rounded-2xl bg-white text-black hover:bg-white/90 text-lg font-semibold"
                   >
                     {processing ? (
                       <>
@@ -592,7 +592,7 @@ const VocalSplitterPage = () => {
                 {/* Upload Progress Bar */}
                 {processing && uploadProgress !== null && uploadProgress < 100 && (
                   <div className="w-full space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
-                    <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
+                    <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
                       <div
                         className="h-full bg-blue-500 transition-all duration-300 shadow-[0_0_10px_rgba(59,130,246,0.5)]"
                         style={{ width: `${uploadProgress}%` }}
@@ -612,7 +612,7 @@ const VocalSplitterPage = () => {
                     <div className="space-y-4">
                       <Button
                         onClick={isPlaying ? pause : play}
-                        className="w-full h-16 rounded-2xl bg-primary text-primary-foreground hover:bg-primary/90 text-lg font-semibold"
+                        className="w-full h-16 rounded-2xl bg-white text-black hover:bg-white/90 text-lg font-semibold"
                       >
                         {isPlaying ? "⏸ Pause Preview" : "▶ Play Preview"}
                       </Button>
@@ -623,7 +623,7 @@ const VocalSplitterPage = () => {
                             <Activity className="w-3 h-3" />
                             Vocals Waveform
                           </div>
-                          <div className="bg-muted/40 rounded-3xl border border-border p-2 overflow-hidden">
+                          <div className="bg-white/[0.02] rounded-3xl border border-white/5 p-2 overflow-hidden">
                             <WaveformViewer
                               peaks={vocalsPeaks}
                               duration={duration}
@@ -639,7 +639,7 @@ const VocalSplitterPage = () => {
                             <Activity className="w-3 h-3" />
                             Instrumental Waveform
                           </div>
-                          <div className="bg-muted/40 rounded-3xl border border-border p-2 overflow-hidden">
+                          <div className="bg-white/[0.02] rounded-3xl border border-white/5 p-2 overflow-hidden">
                             <WaveformViewer
                               peaks={instrumentalPeaks}
                               duration={duration}
@@ -659,13 +659,13 @@ const VocalSplitterPage = () => {
                     {/* Volume Controls */}
                     <div className="grid md:grid-cols-2 gap-6">
                       {/* Vocals */}
-                      <div className="p-6 rounded-2xl bg-muted/40 border border-border space-y-4">
+                      <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 space-y-4">
                         <div className="flex items-center gap-3">
-                          <div className="p-2 rounded-xl bg-muted border border-border">
-                            <Mic className="w-5 h-5 text-foreground" />
+                          <div className="p-2 rounded-xl bg-white/5 border border-white/5">
+                            <Mic className="w-5 h-5 text-white" />
                           </div>
                           <div>
-                            <Label className="text-sm font-bold text-foreground">Vocals</Label>
+                            <Label className="text-sm font-bold text-white">Vocals</Label>
                             <p className="text-xs text-muted-foreground">Volume: {vocalsVolume}%</p>
                           </div>
                         </div>
@@ -697,13 +697,13 @@ const VocalSplitterPage = () => {
                       </div>
 
                       {/* Instrumental */}
-                      <div className="p-6 rounded-2xl bg-muted/40 border border-border space-y-4">
+                      <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 space-y-4">
                         <div className="flex items-center gap-3">
-                          <div className="p-2 rounded-xl bg-muted border border-border">
-                            <Music2 className="w-5 h-5 text-foreground" />
+                          <div className="p-2 rounded-xl bg-white/5 border border-white/5">
+                            <Music2 className="w-5 h-5 text-white" />
                           </div>
                           <div>
-                            <Label className="text-sm font-bold text-foreground">Instrumental</Label>
+                            <Label className="text-sm font-bold text-white">Instrumental</Label>
                             <p className="text-xs text-muted-foreground">Volume: {instrumentalVolume}%</p>
                           </div>
                         </div>

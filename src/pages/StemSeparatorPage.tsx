@@ -508,7 +508,7 @@ const StemSeparatorPage = () => {
     }, [teardownSources]);
 
     return (
-        <div className="min-h-screen bg-background relative overflow-hidden selection:bg-white/10">
+        <div className="min-h-screen bg-[#030303] relative overflow-hidden selection:bg-white/10">
             <main className="container mx-auto px-4 md:px-6 pt-8 md:pt-12 pb-16 relative z-10">
                 <div className="max-w-6xl mx-auto">
 
@@ -519,13 +519,13 @@ const StemSeparatorPage = () => {
 
                     {/* Header */}
                     <div className="mb-12 text-center space-y-6">
-                        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-border bg-card text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
+                        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-white/5 bg-white/[0.02] text-muted-foreground text-[10px] font-bold tracking-[0.2em] uppercase">
                             <Wand2 className="w-3 h-3" />
                             <span>AI-Powered 6-Stem Separation</span>
                         </div>
 
                         <div className="space-y-4">
-                            <h1 className="text-5xl md:text-7xl font-light tracking-tighter text-foreground">
+                            <h1 className="text-5xl md:text-7xl font-light tracking-tighter text-white">
                                 Stem <span className="text-muted-foreground font-thin">Separator</span>
                             </h1>
                             <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed font-light">
@@ -540,12 +540,12 @@ const StemSeparatorPage = () => {
                     </div>
 
                     {/* Main Content */}
-                    <div className="glass-card rounded-[2.5rem] border border-border bg-card/95 shadow-2xl overflow-hidden min-h-[500px] flex flex-col p-8">
+                    <div className="glass-card rounded-[2.5rem] border border-white/5 bg-[#0a0a0a]/90 shadow-2xl overflow-hidden min-h-[500px] flex flex-col p-8">
                         {!selectedFile ? (
                             <div
                                 className={cn(
                                     "flex-1 border-2 border-dashed rounded-[2rem] transition-all flex flex-col items-center justify-center p-12 text-center cursor-pointer",
-                                    dragActive ? "border-primary/20 bg-primary/5" : "border-border hover:border-muted-foreground/30"
+                                    dragActive ? "border-white/20 bg-white/[0.03]" : "border-white/5 hover:border-white/10"
                                 )}
                                 onDragOver={(e) => { e.preventDefault(); setDragActive(true); }}
                                 onDragLeave={() => setDragActive(false)}
@@ -563,10 +563,10 @@ const StemSeparatorPage = () => {
                                     accept="audio/*"
                                     onChange={(e) => e.target.files?.[0] && handleFileSelect(e.target.files[0])}
                                 />
-                                <div className="w-24 h-24 bg-muted rounded-full flex items-center justify-center mb-8 border border-border">
+                                <div className="w-24 h-24 bg-white/[0.03] rounded-full flex items-center justify-center mb-8 border border-white/5">
                                     <Upload className="w-10 h-10 text-muted-foreground" />
                                 </div>
-                                <h3 className="text-2xl font-light text-foreground mb-3">Upload Audio File</h3>
+                                <h3 className="text-2xl font-light text-white mb-3">Upload Audio File</h3>
                                 <p className="text-muted-foreground max-w-sm font-light">
                                     Drag and drop or click to select an audio file to split into 6 stems.
                                 </p>
@@ -574,10 +574,10 @@ const StemSeparatorPage = () => {
                         ) : (
                             <div className="space-y-6">
                                 {/* File Info */}
-                                <div className="flex items-center justify-between p-4 rounded-2xl bg-muted/40 border border-border">
+                                <div className="flex items-center justify-between p-4 rounded-2xl bg-white/[0.02] border border-white/5">
                                     <div>
                                         <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold mb-1">Selected File</p>
-                                        <h3 className="text-lg font-medium text-foreground">{selectedFile.name}</h3>
+                                        <h3 className="text-lg font-medium text-white">{selectedFile.name}</h3>
                                     </div>
                                     <Button
                                         onClick={() => {
@@ -596,7 +596,7 @@ const StemSeparatorPage = () => {
                                     <Button
                                         onClick={processSeparation}
                                         disabled={processing}
-                                        className="w-full h-14 rounded-2xl bg-primary text-primary-foreground hover:bg-primary/90 text-lg font-semibold"
+                                        className="w-full h-14 rounded-2xl bg-white text-black hover:bg-white/90 text-lg font-semibold"
                                     >
                                         {processing ? (
                                             <>
@@ -617,7 +617,7 @@ const StemSeparatorPage = () => {
                                 {/* Upload Progress */}
                                 {processing && uploadProgress !== null && uploadProgress < 100 && (
                                     <div className="w-full space-y-2">
-                                        <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
+                                        <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
                                             <div
                                                 className="h-full bg-blue-500 transition-all duration-300"
                                                 style={{ width: `${uploadProgress}%` }}
@@ -636,7 +636,7 @@ const StemSeparatorPage = () => {
                                         {/* Playback Controls */}
                                         <Button
                                             onClick={isPlaying ? pause : play}
-                                            className="w-full h-14 rounded-2xl bg-secondary text-secondary-foreground hover:bg-secondary/90 text-lg font-semibold"
+                                            className="w-full h-14 rounded-2xl bg-white text-black hover:bg-white/90 text-lg font-semibold"
                                         >
                                             {isPlaying ? "⏸ Pause All Stems" : "▶ Play All Stems"}
                                         </Button>
@@ -661,10 +661,10 @@ const StemSeparatorPage = () => {
                                                         {/* Header */}
                                                         <div className="flex items-center justify-between mb-3">
                                                             <div className="flex items-center gap-2">
-                                                                <div className="p-1.5 rounded-lg bg-muted border border-border">
-                                                                    <Icon className="w-4 h-4 text-foreground" />
+                                                                <div className="p-1.5 rounded-lg bg-white/5 border border-white/5">
+                                                                    <Icon className="w-4 h-4 text-white" />
                                                                 </div>
-                                                                <Label className="text-sm font-bold text-foreground">{config.label}</Label>
+                                                                <Label className="text-sm font-bold text-white">{config.label}</Label>
                                                             </div>
                                                             <Button
                                                                 size="sm"
@@ -675,14 +675,14 @@ const StemSeparatorPage = () => {
                                                                 {stemData.muted ? (
                                                                     <VolumeX className="w-4 h-4 text-red-400" />
                                                                 ) : (
-                                                                    <Volume2 className="w-4 h-4 text-foreground" />
+                                                                    <Volume2 className="w-4 h-4 text-white" />
                                                                 )}
                                                             </Button>
                                                         </div>
 
                                                         {/* Waveform */}
                                                         {stemData.peaks.length > 0 && (
-                                                            <div className="bg-background/25 dark:bg-black/20 rounded-xl border border-border p-1 mb-3 overflow-hidden">
+                                                            <div className="bg-black/20 rounded-xl border border-white/5 p-1 mb-3 overflow-hidden">
                                                                 <WaveformViewer
                                                                     peaks={stemData.peaks}
                                                                     duration={duration}
