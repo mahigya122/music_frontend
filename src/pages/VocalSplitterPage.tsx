@@ -10,6 +10,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { SEOContent, Breadcrumb } from "@/components/SEOContent";
 import RelatedTools from "@/components/RelatedTools";
+import SupportedInstrumentsDropdown from "@/components/SupportedInstrumentsDropdown";
 
 const VocalSplitterPage = () => {
   usePageMetadata({
@@ -506,6 +507,9 @@ const VocalSplitterPage = () => {
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed font-light">
                 Separate vocals and instrumentals with precision. Adjust levels independently and export clean stems for remixing or karaoke.
               </p>
+              <div className="flex justify-center pt-2">
+                <SupportedInstrumentsDropdown label="Target Reference Instrument" className="w-64" />
+              </div>
               <div className="mt-4 px-4 py-2 rounded-lg bg-white/[0.02] border border-white/5 max-w-2xl mx-auto">
                 <p className="text-xs text-muted-foreground">
                   <strong className="text-white">Note:</strong> This feature requires the backend server to be running. For local testing, start the backend with <code className="px-1 py-0.5 rounded bg-white/5 text-white">python backend/main.py</code>
@@ -549,11 +553,12 @@ const VocalSplitterPage = () => {
             ) : (
               <div className="space-y-8">
                 {/* File Info */}
-                <div className="flex items-center justify-between p-6 rounded-2xl bg-white/[0.02] border border-white/5">
-                  <div>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between p-6 rounded-2xl bg-white/[0.02] border border-white/5 gap-4">
+                  <div className="flex-1">
                     <p className="text-sm text-muted-foreground uppercase tracking-widest font-bold mb-1">Selected File</p>
                     <h3 className="text-xl font-medium text-white">{selectedFile.name}</h3>
                   </div>
+                  <SupportedInstrumentsDropdown label="Target Reference Instrument" className="min-w-[180px] w-48 text-left" />
                   <Button
                     onClick={() => {
                       setSelectedFile(null);

@@ -11,6 +11,7 @@ import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { chordLibraryData } from "@/data/chordData";
 import { SEOContent, Breadcrumb } from "@/components/SEOContent";
 import RelatedTools from "@/components/RelatedTools";
+import SupportedInstrumentsDropdown from "@/components/SupportedInstrumentsDropdown";
 
 const NOTES = ["E", "A", "D", "G", "B", "E"];
 const CHROMATIC = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
@@ -135,46 +136,49 @@ const FretboardPage = () => {
             </header>
           </div>
 
-          <div className="flex items-center gap-1 p-1 bg-card/60 rounded-xl border border-border self-start md:self-end">
-            <button
-              onClick={() => setViewMode("2d")}
-              className={cn(
-                "relative px-4 py-2 rounded-lg text-sm font-bold transition-all duration-300",
-                viewMode === "2d" ? "text-foreground" : "text-muted-foreground hover:text-foreground/70"
-              )}
-            >
-              {viewMode === "2d" && (
-                <motion.div
-                  layoutId="view-mode-pill"
-                  className="absolute inset-0 bg-card/80 rounded-lg border border-border shadow-sm"
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                />
-              )}
-              <span className="relative z-10 flex items-center gap-2">
-                <Layers className="w-3.5 h-3.5" />
-                2D
-              </span>
-            </button>
-            <button
-              onClick={() => setViewMode("3d")}
-              className={cn(
-                "relative px-4 py-2 rounded-lg text-sm font-bold transition-all duration-300",
-                viewMode === "3d" ? "text-foreground" : "text-muted-foreground hover:text-foreground/70"
-              )}
-            >
-              {viewMode === "3d" && (
-                <motion.div
-                  layoutId="view-mode-pill"
-                  className="absolute inset-0 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-lg border border-primary/20"
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                />
-              )}
-              <span className="relative z-10 flex items-center gap-2">
-                <Box className="w-3.5 h-3.5" />
-                3D
-                <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-black tracking-wider">BETA</span>
-              </span>
-            </button>
+          <div className="flex flex-col sm:flex-row items-end gap-4 self-start md:self-end">
+            <SupportedInstrumentsDropdown className="w-48 text-left" />
+            <div className="flex items-center gap-1 p-1 bg-card/60 rounded-xl border border-border">
+              <button
+                onClick={() => setViewMode("2d")}
+                className={cn(
+                  "relative px-4 py-2 rounded-lg text-sm font-bold transition-all duration-300",
+                  viewMode === "2d" ? "text-foreground" : "text-muted-foreground hover:text-foreground/70"
+                )}
+              >
+                {viewMode === "2d" && (
+                  <motion.div
+                    layoutId="view-mode-pill"
+                    className="absolute inset-0 bg-card/80 rounded-lg border border-border shadow-sm"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                <span className="relative z-10 flex items-center gap-2">
+                  <Layers className="w-3.5 h-3.5" />
+                  2D
+                </span>
+              </button>
+              <button
+                onClick={() => setViewMode("3d")}
+                className={cn(
+                  "relative px-4 py-2 rounded-lg text-sm font-bold transition-all duration-300",
+                  viewMode === "3d" ? "text-foreground" : "text-muted-foreground hover:text-foreground/70"
+                )}
+              >
+                {viewMode === "3d" && (
+                  <motion.div
+                    layoutId="view-mode-pill"
+                    className="absolute inset-0 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-lg border border-primary/20"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                <span className="relative z-10 flex items-center gap-2">
+                  <Box className="w-3.5 h-3.5" />
+                  3D
+                  <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-black tracking-wider">BETA</span>
+                </span>
+              </button>
+            </div>
           </div>
         </div>
 

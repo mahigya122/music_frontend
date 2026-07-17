@@ -3,6 +3,7 @@ import { Timer, Zap } from "lucide-react";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { SEOContent, Breadcrumb } from "@/components/SEOContent";
 import RelatedTools from "@/components/RelatedTools";
+import SupportedInstrumentsDropdown from "@/components/SupportedInstrumentsDropdown";
 
 const MetronomePage = () => {
   usePageMetadata({
@@ -49,6 +50,9 @@ const MetronomePage = () => {
                 Master your timing with <span className="text-foreground/80">sample-accurate</span> playback. Support for complex poly-meters and tap-tempo.
               </p>
             </header>
+          </div>
+          <div className="self-start md:self-end">
+            <SupportedInstrumentsDropdown className="w-48 text-left" label="Tick Sound Instrument" />
           </div>
         </div>
 

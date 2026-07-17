@@ -4,6 +4,7 @@ import { Calendar, User, Clock, ArrowLeft, Share2, Check, BookOpen } from "lucid
 import { Breadcrumb } from "@/components/SEOContent";
 import RelatedTools from "@/components/RelatedTools";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import SupportedInstrumentsDropdown from "@/components/SupportedInstrumentsDropdown";
 
 interface BlogPost {
   slug: string;
@@ -111,8 +112,8 @@ const BlogPostPage: React.FC = () => {
           ]}
         />
 
-        {/* Back Link */}
-        <div className="mt-8 mb-6">
+        {/* Back Link & Instrument Target */}
+        <div className="mt-8 mb-6 flex items-center justify-between gap-4">
           <Link
             to="/blog"
             className="inline-flex items-center gap-2 text-zinc-550 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 text-sm font-semibold transition-colors group"
@@ -120,6 +121,7 @@ const BlogPostPage: React.FC = () => {
             <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
             Back to Blog
           </Link>
+          <SupportedInstrumentsDropdown label="My Active Instrument" className="w-48 text-left" />
         </div>
 
         {/* Article Header */}

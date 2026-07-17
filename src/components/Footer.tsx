@@ -1,68 +1,42 @@
-
-import { Github, Twitter, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="relative z-10 border-t border-white/5 bg-[#0a0a0a]/90 pt-16 pb-8">
-            <div className="container mx-auto max-w-5xl px-6">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-16">
-                    {/* Brand Column */}
-                    <div className="space-y-4 md:col-span-1">
-                        <Link to="/" className="flex items-center gap-3">
-                            <img src="/logo.png" alt="Guitariz" className="w-8 h-8 object-contain" />
-                            <span className="font-bold text-lg text-white tracking-tight">Guitariz</span>
-                        </Link>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                            <strong>Guitariz Studio</strong>: High-precision AI Chord Recognition, Vocal Stem Separation, and interactive Music Theory tools. Built for musicians, by musicians.
+        <footer className="relative z-10 border-t border-white/5 bg-[#000000] pt-16 pb-8 text-left px-6">
+            <div className="container mx-auto max-w-6xl relative z-10">
+                <div className="flex flex-col md:flex-row md:justify-between items-start gap-10 mb-12">
+                    {/* About Product */}
+                    <div className="space-y-4 max-w-md">
+                        <div className="flex items-center gap-3">
+                            <img src="/logo.png" alt="Guitariz Logo" className="w-8 h-8 object-contain" />
+                            <span className="font-bold text-white tracking-tight font-display">Guitariz Studio</span>
+                        </div>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                            Guitariz Studio is an advanced AI composition suite where neural music networks meet architectural theory. Built for musicians who value absolute harmonic structure and isolation control.
                         </p>
                     </div>
 
-                    {/* Tools */}
-                    <div>
-                        <h4 className="font-semibold text-white mb-4">Tools</h4>
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                            <li><Link to="/fretboard" className="hover:text-white transition-colors">Fretboard</Link></li>
-                            <li><Link to="/chords" className="hover:text-white transition-colors">Chord Library</Link></li>
-                            <li><Link to="/scales" className="hover:text-white transition-colors">Scale Explorer</Link></li>
-                            <li><Link to="/chord-ai" className="hover:text-white transition-colors">Chord AI</Link></li>
+                    {/* Created By - aligned to the far right, matching cards above */}
+                    <div className="space-y-4 md:text-right md:ml-auto">
+                        <h4 className="text-sm font-semibold text-white uppercase tracking-wider font-display">Created By</h4>
+                        <ul className="space-y-2 text-xs text-muted-foreground">
+                            <li className="hover:text-white transition-colors cursor-pointer">[Developer/Creator 1]</li>
+                            <li className="hover:text-white transition-colors cursor-pointer">[Developer/Creator 2]</li>
+                            <li className="hover:text-white transition-colors cursor-pointer">[Developer/Creator 3]</li>
                         </ul>
-                    </div>
-
-                    {/* Resources */}
-                    <div>
-                        <h4 className="font-semibold text-white mb-4">Resources</h4>
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                            <li><Link to="/theory" className="hover:text-white transition-colors">Music Theory</Link></li>
-                             <li><a href="https://github.com/Guitariz/Guitariz" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">Source Code</a></li>
-                            <li><a href="https://github.com/Guitariz/Guitariz/issues" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">Report Issue</a></li>
-                        </ul>
-                    </div>
-
-                    {/* Social / Legal */}
-                    <div>
-                        <h4 className="font-semibold text-white mb-4">Connect</h4>
-                        <div className="flex gap-4">
-                            <a href="https://github.com/Guitariz/Guitariz" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-white transition-colors">
-                                <Github className="w-5 h-5" />
-                            </a>
-                            <a href="https://x.com/GuitarizStudio" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-white transition-colors">
-                                <Twitter className="w-5 h-5" />
-                            </a>
-                            <a href="mailto:guitariz.studio@gmail.com" className="text-muted-foreground hover:text-white transition-colors">
-                                <Mail className="w-5 h-5" />
-                            </a>
-                        </div>
                     </div>
                 </div>
 
-                {/* Bottom Bar */}
-                <div className="pt-8 border-t border-white/5 flex justify-center">
-                    <p className="text-xs text-muted-foreground text-center">
+                <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p className="text-xs text-muted-foreground text-center md:text-left">
                         © {currentYear} Guitariz Studio. MIT License.
                     </p>
+                    <div className="flex items-center gap-6 text-xs text-muted-foreground">
+                        <Link to="/" className="hover:text-white transition-colors">Privacy Policy</Link>
+                        <Link to="/" className="hover:text-white transition-colors">Terms of Service</Link>
+                    </div>
                 </div>
             </div>
         </footer>

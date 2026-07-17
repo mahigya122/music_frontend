@@ -29,34 +29,7 @@ interface RelatedToolsProps {
 }
 
 const RelatedTools = ({ currentPath, maxItems = 4 }: RelatedToolsProps) => {
-  const tools = ALL_TOOLS.filter((t) => t.path !== currentPath).slice(0, maxItems);
-
-  return (
-    <section className="mt-16 mb-8">
-      <div className="max-w-5xl mx-auto">
-        <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.25em] mb-6">
-          Explore More Tools
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {tools.map((tool) => (
-            <Link
-              key={tool.path}
-              to={tool.path}
-              className="group p-5 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/10 transition-all duration-300"
-            >
-              <h3 className="text-sm font-semibold text-white mb-1.5 flex items-center gap-2">
-                {tool.name}
-                <ArrowRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-              </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                {tool.description}
-              </p>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  return null;
 };
 
 export default RelatedTools;

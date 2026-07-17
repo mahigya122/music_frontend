@@ -188,8 +188,148 @@ function playPadNote(
     }
 }
 
+// ─── Instrument Synthesis Helpers ───────────────────────────────────────────
+
+import { INSTRUMENT_MIDI_MAP } from "@/data/instruments";
+
+export type SynthType = "piano" | "guitar" | "bass" | "pad" | "wind-mallet";
+
+export function getSynthTypeForInstrument(instrumentName: string): SynthType {
+    const normalized = instrumentName.toLowerCase();
+    const program = INSTRUMENT_MIDI_MAP[normalized] ?? 0;
+
+    if (program >= 0 && program <= 7) return "piano";
+    if (program >= 8 && program <= 15) return "wind-mallet";
+    if (program >= 16 && program <= 23) return "pad";
+    if (program >= 24 && program <= 31) return "guitar";
+    if (program >= 32 && program <= 39) return "bass";
+    if (program >= 40 && program <= 55) return "pad";
+    if (program >= 56 && program <= 63) return "pad";
+    if (program >= 64 && program <= 79) return "wind-mallet";
+    if (program >= 80 && program <= 87) return "wind-mallet";
+    if (program >= 88 && program <= 103) return "pad";
+    if (program >= 104 && program <= 111) return "wind-mallet";
+    return "piano";
+}
+
+function playGuitarPluck(
+    ctx: AudioContext,
+    dest: AudioNode,
+    freq: number,
+    startTime: number,
+    duration: number,
+    volume: number,
+    pan: number = 0,
+) {
+    const noteGain = ctx.createGain();
+    const panner = ctx.createStereoPanner();
+    panner.pan.setValueAtTime(pan, startTime);
+    noteGain.connect(panner);
+    panner.connect(dest);
+
+    noteGain.gain.setValueAtTime(0, startTime);
+    noteGain.gain.linearRampToValueAtTime(volume * 0.8, startTime + 0.005);
+    noteGain.gain.exponentialRampToValueAtTime(0.001, startTime + Math.min(duration, 1.5));
+
+    const osc = ctx.createOscillator();
+    osc.type = "triangle";
+    osc.frequency.setValueAtTime(freq, startTime);
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.setValueAtTime(freq * 3, startTime);
+    filter.frequency.exponentialRampToValueAtTime(freq * 1.5, startTime + 0.1);
+
+    osc.connect(filter);
+    filter.connect(noteGain);
+    osc.start(startTime);
+    osc.stop(startTime + Math.min(duration, 1.5) + 0.1);
+}
+
+function playBassPluck(
+    ctx: AudioContext,
+    dest: AudioNode,
+    freq: number,
+    startTime: number,
+    duration: number,
+    volume: number,
+    pan: number = 0,
+) {
+    const noteGain = ctx.createGain();
+    const panner = ctx.createStereoPanner();
+    panner.pan.setValueAtTime(pan, startTime);
+    noteGain.connect(panner);
+    panner.connect(dest);
+
+    noteGain.gain.setValueAtTime(0, startTime);
+    noteGain.gain.linearRampToValueAtTime(volume * 1.2, startTime + 0.01);
+    noteGain.gain.exponentialRampToValueAtTime(0.001, startTime + Math.min(duration, 2.0));
+
+    const osc = ctx.createOscillator();
+    osc.type = "triangle";
+    osc.frequency.setValueAtTime(freq / 2, startTime); // Drop 1 octave
+
+    const subOsc = ctx.createOscillator();
+    subOsc.type = "sine";
+    subOsc.frequency.setValueAtTime(freq / 2, startTime);
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.setValueAtTime(300, startTime);
+
+    osc.connect(filter);
+    subOsc.connect(filter);
+    filter.connect(noteGain);
+
+    osc.start(startTime);
+    subOsc.start(startTime);
+    osc.stop(startTime + Math.min(duration, 2.0) + 0.1);
+    subOsc.stop(startTime + Math.min(duration, 2.0) + 0.1);
+}
+
+function playWindMalletNote(
+    ctx: AudioContext,
+    dest: AudioNode,
+    freq: number,
+    startTime: number,
+    duration: number,
+    volume: number,
+    pan: number = 0,
+) {
+    const noteGain = ctx.createGain();
+    const panner = ctx.createStereoPanner();
+    panner.pan.setValueAtTime(pan, startTime);
+    noteGain.connect(panner);
+    panner.connect(dest);
+
+    const attack = 0.005;
+    noteGain.gain.setValueAtTime(0, startTime);
+    noteGain.gain.linearRampToValueAtTime(volume * 0.9, startTime + attack);
+    noteGain.gain.exponentialRampToValueAtTime(0.001, startTime + Math.min(duration, 0.8));
+
+    const osc = ctx.createOscillator();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(freq, startTime);
+
+    const strike = ctx.createOscillator();
+    strike.type = "sine";
+    strike.frequency.setValueAtTime(freq * 6, startTime);
+    const strikeGain = ctx.createGain();
+    strikeGain.gain.setValueAtTime(volume * 0.25, startTime);
+    strikeGain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.04);
+
+    strike.connect(strikeGain);
+    strikeGain.connect(noteGain);
+    osc.connect(noteGain);
+
+    osc.start(startTime);
+    strike.start(startTime);
+    osc.stop(startTime + Math.min(duration, 0.8) + 0.1);
+    strike.stop(startTime + 0.05);
+}
+
 // ─── Public: Schedule a chord ───────────────────────────────────────────────
-export type JamInstrument = "piano" | "pad";
+export type JamInstrument = string;
 
 export function scheduleChord(
     root: string,
@@ -197,23 +337,80 @@ export function scheduleChord(
     startTime: number,
     duration: number,
     volume: number = 0.3,
-    instrument: JamInstrument = "piano",
+    instrument: JamInstrument = "Grand Piano",
+    playMode: "melody" | "background" = "background",
+    beatsPerChord: number = 4,
 ): void {
     const ctx = getAudioContext();
     const dest = getMasterGain();
     const freqs = chordToFrequencies(root, variant);
     if (freqs.length === 0) return;
 
-    // Scale individual note volume based on number of notes to avoid clipping
-    const noteVol = (volume * 0.5) / Math.sqrt(freqs.length);
+    const synthType = getSynthTypeForInstrument(instrument);
 
-    const playFn = instrument === "pad" ? playPadNote : playWarmPianoNote;
+    if (playMode === "melody") {
+        // Melody mode: arpeggiate chord tones in a higher register, excluding the sub-bass
+        const melodyTones = freqs.slice(1).map((f) => f * 2);
+        if (melodyTones.length === 0) return;
 
-    freqs.forEach((freq, i) => {
-        // Spread notes across stereo field
-        const pan = (i / Math.max(freqs.length - 1, 1)) * 0.6 - 0.3;
-        playFn(ctx, dest, freq, startTime, duration, noteVol, pan);
-    });
+        const beatDuration = duration / beatsPerChord;
+        const noteVol = volume * 0.45;
+
+        for (let b = 0; b < beatsPerChord; b++) {
+            const freq = melodyTones[b % melodyTones.length];
+            const noteStartTime = startTime + b * beatDuration;
+            const noteDur = beatDuration * 0.85; // slightly detached for articulation
+            const pan = b % 2 === 0 ? -0.15 : 0.15;
+
+            switch (synthType) {
+                case "piano":
+                    playWarmPianoNote(ctx, dest, freq, noteStartTime, noteDur, noteVol, pan);
+                    break;
+                case "guitar":
+                    playGuitarPluck(ctx, dest, freq, noteStartTime, noteDur, noteVol, pan);
+                    break;
+                case "bass":
+                    playBassPluck(ctx, dest, freq, noteStartTime, noteDur, noteVol, pan);
+                    break;
+                case "pad":
+                    playPadNote(ctx, dest, freq, noteStartTime, noteDur, noteVol, pan);
+                    break;
+                case "wind-mallet":
+                    playWindMalletNote(ctx, dest, freq, noteStartTime, noteDur, noteVol, pan);
+                    break;
+                default:
+                    playWarmPianoNote(ctx, dest, freq, noteStartTime, noteDur, noteVol, pan);
+            }
+        }
+    } else {
+        // Background Score mode: play block chord tones simultaneously
+        const noteVol = (volume * 0.5) / Math.sqrt(freqs.length);
+
+        freqs.forEach((freq, i) => {
+            // Spread notes across stereo field
+            const pan = (i / Math.max(freqs.length - 1, 1)) * 0.6 - 0.3;
+            
+            switch (synthType) {
+                case "piano":
+                    playWarmPianoNote(ctx, dest, freq, startTime, duration, noteVol, pan);
+                    break;
+                case "guitar":
+                    playGuitarPluck(ctx, dest, freq, startTime, duration, noteVol, pan);
+                    break;
+                case "bass":
+                    playBassPluck(ctx, dest, freq, startTime, duration, noteVol, pan);
+                    break;
+                case "pad":
+                    playPadNote(ctx, dest, freq, startTime, duration, noteVol, pan);
+                    break;
+                case "wind-mallet":
+                    playWindMalletNote(ctx, dest, freq, startTime, duration, noteVol, pan);
+                    break;
+                default:
+                    playWarmPianoNote(ctx, dest, freq, startTime, duration, noteVol, pan);
+            }
+        });
+    }
 }
 
 // ─── Public: Metronome click ────────────────────────────────────────────────

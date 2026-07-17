@@ -6,7 +6,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { GlobalMenu } from "@/components/GlobalMenu";
 import { InstallPrompt } from "@/components/InstallPrompt";
 import Lenis from "lenis";
 import PostHogPageView from "@/analytics/PageView";
@@ -85,8 +84,6 @@ const App = () => {
           Skip to content
         </a>
 
-        {/* Global Sliding Menu */}
-        <GlobalMenu />
 
         {/* PWA Install Prompt */}
         <InstallPrompt />

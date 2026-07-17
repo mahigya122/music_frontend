@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { SEOContent, Breadcrumb } from "@/components/SEOContent";
 import RelatedTools from "@/components/RelatedTools";
+import SupportedInstrumentsDropdown from "@/components/SupportedInstrumentsDropdown";
 
 interface SelectedChord {
   root: string;
@@ -90,6 +91,9 @@ const ChordsPage = () => {
                 A definitive collection of voicings and intervals. Filter by root, quality, or complexity to find the <span className="text-foreground/80">perfect color</span> for your sound.
               </p>
             </header>
+          </div>
+          <div className="self-start md:self-end">
+            <SupportedInstrumentsDropdown className="w-48 text-left" />
           </div>
         </div>
 

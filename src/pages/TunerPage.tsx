@@ -3,6 +3,7 @@ import { SEOContent, Breadcrumb } from "@/components/SEOContent";
 import RelatedTools from "@/components/RelatedTools";
 import { GaugeCircle } from "lucide-react";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import SupportedInstrumentsDropdown from "@/components/SupportedInstrumentsDropdown";
 
 const TunerPage = () => {
     usePageMetadata({
@@ -46,6 +47,9 @@ const TunerPage = () => {
                                 Professional-grade chromatic tuner powered by advanced audio processing.
                                 Works for Guitar, Bass, Ukulele, and Voice.
                             </p>
+                            <div className="flex justify-center pt-4">
+                                <SupportedInstrumentsDropdown label="Tuning Instrument Target" className="w-64 text-left" />
+                            </div>
                         </div>
                     </div>
 

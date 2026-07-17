@@ -11,7 +11,30 @@
  * String 6 (Low E):   82.41 Hz (E2)
  */
 
-export type InstrumentType = 'guitar' | 'piano';
+import { INSTRUMENT_MIDI_MAP } from "@/data/instruments";
+
+export type InstrumentType = string;
+
+export type SynthType = "piano" | "guitar" | "bass" | "pad" | "wind-mallet";
+
+export function getSynthTypeForInstrument(instrumentName: string): SynthType {
+  const normalized = instrumentName.toLowerCase();
+  const program = INSTRUMENT_MIDI_MAP[normalized] ?? 0;
+
+  if (program >= 0 && program <= 7) return "piano";
+  if (program >= 8 && program <= 15) return "wind-mallet";
+  if (program >= 16 && program <= 23) return "pad";
+  if (program >= 24 && program <= 31) return "guitar";
+  if (program >= 32 && program <= 39) return "bass";
+  if (program >= 40 && program <= 55) return "pad";
+  if (program >= 56 && program <= 63) return "pad";
+  if (program >= 64 && program <= 79) return "wind-mallet";
+  if (program >= 80 && program <= 87) return "wind-mallet";
+  if (program >= 88 && program <= 103) return "pad";
+  if (program >= 104 && program <= 111) return "wind-mallet";
+  return "piano";
+}
+
 
 let audioContext: AudioContext | null = null;
 let pianoSamplesReady = false;
@@ -169,6 +192,116 @@ const createPluckedString = (
   panner.connect(ctx.destination);
 
   noise.start(now);
+};const createBassTone = (
+  ctx: AudioContext,
+  frequency: number,
+  duration: number,
+  volume: number,
+  panPosition: number = 0,
+  startTime: number = ctx.currentTime
+) => {
+  const now = startTime;
+  const noteGain = ctx.createGain();
+  const panner = ctx.createStereoPanner();
+  panner.pan.setValueAtTime(panPosition, now);
+  noteGain.connect(panner);
+  panner.connect(ctx.destination);
+
+  noteGain.gain.setValueAtTime(0, now);
+  noteGain.gain.linearRampToValueAtTime(volume * 1.2, now + 0.01);
+  noteGain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+  const osc = ctx.createOscillator();
+  osc.type = "triangle";
+  osc.frequency.setValueAtTime(frequency / 2, now); // 1 octave lower for bass
+
+  const filter = ctx.createBiquadFilter();
+  filter.type = "lowpass";
+  filter.frequency.setValueAtTime(300, now);
+
+  osc.connect(filter);
+  filter.connect(noteGain);
+  osc.start(now);
+  osc.stop(now + duration + 0.1);
+};
+
+const createPadTone = (
+  ctx: AudioContext,
+  frequency: number,
+  duration: number,
+  volume: number,
+  panPosition: number = 0,
+  startTime: number = ctx.currentTime
+) => {
+  const now = startTime;
+  const noteGain = ctx.createGain();
+  const panner = ctx.createStereoPanner();
+  panner.pan.setValueAtTime(panPosition, now);
+  noteGain.connect(panner);
+  panner.connect(ctx.destination);
+
+  const attack = 0.15;
+  const release = duration * 0.35;
+  const sustainEnd = now + duration - release;
+
+  noteGain.gain.setValueAtTime(0, now);
+  noteGain.gain.linearRampToValueAtTime(volume, now + attack);
+  noteGain.gain.setValueAtTime(volume, Math.max(now + attack, sustainEnd));
+  noteGain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+  const detunes = [0, -6, 6];
+  detunes.forEach((d) => {
+    const osc = ctx.createOscillator();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(frequency, now);
+    osc.detune.setValueAtTime(d, now);
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(volume * 0.35, now);
+    osc.connect(g);
+    g.connect(noteGain);
+    osc.start(now);
+    osc.stop(now + duration + 0.1);
+  });
+};
+
+const createWindMalletTone = (
+  ctx: AudioContext,
+  frequency: number,
+  duration: number,
+  volume: number,
+  panPosition: number = 0,
+  startTime: number = ctx.currentTime
+) => {
+  const now = startTime;
+  const noteGain = ctx.createGain();
+  const panner = ctx.createStereoPanner();
+  panner.pan.setValueAtTime(panPosition, now);
+  noteGain.connect(panner);
+  panner.connect(ctx.destination);
+
+  noteGain.gain.setValueAtTime(0, now);
+  noteGain.gain.linearRampToValueAtTime(volume * 0.9, now + 0.005);
+  noteGain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+  const osc = ctx.createOscillator();
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(frequency, now);
+
+  const strike = ctx.createOscillator();
+  strike.type = "sine";
+  strike.frequency.setValueAtTime(frequency * 6, now);
+  const strikeGain = ctx.createGain();
+  strikeGain.gain.setValueAtTime(volume * 0.25, now);
+  strikeGain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+
+  strike.connect(strikeGain);
+  strikeGain.connect(noteGain);
+  osc.connect(noteGain);
+
+  osc.start(now);
+  strike.start(now);
+  osc.stop(now + duration + 0.1);
+  strike.stop(now + 0.05);
 };
 
 
@@ -357,8 +490,12 @@ export const playChord = (
   const ctx = initAudioContext();
   const now = ctx.currentTime;
   const strumDelay = 0.035; // Slightly slower, more deliberate strum
+  const activeInstrument = (instrument === 'piano' || instrument === 'guitar')
+    ? (typeof window !== 'undefined' ? (localStorage.getItem("global_instrument") || "Grand Piano") : instrument)
+    : instrument;
+  const synthType = getSynthTypeForInstrument(activeInstrument);
 
-  if (instrument === 'piano') {
+  if (synthType === 'piano') {
     void ensurePianoSamples();
   }
 
@@ -379,7 +516,7 @@ export const playChord = (
 
     const playTime = now + timeOffset;
 
-    if (instrument === 'piano') {
+    if (synthType === 'piano') {
       const clampedDuration = 2.8;
       // Scale volume: lower notes are louder naturally on piano, but we balance for polyphony
       const noteVolume = Math.min(volume * 0.75, 0.45);
@@ -396,8 +533,14 @@ export const playChord = (
       if (!usedSample) {
         createPianoTone(ctx, noteFreq, clampedDuration, noteVolume, pan, playTime);
       }
-    } else {
+    } else if (synthType === 'guitar') {
       createPluckedString(ctx, noteFreq, 2.6, volume, pan, playTime);
+    } else if (synthType === 'bass') {
+      createBassTone(ctx, noteFreq, 2.6, volume, pan, playTime);
+    } else if (synthType === 'pad') {
+      createPadTone(ctx, noteFreq, 2.8, volume, pan, playTime);
+    } else if (synthType === 'wind-mallet') {
+      createWindMalletTone(ctx, noteFreq, 2.0, volume, pan, playTime);
     }
   });
 };
@@ -411,8 +554,12 @@ export const playNote = (
   const ctx = initAudioContext();
   const now = ctx.currentTime;
   const panPosition = Math.random() * 0.2 - 0.1; // subtle width
+  const activeInstrument = (instrument === 'piano' || instrument === 'guitar')
+    ? (typeof window !== 'undefined' ? (localStorage.getItem("global_instrument") || "Grand Piano") : instrument)
+    : instrument;
+  const synthType = getSynthTypeForInstrument(activeInstrument);
 
-  if (instrument === 'piano') {
+  if (synthType === 'piano') {
     // Trigger async load of samples (non-blocking)
     void ensurePianoSamples();
 
@@ -431,7 +578,13 @@ export const playNote = (
       createPianoTone(ctx, frequency, clampedDuration, Math.min(volume, 0.5), panPosition, now);
     }
     return;
+  } else if (synthType === 'guitar') {
+    createPluckedString(ctx, frequency, duration, volume, panPosition, now);
+  } else if (synthType === 'bass') {
+    createBassTone(ctx, frequency, duration, volume, panPosition, now);
+  } else if (synthType === 'pad') {
+    createPadTone(ctx, frequency, duration, volume, panPosition, now);
+  } else if (synthType === 'wind-mallet') {
+    createWindMalletTone(ctx, frequency, duration, volume, panPosition, now);
   }
-
-  createPluckedString(ctx, frequency, duration, volume, panPosition, now);
 };

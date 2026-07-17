@@ -7,6 +7,7 @@ import { IntervalGame } from "@/components/ear-training/IntervalGame";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { SEOContent, Breadcrumb } from "@/components/SEOContent";
 import RelatedTools from "@/components/RelatedTools";
+import SupportedInstrumentsDropdown from "@/components/SupportedInstrumentsDropdown";
 
 type GameMode = "INTERVALS" | "CHORDS" | "FRETBOARD" | "PERFECT_PITCH" | null;
 
@@ -108,6 +109,9 @@ const EarTrainingPage = () => {
                             <p className="text-xl text-muted-foreground max-w-2xl font-light leading-relaxed">
                                 Master the language of music through gamified challenges. Train daily to unlock your true potential.
                             </p>
+                            <div className="flex justify-center pt-6">
+                                <SupportedInstrumentsDropdown className="w-64 text-left" label="Training Instrument" />
+                            </div>
                         </motion.div>
                     )}
                 </AnimatePresence>

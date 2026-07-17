@@ -40,7 +40,7 @@ const emptySlot = (): ChordSlot => ({
     root: "", variant: "", frets: [], fingers: [], label: "",
 });
 
-const SLOT_COUNT = 4;
+const SLOT_COUNT = 16;
 
 interface JamState {
     slots: ChordSlot[];
@@ -54,6 +54,7 @@ interface JamState {
     editingSlot: number | null;
     showPresets: boolean;
     metronomeEnabled: boolean;
+    playMode: "melody" | "background";
 
     // Actions
     setSlots: (slots: ChordSlot[]) => void;
@@ -67,6 +68,7 @@ interface JamState {
     setEditingSlot: (slot: number | null) => void;
     setShowPresets: (show: boolean) => void;
     setMetronomeEnabled: (enabled: boolean) => void;
+    setPlayMode: (mode: "melody" | "background") => void;
 
     // Derived logic Actions
     setChordInSlot: (index: number, root: string, variant: string) => void;
@@ -83,11 +85,12 @@ export const useJamStore = create<JamState>((set, get) => ({
     isPlaying: false,
     currentSlotIndex: 0,
     currentBeat: 0,
-    instrument: "piano",
+    instrument: "Grand Piano",
     volume: 0.45,
     editingSlot: null,
     showPresets: true,
     metronomeEnabled: true,
+    playMode: "background",
 
     setSlots: (slots) => set({ slots }),
     setBpm: (bpm) => set({ bpm }),
@@ -100,6 +103,7 @@ export const useJamStore = create<JamState>((set, get) => ({
     setEditingSlot: (editingSlot) => set({ editingSlot }),
     setShowPresets: (showPresets) => set({ showPresets }),
     setMetronomeEnabled: (metronomeEnabled) => set({ metronomeEnabled }),
+    setPlayMode: (playMode) => set({ playMode }),
 
     setChordInSlot: (index, root, variant) => {
         const chord = lookupChord(root, variant);

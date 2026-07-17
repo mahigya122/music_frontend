@@ -42,26 +42,7 @@ export const SEOContent: React.FC<SEOContentProps> = ({ faqs, pageName }) => {
     };
   }, [faqs, pageName]);
 
-  return (
-    <div className="mt-24 space-y-16">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-5xl font-light tracking-tighter text-white mb-12">
-          Frequently Asked Questions
-        </h2>
-        <div className="space-y-8">
-          {faqs.map((faq, idx) => (
-            <div
-              key={idx}
-              className="p-6 md:p-8 rounded-3xl border border-white/5 bg-white/[0.015] backdrop-blur-xl hover:bg-white/[0.025] transition-all"
-            >
-              <h3 className="text-lg md:text-xl font-medium text-white mb-4">{faq.question}</h3>
-              <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{faq.answer}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+  return null;
 };
 
 interface BreadcrumbItem {

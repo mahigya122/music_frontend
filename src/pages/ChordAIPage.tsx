@@ -26,6 +26,7 @@ import { transposeChord, transposeKey } from "@/lib/transposition";
 import { Slider } from "@/components/ui/slider";
 import { SEOContent, Breadcrumb } from "@/components/SEOContent";
 import RelatedTools from "@/components/RelatedTools";
+import SupportedInstrumentsDropdown from "@/components/SupportedInstrumentsDropdown";
 import { generateShareUrl, copyToClipboard, getShareParamFromUrl, decodeShareableState, clearShareParamFromUrl } from "@/lib/shareUtils";
 import {
   Dialog,
@@ -415,13 +416,16 @@ const ChordAIPage = () => {
             </div>
 
             {!audioBuffer && (
-              <Button
-                onClick={() => fileInputRef.current?.click()}
-                className="h-12 px-6 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-bold shadow-xl transition-all active:scale-95"
-              >
-                <Upload className="w-4 h-4 mr-2" />
-                Select Audio File
-              </Button>
+              <div className="flex flex-col sm:flex-row items-end gap-4">
+                <SupportedInstrumentsDropdown label="Source Instrument" className="w-56" />
+                <Button
+                  onClick={() => fileInputRef.current?.click()}
+                  className="h-12 px-6 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-bold shadow-xl transition-all active:scale-95"
+                >
+                  <Upload className="w-4 h-4 mr-2" />
+                  Select Audio File
+                </Button>
+              </div>
             )}
           </div>
 
@@ -440,7 +444,8 @@ const ChordAIPage = () => {
                     <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Studio Engine</span>
                   </div>
 
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 flex-wrap">
+                    <SupportedInstrumentsDropdown label="" className="min-w-[140px] w-40" />
                     <div className="flex items-center gap-2">
                       <Label htmlFor="vocal-switch" className="text-[9px] text-muted-foreground uppercase font-bold tracking-tighter">Vocal Filter</Label>
                       <Switch id="vocal-switch" checked={separateVocals} onCheckedChange={setSeparateVocals} disabled={analysisLoading} />

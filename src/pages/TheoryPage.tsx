@@ -2,6 +2,7 @@ import CircleOfFifths from "@/components/CircleOfFifths";
 import { Disc, Layers } from "lucide-react";
 import { SEOContent, Breadcrumb } from "@/components/SEOContent";
 import RelatedTools from "@/components/RelatedTools";
+import SupportedInstrumentsDropdown from "@/components/SupportedInstrumentsDropdown";
 
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 
@@ -53,6 +54,9 @@ const TheoryPage = () => {
                 Visualize key relationships and chord families. The <span className="text-foreground/80">fundamental map</span> for composition and modulation.
               </p>
             </header>
+          </div>
+          <div className="self-start md:self-end">
+            <SupportedInstrumentsDropdown className="w-48 text-left" />
           </div>
         </div>
 

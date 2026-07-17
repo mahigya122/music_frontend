@@ -10,6 +10,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { SEOContent, Breadcrumb } from "@/components/SEOContent";
 import RelatedTools from "@/components/RelatedTools";
+import SupportedInstrumentsDropdown from "@/components/SupportedInstrumentsDropdown";
 
 // Stem configuration with icons and colors
 const STEM_CONFIG = {
@@ -531,6 +532,9 @@ const StemSeparatorPage = () => {
                             <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed font-light">
                                 Separate any song into vocals, drums, bass, guitar, piano, and other. Download individual stems for remixing, practice, or production.
                             </p>
+                            <div className="flex justify-center pt-2">
+                                <SupportedInstrumentsDropdown label="Target Reference Instrument" className="w-64" />
+                            </div>
                             <div className="mt-4 px-4 py-2 rounded-lg bg-amber-500/10 border border-amber-500/20 max-w-2xl mx-auto">
                                 <p className="text-xs text-amber-200/80">
                                     <strong className="text-amber-300">⚠️ Note:</strong> 6-stem separation takes 5-10 minutes on CPU. Please be patient.
@@ -574,11 +578,12 @@ const StemSeparatorPage = () => {
                         ) : (
                             <div className="space-y-6">
                                 {/* File Info */}
-                                <div className="flex items-center justify-between p-4 rounded-2xl bg-white/[0.02] border border-white/5">
-                                    <div>
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl bg-white/[0.02] border border-white/5 gap-4">
+                                    <div className="flex-1">
                                         <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold mb-1">Selected File</p>
                                         <h3 className="text-lg font-medium text-white">{selectedFile.name}</h3>
                                     </div>
+                                    <SupportedInstrumentsDropdown label="Target Reference Instrument" className="min-w-[180px] w-48 text-left" />
                                     <Button
                                         onClick={() => {
                                             setSelectedFile(null);

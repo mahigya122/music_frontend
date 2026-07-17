@@ -1,6 +1,16 @@
-import { useEffect, useRef, useCallback, useMemo } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { INSTRUMENT_CATEGORIES } from "@/data/instruments";
 import {
     Play, Pause, RotateCcw, ChevronDown, Plus, X, Piano, Waves,
     Zap, Music2, Shuffle, Volume2, Clock
@@ -147,11 +157,66 @@ function suggestScales(slots: ChordSlot[]): string[] {
 const ChordProgressionPlayer = () => {
     const {
         slots, bpm, beatsPerChord, isPlaying, currentSlotIndex, currentBeat,
-        instrument, volume, editingSlot, showPresets, metronomeEnabled,
+        instrument, volume, editingSlot, showPresets, metronomeEnabled, playMode,
         setBpm, setBeatsPerChord, setInstrument, setVolume, setEditingSlot,
         setShowPresets, setMetronomeEnabled, setChordInSlot, clearSlot,
-        loadPreset, clearAll, stopPlayback
+        loadPreset, clearAll, stopPlayback, setPlayMode
     } = useJamStore();
+
+    const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
+        Intro: false,
+        Bridge: false,
+        Climax: false,
+        Outro: false,
+    });
+
+    const toggleSection = (name: string) => {
+        setExpandedSections((prev) => ({
+            ...prev,
+            [name]: !prev[name],
+        }));
+    };
+
+    // Auto-expand playing section
+    useEffect(() => {
+        if (isPlaying) {
+            let activeSection = "";
+            if (currentSlotIndex >= 0 && currentSlotIndex < 4) activeSection = "Intro";
+            else if (currentSlotIndex >= 4 && currentSlotIndex < 8) activeSection = "Bridge";
+            else if (currentSlotIndex >= 8 && currentSlotIndex < 12) activeSection = "Climax";
+            else if (currentSlotIndex >= 12 && currentSlotIndex < 16) activeSection = "Outro";
+
+            if (activeSection && !expandedSections[activeSection]) {
+                setExpandedSections((prev) => ({
+                    ...prev,
+                    [activeSection]: true,
+                }));
+            }
+        }
+    }, [currentSlotIndex, isPlaying, expandedSections]);
+
+    // Auto-expand section when a chord is added or preset is loaded
+    const prevSlotsRef = useRef(slots);
+    useEffect(() => {
+        slots.forEach((slot, i) => {
+            const prevSlot = prevSlotsRef.current[i];
+            if (slot.root && (!prevSlot || !prevSlot.root)) {
+                let sectionName = "";
+                if (i >= 0 && i < 4) sectionName = "Intro";
+                else if (i >= 4 && i < 8) sectionName = "Bridge";
+                else if (i >= 8 && i < 12) sectionName = "Climax";
+                else if (i >= 12 && i < 16) sectionName = "Outro";
+
+                if (sectionName) {
+                    setExpandedSections((prev) => ({
+                        ...prev,
+                        [sectionName]: true,
+                    }));
+                }
+            }
+        });
+        prevSlotsRef.current = slots;
+    }, [slots]);
 
     // Refs for the scheduler loop
     const timerRef = useRef<number | null>(null);
@@ -203,7 +268,7 @@ const ChordProgressionPlayer = () => {
         const currentBeatDuration = 60 / state.bpm;
         const currentChordDuration = currentBeatDuration * state.beatsPerChord;
 
-        scheduleChord(firstSlot.root, firstSlot.variant, nextBeatTime, currentChordDuration - 0.05, state.volume, state.instrument);
+        scheduleChord(firstSlot.root, firstSlot.variant, nextBeatTime, currentChordDuration - 0.05, state.volume, state.instrument, state.playMode, state.beatsPerChord);
         if (metronomeRef.current) scheduleClick(nextBeatTime, true);
         beatEvents.push({ time: nextBeatTime, beat: 0, slot: nonEmpty[0] });
         state.setCurrentSlotIndex(nonEmpty[0]);
@@ -224,7 +289,7 @@ const ChordProgressionPlayer = () => {
                     scheduledBeat = 0;
                     chordIdx = (chordIdx + 1) % nonEmpty.length;
                     const slot = tickState.slots[nonEmpty[chordIdx]];
-                    scheduleChord(slot.root, slot.variant, nextBeatTime, cDuration - 0.05, tickState.volume, tickState.instrument);
+                    scheduleChord(slot.root, slot.variant, nextBeatTime, cDuration - 0.05, tickState.volume, tickState.instrument, tickState.playMode, tickState.beatsPerChord);
                     if (metronomeRef.current) scheduleClick(nextBeatTime, true);
                 } else {
                     if (metronomeRef.current) scheduleClick(nextBeatTime, false);
@@ -262,7 +327,7 @@ const ChordProgressionPlayer = () => {
         // but if we want instant tempo changes, it helps. Or the loop handles it! 
         // Wait, since we are using fresh bpm directly inside tick, we actually DON'T need to restart the audio context timeline on tempo change! 
         // The lookahead will seamlessly schedule the next beat at the new tempo.
-    }, [bpm, beatsPerChord, instrument, volume]);
+    }, [bpm, beatsPerChord, instrument, volume, playMode]);
 
     const togglePlay = () => {
         if (isPlaying) {
@@ -291,11 +356,11 @@ const ChordProgressionPlayer = () => {
 
     return (
         <div className="w-full max-w-5xl mx-auto space-y-8">
-            {/* ─── Chord Slots ──────────────────────────────────────────────── */}
-            <div className="space-y-4">
+            {/* ─── Chord Slots (16 Slots grouped by section) ───────────────── */}
+            <div className="space-y-6">
                 <div className="flex items-center justify-between">
                     <h3 className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold">
-                        Progression Slots
+                        Progression Sections (16 Slots)
                     </h3>
                     <div className="flex items-center gap-2">
                         <Button
@@ -321,139 +386,179 @@ const ChordProgressionPlayer = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    {slots.map((slot, i) => (
-                        <div key={i} className="relative">
-                            <motion.div
-                                animate={{
-                                    scale: isPlaying && currentSlotIndex === i ? 1.02 : 1,
-                                    borderColor: isPlaying && currentSlotIndex === i ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.05)",
-                                }}
-                                transition={{ duration: 0.15 }}
-                                className={cn(
-                                    "relative rounded-2xl border overflow-hidden transition-all cursor-pointer",
-                                    isPlaying && currentSlotIndex === i
-                                        ? "bg-white/[0.08] shadow-[0_0_30px_rgba(255,255,255,0.1)]"
-                                        : slot.root
-                                            ? "bg-white/[0.03] hover:bg-white/[0.05]"
-                                            : "bg-white/[0.01] hover:bg-white/[0.03] border-dashed border-white/10"
-                                )}
-                                onClick={() => {
-                                    if (!isPlaying) setEditingSlot(editingSlot === i ? null : i);
-                                }}
+                <div className="space-y-6">
+                    {([
+                        { name: "Intro", startIndex: 0 },
+                        { name: "Bridge", startIndex: 4 },
+                        { name: "Climax", startIndex: 8 },
+                        { name: "Outro", startIndex: 12 },
+                    ] as const).map(({ name, startIndex }) => (
+                        <div key={name} className="space-y-3 p-4 rounded-2xl bg-white/[0.01] border border-white/[0.03] transition-all">
+                            <div 
+                                className="flex items-center justify-between cursor-pointer group/header"
+                                onClick={() => toggleSection(name)}
                             >
-                                {/* Beat progress bar */}
-                                {isPlaying && currentSlotIndex === i && (
-                                    <motion.div
-                                        className="absolute top-0 left-0 h-0.5 bg-white/60"
-                                        initial={{ width: "0%" }}
-                                        animate={{ width: `${((currentBeat + 1) / beatsPerChord) * 100}%` }}
-                                        transition={{ duration: 60 / bpm, ease: "linear" }}
-                                    />
-                                )}
-
-                                <div className="p-4 min-h-[140px] flex flex-col items-center justify-center">
-                                    {slot.root ? (
-                                        <>
-                                            <span className="text-3xl font-bold text-white tracking-tight">
-                                                {slot.label}
-                                            </span>
-                                            {slot.frets.length > 0 && (
-                                                <div className="mt-2 opacity-60 scale-[0.55] origin-center -mb-6">
-                                                    <ChordDiagram
-                                                        frets={slot.frets}
-                                                        fingers={slot.fingers}
-                                                        chordName=""
-                                                    />
-                                                </div>
-                                            )}
-                                            {!isPlaying && (
-                                                <button
-                                                    className="absolute top-2 right-2 p-1 rounded-lg bg-white/5 hover:bg-white/10 opacity-0 group-hover:opacity-100 transition-all"
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        clearSlot(i);
-                                                    }}
-                                                >
-                                                    <X className="w-3 h-3 text-muted-foreground" />
-                                                </button>
-                                            )}
-                                        </>
-                                    ) : (
-                                        <div className="flex flex-col items-center gap-2 text-muted-foreground/50">
-                                            <Plus className="w-6 h-6" />
-                                            <span className="text-[10px] uppercase tracking-widest font-semibold">Add Chord</span>
-                                        </div>
-                                    )}
+                                <div className="flex items-center gap-2 px-1">
+                                    <span className="text-[10px] uppercase tracking-widest text-white/90 font-bold bg-white/10 px-2.5 py-0.5 rounded-full border border-white/10">
+                                        {name}
+                                    </span>
+                                    <ChevronDown className={cn("w-3.5 h-3.5 text-muted-foreground transition-transform duration-300", expandedSections[name] && "rotate-180")} />
                                 </div>
-
-                                {/* Slot number */}
-                                <div className="absolute bottom-2 left-2 text-[9px] font-mono text-muted-foreground/30">
-                                    {i + 1}
-                                </div>
-                            </motion.div>
-
-                            {/* Chord Picker Dropdown */}
-                            <AnimatePresence>
-                                {editingSlot === i && !isPlaying && (
+                                <div className="h-[1px] flex-1 bg-white/5 mx-3" />
+                                <span className="text-[9px] uppercase tracking-widest text-muted-foreground/35 group-hover/header:text-muted-foreground/60 transition-colors font-semibold select-none">
+                                    {expandedSections[name] ? "Hide Section" : "Show Section"}
+                                </span>
+                            </div>
+                            
+                            <AnimatePresence initial={false}>
+                                {expandedSections[name] && (
                                     <motion.div
-                                        initial={{ opacity: 0, y: -8, scale: 0.95 }}
-                                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                                        exit={{ opacity: 0, y: -8, scale: 0.95 }}
-                                        transition={{ duration: 0.15 }}
-                                        className="absolute z-50 top-full left-0 right-0 mt-2 rounded-2xl bg-[#0e0e0e] border border-white/10 shadow-2xl overflow-hidden"
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                                        style={{ overflow: expandedSections[name] ? "visible" : "hidden" }}
                                     >
-                                        {/* Root selection */}
-                                        <div className="p-3 border-b border-white/5">
-                                            <span className="text-[9px] uppercase tracking-widest text-muted-foreground/60 font-bold block mb-2">Root Note</span>
-                                            <div className="grid grid-cols-6 gap-1">
-                                                {ROOTS.map((root) => (
-                                                    <button
-                                                        key={root}
-                                                        onClick={() => {
-                                                            // If variant already chosen, set immediately
-                                                            if (slot.variant) {
-                                                                setChordInSlot(i, root, slot.variant);
-                                                            } else {
-                                                                // Set root, default to Major
-                                                                setChordInSlot(i, root, "Major");
-                                                            }
-                                                        }}
-                                                        className={cn(
-                                                            "py-1.5 rounded-lg text-[11px] font-bold transition-all",
-                                                            slot.root === root
-                                                                ? "bg-white text-black"
-                                                                : "bg-white/5 text-white/70 hover:bg-white/10"
-                                                        )}
-                                                    >
-                                                        {root}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </div>
-
-                                        {/* Variant selection */}
-                                        {slot.root && (
-                                            <div className="p-3">
-                                                <span className="text-[9px] uppercase tracking-widest text-muted-foreground/60 font-bold block mb-2">Quality</span>
-                                                <div className="grid grid-cols-3 gap-1">
-                                                    {getAvailableVariants(slot.root).map((variant) => (
-                                                        <button
-                                                            key={variant}
-                                                            onClick={() => setChordInSlot(i, slot.root, variant)}
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-2">
+                                            {slots.slice(startIndex, startIndex + 4).map((slot, localIdx) => {
+                                                const i = startIndex + localIdx;
+                                                return (
+                                                    <div key={i} className="relative group/slot">
+                                                        <motion.div
+                                                            animate={{
+                                                                scale: isPlaying && currentSlotIndex === i ? 1.02 : 1,
+                                                                borderColor: isPlaying && currentSlotIndex === i ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.05)",
+                                                            }}
+                                                            transition={{ duration: 0.15 }}
                                                             className={cn(
-                                                                "py-1.5 px-2 rounded-lg text-[10px] font-medium transition-all truncate",
-                                                                slot.variant === variant
-                                                                    ? "bg-white text-black"
-                                                                    : "bg-white/5 text-white/70 hover:bg-white/10"
+                                                                "relative rounded-2xl border overflow-hidden transition-all cursor-pointer",
+                                                                isPlaying && currentSlotIndex === i
+                                                                    ? "bg-white/[0.08] shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+                                                                    : slot.root
+                                                                        ? "bg-white/[0.03] hover:bg-white/[0.05]"
+                                                                        : "bg-white/[0.01] hover:bg-white/[0.03] border-dashed border-white/10"
                                                             )}
+                                                            onClick={() => {
+                                                                if (!isPlaying) setEditingSlot(editingSlot === i ? null : i);
+                                                            }}
                                                         >
-                                                            {getChordLabel(slot.root, variant)}
-                                                        </button>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
+                                                            {/* Beat progress bar */}
+                                                            {isPlaying && currentSlotIndex === i && (
+                                                                <motion.div
+                                                                    className="absolute top-0 left-0 h-0.5 bg-white/60"
+                                                                    initial={{ width: "0%" }}
+                                                                    animate={{ width: `${((currentBeat + 1) / beatsPerChord) * 100}%` }}
+                                                                    transition={{ duration: 60 / bpm, ease: "linear" }}
+                                                                />
+                                                            )}
+
+                                                            <div className="p-4 min-h-[140px] flex flex-col items-center justify-center">
+                                                                {slot.root ? (
+                                                                    <>
+                                                                        <span className="text-3xl font-bold text-white tracking-tight">
+                                                                            {slot.label}
+                                                                        </span>
+                                                                        {slot.frets.length > 0 && (
+                                                                            <div className="mt-2 opacity-60 scale-[0.55] origin-center -mb-6">
+                                                                                <ChordDiagram
+                                                                                    frets={slot.frets}
+                                                                                    fingers={slot.fingers}
+                                                                                    chordName=""
+                                                                                />
+                                                                            </div>
+                                                                        )}
+                                                                        {!isPlaying && (
+                                                                            <button
+                                                                                className="absolute top-2 right-2 p-1 rounded-lg bg-white/5 hover:bg-white/10 opacity-0 group-hover/slot:opacity-100 transition-all z-20"
+                                                                                onClick={(e) => {
+                                                                                    e.stopPropagation();
+                                                                                    clearSlot(i);
+                                                                                }}
+                                                                            >
+                                                                                <X className="w-3 h-3 text-muted-foreground" />
+                                                                            </button>
+                                                                        )}
+                                                                    </>
+                                                                ) : (
+                                                                    <div className="flex flex-col items-center gap-2 text-muted-foreground/50">
+                                                                        <Plus className="w-6 h-6" />
+                                                                        <span className="text-[10px] uppercase tracking-widest font-semibold">Add Chord</span>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+
+                                                            {/* Slot number */}
+                                                            <div className="absolute bottom-2 left-2 text-[9px] font-mono text-muted-foreground/30">
+                                                                {i + 1}
+                                                            </div>
+                                                        </motion.div>
+
+                                                        {/* Chord Picker Dropdown */}
+                                                        <AnimatePresence>
+                                                            {editingSlot === i && !isPlaying && (
+                                                                <motion.div
+                                                                    initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                                                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                                    exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                                                                    transition={{ duration: 0.15 }}
+                                                                    className="absolute z-50 top-full left-0 right-0 mt-2 rounded-2xl bg-[#0e0e0e] border border-white/10 shadow-2xl overflow-hidden"
+                                                                >
+                                                                    {/* Root selection */}
+                                                                    <div className="p-3 border-b border-white/5">
+                                                                        <span className="text-[9px] uppercase tracking-widest text-muted-foreground/60 font-bold block mb-2">Root Note</span>
+                                                                        <div className="grid grid-cols-6 gap-1">
+                                                                            {ROOTS.map((root) => (
+                                                                                <button
+                                                                                    key={root}
+                                                                                    onClick={() => {
+                                                                                        if (slot.variant) {
+                                                                                            setChordInSlot(i, root, slot.variant);
+                                                                                        } else {
+                                                                                            setChordInSlot(i, root, "Major");
+                                                                                        }
+                                                                                    }}
+                                                                                    className={cn(
+                                                                                        "py-1.5 rounded-lg text-[11px] font-bold transition-all",
+                                                                                        slot.root === root
+                                                                                            ? "bg-white text-black"
+                                                                                            : "bg-white/5 text-white/70 hover:bg-white/10"
+                                                                                    )}
+                                                                                >
+                                                                                    {root}
+                                                                                </button>
+                                                                            ))}
+                                                                        </div>
+                                                                    </div>
+
+                                                                    {/* Variant selection */}
+                                                                    {slot.root && (
+                                                                        <div className="p-3">
+                                                                            <span className="text-[9px] uppercase tracking-widest text-muted-foreground/60 font-bold block mb-2">Quality</span>
+                                                                            <div className="grid grid-cols-3 gap-1">
+                                                                                {getAvailableVariants(slot.root).map((variant) => (
+                                                                                    <button
+                                                                                        key={variant}
+                                                                                        onClick={() => setChordInSlot(i, slot.root, variant)}
+                                                                                        className={cn(
+                                                                                            "py-1.5 px-2 rounded-lg text-[10px] font-medium transition-all truncate",
+                                                                                            slot.variant === variant
+                                                                                                ? "bg-white text-black"
+                                                                                                : "bg-white/5 text-white/70 hover:bg-white/10"
+                                                                                        )}
+                                                                                    >
+                                                                                        {getChordLabel(slot.root, variant)}
+                                                                                    </button>
+                                                                                ))}
+                                                                            </div>
+                                                                        </div>
+                                                                    )}
+                                                                </motion.div>
+                                                            )}
+                                                        </AnimatePresence>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -554,32 +659,61 @@ const ChordProgressionPlayer = () => {
                             <span className="text-[10px] uppercase tracking-widest text-muted-foreground/60 font-bold">
                                 Instrument
                             </span>
+                            <Select value={instrument} onValueChange={(val) => setInstrument(val)}>
+                                <SelectTrigger className="h-9 rounded-xl border-white/5 bg-white/[0.02] hover:bg-white/[0.05] text-xs text-white border-white/10">
+                                    <SelectValue placeholder="Select instrument" />
+                                </SelectTrigger>
+                                <SelectContent className="bg-[#0e0e0e] border border-white/10 text-white max-h-[300px] overflow-y-auto">
+                                    {INSTRUMENT_CATEGORIES.map((category) => (
+                                        <SelectGroup key={category.id}>
+                                            <SelectLabel className="text-[9px] uppercase tracking-widest text-muted-foreground/50 font-bold pl-3 py-1">
+                                                {category.label}
+                                            </SelectLabel>
+                                            {category.instruments.map((inst) => (
+                                                <SelectItem key={inst} value={inst} className="text-xs pl-6 py-1 hover:bg-white/10 cursor-pointer text-white/80 focus:bg-white/10 focus:text-white">
+                                                    {inst}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectGroup>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        {/* Play Mode */}
+                        <div className="space-y-2">
+                            <span className="text-[10px] uppercase tracking-widest text-muted-foreground/60 font-bold">
+                                Play Mode
+                            </span>
                             <div className="flex gap-2">
                                 <Button
                                     variant="outline"
                                     size="sm"
-                                    onClick={() => setInstrument("piano")}
+                                    onClick={() => setPlayMode("background")}
                                     className={cn(
-                                        "flex-1 h-9 rounded-xl border-white/5 bg-white/[0.02] hover:bg-white/[0.05] text-xs",
-                                        instrument === "piano" && "border-white/20 bg-white/[0.08] text-white"
+                                        "flex-1 h-9 rounded-xl border-white/5 bg-white/[0.02] hover:bg-white/[0.05] text-xs font-bold transition-all",
+                                        playMode === "background" && "border-white/20 bg-white/[0.08] text-white"
                                     )}
                                 >
-                                    <Piano className="w-3.5 h-3.5 mr-1.5" />
-                                    Piano
+                                    Background Score
                                 </Button>
                                 <Button
                                     variant="outline"
                                     size="sm"
-                                    onClick={() => setInstrument("pad")}
+                                    onClick={() => setPlayMode("melody")}
                                     className={cn(
-                                        "flex-1 h-9 rounded-xl border-white/5 bg-white/[0.02] hover:bg-white/[0.05] text-xs",
-                                        instrument === "pad" && "border-white/20 bg-white/[0.08] text-white"
+                                        "flex-1 h-9 rounded-xl border-white/5 bg-white/[0.02] hover:bg-white/[0.05] text-xs font-bold transition-all",
+                                        playMode === "melody" && "border-white/20 bg-white/[0.08] text-white"
                                     )}
                                 >
-                                    <Waves className="w-3.5 h-3.5 mr-1.5" />
-                                    Pad
+                                    Melody (Arpeggio)
                                 </Button>
                             </div>
+                            <p className="text-[10px] text-muted-foreground/50 leading-normal">
+                                {playMode === "melody"
+                                    ? "Music Theory: Arpeggiates chord tones in the higher soprano register, playing one note per beat."
+                                    : "Music Theory: Plays block chords simultaneously with voice-led sub-bass support."}
+                            </p>
                         </div>
 
                         {/* Volume */}

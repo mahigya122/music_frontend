@@ -3,6 +3,7 @@ import { Disc, Music, Bot, Layers } from "lucide-react";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { SEOContent, Breadcrumb } from "@/components/SEOContent";
 import RelatedTools from "@/components/RelatedTools";
+import SupportedInstrumentsDropdown from "@/components/SupportedInstrumentsDropdown";
 
 const ScalesPage = () => {
   usePageMetadata({
@@ -57,6 +58,9 @@ const ScalesPage = () => {
                 A mathematical approach to melody. Visualize intervals across the circle of fifths or map them <span className="text-foreground/80">directly to the fretboard</span>.
               </p>
             </header>
+          </div>
+          <div className="self-start md:self-end">
+            <SupportedInstrumentsDropdown className="w-48 text-left" />
           </div>
         </div>
 

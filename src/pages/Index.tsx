@@ -1,33 +1,295 @@
-import { useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Music2, Layers, Disc, Music, BookOpen, Bot, Wand2, Headphones, Guitar, Trophy, Mic, FileText } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { ArrowRight, Music2, Layers, Disc, Music, BookOpen, Bot, Wand2, Headphones, Guitar, Trophy, Mic, FileText, Play, Pause, Clock, Tag, Star } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Footer from "@/components/Footer";
+import HeroSection from "@/components/ui/HeroSection";
+import WhyChoose from "@/components/WhyChoose";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 
 // Featured AI tools (first row: 3 cards side by side)
 const featuredTools = [
-  { title: "Chord AI", desc: "Neural audio chord detection and harmonic transcription.", icon: Bot, to: "/chord-ai", color: "from-violet-500/20 to-purple-500/20" },
-  { title: "Stem Separator", desc: "AI 6-stem separation: vocals, drums, bass, guitar, piano, other.", icon: Mic, to: "/stem-separator", color: "from-pink-500/20 to-rose-500/20" },
-  { title: "Vocal Splitter", desc: "AI-powered vocal and instrumental separation.", icon: Wand2, to: "/vocal-splitter", color: "from-cyan-500/20 to-blue-500/20" },
+  { 
+    title: "Chord AI", 
+    desc: "Neural audio chord detection and harmonic transcription.", 
+    icon: Bot, 
+    to: "/chord-ai", 
+    color: "from-violet-500/20 to-purple-500/20",
+    image: "/images/download(3).jpe",
+    category: "Harmonics"
+  },
+  { 
+    title: "Stem Separator", 
+    desc: "AI 6-stem separation: vocals, drums, bass, guitar, piano, other.", 
+    icon: Mic, 
+    to: "/stem-separator", 
+    color: "from-pink-500/20 to-rose-500/20",
+    image: "/images/download(4).jpe",
+    category: "Isolation"
+  },
+  { 
+    title: "Vocal Splitter", 
+    desc: "AI-powered vocal and instrumental separation.", 
+    icon: Wand2, 
+    to: "/vocal-splitter", 
+    color: "from-cyan-500/20 to-blue-500/20",
+    image: "/images/Pulse musical_ abstract of sound wave, light frequencies or bright equalizer  _ Premium Photo.jpe",
+    category: "Vocal AI"
+  },
 ];
 
 // Standard tool cards (3 per row on large screens)
 const toolCards = [
-  { title: "Fretboard", desc: "Interactive neck with adaptive note labeling.", icon: Music2, to: "/fretboard", color: "from-emerald-500/20 to-teal-500/20" },
-  { title: "Chord Library", desc: "1,000+ voicings with interactive diagrams.", icon: Layers, to: "/chords", color: "from-blue-500/20 to-indigo-500/20" },
-  { title: "Scale Explorer", desc: "Visualize modes and exotic scales instantly.", icon: Disc, to: "/scales", color: "from-purple-500/20 to-pink-500/20" },
-  { title: "Theory Wheel", desc: "Interactive Circle of Fifths and key logic.", icon: BookOpen, to: "/theory", color: "from-amber-500/20 to-orange-500/20" },
-  { title: "Metronome", desc: "High-precision timing with visual pulse.", icon: Music, to: "/metronome", color: "from-orange-500/20 to-red-500/20" },
-  { title: "Ear Training", desc: "Gamified interval recognition and pitch training.", icon: Trophy, to: "/ear-training", color: "from-yellow-500/20 to-amber-500/20" },
-  { title: "Tuner", desc: "Real-time chromatic tuner with cent precision.", icon: Guitar, to: "/tuner", color: "from-rose-500/20 to-pink-500/20" },
-  { title: "Jam Studio", desc: "Loop chord progressions with piano & pad backing.", icon: Headphones, to: "/jam", color: "from-indigo-500/20 to-violet-500/20" },
-  { title: "Blog & Guides", desc: "Music theory, ear training, and AI production articles.", icon: FileText, to: "/blog", color: "from-sky-500/20 to-cyan-500/20" },
+  { 
+    title: "Fretboard", 
+    desc: "Interactive neck with adaptive note labeling.", 
+    icon: Music2, 
+    to: "/fretboard", 
+    color: "from-emerald-500/20 to-teal-500/20",
+    image: "/images/Close Up Black with Gold Guitar Abstract Background_ Musical instrument vertical backdro.jpe",
+    rating: "4.9",
+    category: "Practice"
+  },
+  { 
+    title: "Chord Library", 
+    desc: "1,000+ voicings with interactive diagrams.", 
+    icon: Layers, 
+    to: "/chords", 
+    color: "from-blue-500/20 to-indigo-500/20",
+    image: "/images/Painted picture of a Jazz Band.jpe",
+    rating: "4.8",
+    category: "Reference"
+  },
+  { 
+    title: "Scale Explorer", 
+    desc: "Visualize modes and exotic scales instantly.", 
+    icon: Disc, 
+    to: "/scales", 
+    color: "from-purple-500/20 to-pink-500/20",
+    image: "/images/download.jpe",
+    rating: "4.9",
+    category: "Theory"
+  },
+  { 
+    title: "Theory Wheel", 
+    desc: "Interactive Circle of Fifths and key logic.", 
+    icon: BookOpen, 
+    to: "/theory", 
+    color: "from-amber-500/20 to-orange-500/20",
+    image: "/images/Circle of Fifths _ Art Print _ Frame Option _ With or Without the Frame - Etsy.jpe",
+    rating: "4.9",
+    category: "Interactive"
+  },
+  { 
+    title: "Metronome", 
+    desc: "High-precision timing with visual pulse.", 
+    icon: Music, 
+    to: "/metronome", 
+    color: "from-orange-500/20 to-red-500/20",
+    image: "/images/Metronome is an installation that _creates an altar to the senses_.jpe",
+    rating: "4.7",
+    category: "Timing"
+  },
+  { 
+    title: "Ear Training", 
+    desc: "Gamified interval recognition and pitch training.", 
+    icon: Trophy, 
+    to: "/ear-training", 
+    color: "from-yellow-500/20 to-amber-500/20",
+    image: "/images/Train your ear.jpe",
+    rating: "4.9",
+    category: "Training"
+  },
+  { 
+    title: "Tuner", 
+    desc: "Real-time chromatic tuner with cent precision.", 
+    icon: Guitar, 
+    to: "/tuner", 
+    color: "from-rose-500/20 to-pink-500/20",
+    image: "/images/download (1).jpe",
+    rating: "4.8",
+    category: "Utility"
+  },
+  { 
+    title: "Jam Studio", 
+    desc: "Loop chord progressions with piano & pad backing.", 
+    icon: Headphones, 
+    to: "/jam", 
+    color: "from-indigo-500/20 to-violet-500/20",
+    image: "/images/Music Studio _ JGGL.jpe",
+    rating: "4.9",
+    category: "Studio"
+  },
 ];
+
+// AI-Generated Music Samples tracks
+const musicTracks = [
+  {
+    id: "heaven-a",
+    title: "Heaven Rang in Bethlehem",
+    subtitle: "Arrangement A",
+    duration: "2:29",
+    cover: "/images/heaven_rang_cover.png",
+    audioUrl: "/musics/track1.mp3",
+    tags: ["choir-like", "harp", "violin", "uplifting", "cello"],
+    color: "from-amber-500/10 to-yellow-500/10"
+  },
+  {
+    id: "heaven-b",
+    title: "Heaven Rang in Bethlehem",
+    subtitle: "Arrangement B",
+    duration: "3:31",
+    cover: "/images/Classical music for VPRO - tsjisse talsma.jpe",
+    audioUrl: "/musics/track2.mp3",
+    tags: ["choir-like", "harp", "violin", "uplifting", "cello"],
+    color: "from-amber-500/10 to-yellow-500/10"
+  },
+  {
+    id: "colors-a",
+    title: "Colors of Life",
+    subtitle: "Mix A",
+    duration: "1:57",
+    cover: "/images/colors_life_cover.png",
+    audioUrl: "/musics/track3.mp3",
+    tags: ["conscious hip hop", "lyrical", "thoughtful", "meaningful", "uplifting"],
+    color: "from-cyan-500/10 to-blue-500/10"
+  },
+  {
+    id: "colors-b",
+    title: "Colors of Life",
+    subtitle: "Mix B",
+    duration: "2:03",
+    cover: "/images/Mid Century Modern Cat Jazz Band Poster, Retro Black Cats Music Illustration (Digital Download).jpe",
+    audioUrl: "/musics/track4.mp3",
+    tags: ["conscious hip hop", "lyrical", "thoughtful", "meaningful", "uplifting"],
+    color: "from-cyan-500/10 to-blue-500/10"
+  },
+  {
+    id: "echoes-a",
+    title: "Fading Echoes",
+    subtitle: "Piano Solo",
+    duration: "4:00",
+    cover: "/images/fading_echoes_cover.png",
+    audioUrl: "/musics/track5.mp3",
+    tags: ["atmospheric textures", "sad", "lo-fi", "soft piano", "minimal percussion"],
+    color: "from-violet-500/10 to-purple-500/10"
+  },
+  {
+    id: "echoes-b",
+    title: "Fading Echoes",
+    subtitle: "Ambient Mix",
+    duration: "4:00",
+    cover: "/images/Vinyls _ Poster for Shopiq_ - Joanna Gniady.jpe",
+    audioUrl: "/musics/track6.mp3",
+    tags: ["atmospheric textures", "sad", "lo-fi", "soft piano", "minimal percussion"],
+    color: "from-violet-500/10 to-purple-500/10"
+  },
+];
+
+// Floating Musical Assets (inspired by premium origami and dandelion elements)
+const FloatingTrebleClef = ({ className, delay = "0s" }: { className?: string, delay?: string }) => (
+  <div className={`absolute z-0 golden-music-note animate-float-y pointer-events-auto select-none ${className}`} style={{ animationDelay: delay }}>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-10 h-10">
+      <path d="M12 21V5c0-1.5 1-3 3-3s2 1.5 2 2.5S15 7 12 7c-3 0-5 2-5 4.5s2 4.5 5 4.5c2.5 0 4-1.5 4-3s-1.5-2.5-3.5-2.5-3.5 1.5-3.5 3c0 2 2 3.5 4.5 3.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  </div>
+);
+
+const FloatingVinyl = ({ className, delay = "0s" }: { className?: string, delay?: string }) => (
+  <div className={`absolute z-0 golden-music-note animate-float-x pointer-events-auto select-none ${className}`} style={{ animationDelay: delay }}>
+    <div className="relative w-14 h-14 rounded-full border border-amber-500/30 flex items-center justify-center animate-[spin_15s_linear_infinite]">
+      <div className="absolute inset-2.5 rounded-full border border-dashed border-amber-500/20" />
+      <div className="absolute inset-5 rounded-full border border-amber-500/30" />
+      <div className="w-3 h-3 rounded-full bg-amber-500/40" />
+    </div>
+  </div>
+);
+
+const FloatingCard = ({ image, className, delay = "0s" }: { image: string, className?: string, delay?: string }) => (
+  <div className={`absolute z-0 pointer-events-auto select-none animate-float-diagonal ${className}`} style={{ animationDelay: delay }}>
+    <div className="w-20 h-20 md:w-28 md:h-28 bg-zinc-950/80 backdrop-blur-sm border border-white/10 p-1.5 rounded-2xl shadow-2xl transform rotate-6 hover:rotate-12 transition-transform duration-500">
+      <img src={image} alt="Inspiration" className="w-full h-full object-cover rounded-xl opacity-55 hover:opacity-85 transition-opacity duration-300" />
+    </div>
+  </div>
+);
+
+const DottedCircle = ({ className, size = "w-[320px] h-[320px]" }: { className?: string, size?: string }) => (
+  <div className={`absolute pointer-events-none border border-dashed border-amber-500/10 rounded-full z-0 ${size} ${className}`} />
+);
+
+const FloatingGlitterGuitar = ({ className, delay = "0s" }: { className?: string, delay?: string }) => (
+  <div className={`absolute z-0 pointer-events-auto select-none animate-float-y ${className}`} style={{ animationDelay: delay }}>
+    <img
+      src="/images/golden_guitar_glitter.png"
+      alt="Glitter Guitar"
+      className="w-24 h-48 md:w-32 md:h-64 object-contain opacity-65 hover:opacity-95 transition-opacity duration-300 filter drop-shadow-[0_0_20px_rgba(255,215,0,0.45)]"
+    />
+  </div>
+);
+
+const FloatingGlitterKeyboard = ({ className, delay = "0s" }: { className?: string, delay?: string }) => (
+  <div className={`absolute z-0 pointer-events-auto select-none animate-float-x ${className}`} style={{ animationDelay: delay }}>
+    <img
+      src="/images/golden_keyboard_glitter.png"
+      alt="Glitter Keyboard"
+      className="w-28 h-28 md:w-36 md:h-36 object-contain opacity-60 hover:opacity-90 transition-opacity duration-300 filter drop-shadow-[0_0_20px_rgba(255,215,0,0.4)]"
+    />
+  </div>
+);
+
+const FloatingGlitterNodes = ({ className, delay = "0s" }: { className?: string, delay?: string }) => (
+  <div className={`absolute z-0 golden-music-note animate-float-diagonal pointer-events-auto select-none ${className}`} style={{ animationDelay: delay }}>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-12 h-12 md:w-16 md:h-16">
+      <path d="M9 17V4l11 2v13" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="6.5" cy="17" r="2.5" fill="currentColor" fillOpacity="0.2" />
+      <circle cx="17.5" cy="19" r="2.5" fill="currentColor" fillOpacity="0.2" />
+      <path d="M9 9.5l11-2M13 5.5v12.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+    </svg>
+  </div>
+);
 
 const Index = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const { toast } = useToast();
+  const [playingTrackId, setPlayingTrackId] = useState<string | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const handlePlayToggle = (track: typeof musicTracks[0]) => {
+    if (playingTrackId === track.id) {
+      audioRef.current?.pause();
+      setPlayingTrackId(null);
+    } else {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      audioRef.current = new Audio(track.audioUrl);
+      
+      audioRef.current.play().then(() => {
+        setPlayingTrackId(track.id);
+      }).catch((err) => {
+        console.error("Audio playback error:", err);
+        toast({
+          title: "Audio Placeholder Active",
+          description: `To play, please place an MP3 file at public${track.audioUrl}`,
+          variant: "destructive"
+        });
+      });
+
+      audioRef.current.onended = () => {
+        setPlayingTrackId(null);
+      };
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
+  }, []);
 
   usePageMetadata({
     title: "Guitariz - Chord AI Free, Stem Splitter AI & Music Studio Tools",
@@ -47,6 +309,18 @@ const Index = () => {
           "applicationCategory": "MusicApplication",
           "operatingSystem": "Any",
           "url": "https://guitariz.studio",
+          "screenshot": "https://guitariz.studio/screenshot.png",
+          "browserRequirements": "Requires JavaScript. Requires HTML5.",
+          "softwareVersion": "1.7.0",
+          "author": {
+            "@type": "Organization",
+            "name": "Guitariz Studio"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
           "potentialAction": {
             "@type": "SearchAction",
             "target": {
@@ -59,6 +333,21 @@ const Index = () => {
             "@type": "AggregateRating",
             "ratingValue": "4.9",
             "reviewCount": "128"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://guitariz.studio/#website",
+          "url": "https://guitariz.studio",
+          "name": "Guitariz",
+          "description": "Free Interactive AI Music Studio Tools",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://guitariz.studio/search?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
           }
         },
         {
@@ -75,33 +364,6 @@ const Index = () => {
     }
   });
 
-  const titleContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.04,
-        delayChildren: 0.1,
-      }
-    }
-  };
-
-  const charVariants = {
-    hidden: {
-      opacity: 0,
-      y: 40,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        damping: 20,
-        stiffness: 100
-      }
-    }
-  };
-
   return (
     <div ref={containerRef} className="min-h-screen relative bg-background overflow-x-hidden selection:bg-white/10">
       {/* Aesthetic Background - Clean & Optimized */}
@@ -111,203 +373,268 @@ const Index = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)] light:bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.05)_100%)]" />
       </div>
 
-      <main className="pt-12 pb-24 relative z-10">
-        <section className="px-6">
-          <div className="container mx-auto max-w-5xl">
+      <main className="pb-16 relative z-10">
+        <HeroSection />
+
+        {/* AI-Generated Music Samples Section */}
+        <section className="px-6 py-16 relative overflow-hidden border-t border-white/[0.03]">
+          {/* Background Dotted Circular Lines & Premium Floating Assets */}
+          <DottedCircle className="top-[-80px] left-[-80px]" />
+          
+          {/* Bleeding assets crossing transition from Hero video section */}
+          <FloatingTrebleClef className="top-[-40px] left-[15%]" delay="0.5s" />
+          <FloatingVinyl className="top-[-60px] right-[25%]" delay="1.5s" />
+          <FloatingGlitterGuitar className="top-[-90px] left-[45%] w-14 h-28" delay="2.5s" />
+          
+          <FloatingTrebleClef className="top-[10%] left-[6%]" />
+          <FloatingGlitterGuitar className="bottom-[12%] left-[4%]" delay="0.5s" />
+          <FloatingVinyl className="bottom-[12%] right-[10%]" delay="2.5s" />
+          
+          {/* Central Assets - suspension between cards */}
+          <FloatingGlitterNodes className="top-[48%] left-[28%] w-20 h-20 md:w-24 md:h-24" delay="0.9s" />
+          <FloatingGlitterGuitar className="top-[52%] left-[62%] w-16 h-32 md:w-20 md:h-40" delay="1.8s" />
+
+          <div className="container mx-auto max-w-6xl relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="space-y-10 text-center py-20"
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14 text-left"
             >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ delay: 0.05, duration: 0.6, ease: "easeOut" }}
-                className="inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-border bg-card/50 backdrop-blur-sm text-muted-foreground text-[10px] font-bold tracking-[0.3em] uppercase"
-              >
-                <Headphones className="w-3 h-3" />
-                <span>Modern Music Laboratory</span>
-              </motion.div>
-
-              <div className="space-y-6">
-                <motion.h1
-                  variants={titleContainerVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className="text-7xl md:text-9xl font-light tracking-tighter text-foreground font-display flex flex-wrap justify-center gap-x-[0.2em] relative"
-                  style={{ perspective: "1000px" }}
-                >
-                  <span className="flex">
-                    {Array.from("Design").map((char, i) => (
-                      <motion.span
-                        key={i}
-                        variants={charVariants}
-                        className="inline-block"
-                      >
-                        {char}
-                      </motion.span>
-                    ))}
-                  </span>
-                  <motion.span
-                    variants={charVariants}
-                    className="inline-block text-transparent bg-clip-text bg-gradient-to-tr from-emerald-400 via-cyan-300 to-indigo-500 font-thin italic drop-shadow-[0_0_15px_rgba(34,211,238,0.3)] pr-8"
-                    style={{ WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
-                  >
-                    Sound.
-                  </motion.span>
-                </motion.h1>
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
-                  className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed font-light"
-                >
-                  A high-fidelity technical suite for the modern guitarist. Neural audio analysis meets <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">architectural music theory</span>.
-                </motion.p>
-              </div>
-
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-10">
-                <Button size="lg" className="h-16 px-10 rounded-2xl bg-primary text-primary-foreground hover:bg-primary/90 text-lg font-semibold group transition-all duration-300 hover:shadow-[0_0_40px_rgba(255,255,255,0.2)]" asChild>
-                  <Link to="/fretboard" aria-label="Start using the interactive fretboard lab">
-                    Launch Fretboard
-                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-                <Button variant="outline" size="lg" className="h-16 px-10 rounded-2xl border-border bg-card/50 text-foreground hover:bg-card/80 hover:border-border/80 text-lg font-medium transition-all duration-300" asChild>
-                  <Link to="/theory" aria-label="Explore music theory and the circle of fifths">Master Theory</Link>
-                </Button>
-              </div>
+              <h2 className="text-4xl md:text-5xl font-semibold tracking-tight font-display max-w-lg bg-clip-text text-transparent bg-gradient-to-r from-[#e5c060] via-[#ffffff] to-[#e5c060]">
+                AI-Generated Music Samples.
+              </h2>
+              <p className="text-white/90 max-w-sm md:text-right font-light leading-relaxed">
+                Listen to music tracks created with our AI music generators. Click any card to play.
+              </p>
             </motion.div>
 
-            {/* Feature Grid */}
-            <motion.div
-              variants={{
-                hidden: { opacity: 0 },
-                show: {
-                  opacity: 1,
-                  transition: {
-                    staggerChildren: 0.08,
-                    delayChildren: 0.3
-                  }
-                }
-              }}
-              initial="hidden"
-              animate="show"
-              className="mt-20 space-y-5"
-            >
-              {/* Featured AI Tools Row */}
-              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-5">
-                {featuredTools.map((tool) => (
-                  <motion.div
-                    key={tool.title}
-                    variants={{
-                      hidden: { opacity: 0, y: 40 },
-                      show: {
-                        opacity: 1,
-                        y: 0,
-                        transition: {
-                          type: "spring",
-                          stiffness: 60,
-                          damping: 18
-                        }
-                      }
-                    }}
-                    whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                    onMouseMove={(e) => {
-                      const rect = e.currentTarget.getBoundingClientRect();
-                      e.currentTarget.style.setProperty("--x", `${e.clientX - rect.left}px`);
-                      e.currentTarget.style.setProperty("--y", `${e.clientY - rect.top}px`);
-                    }}
-                    className="spotlight-card group"
-                  >
-                    <Link
-                      to={tool.to}
-                      aria-label={`Open the ${tool.title} tool: ${tool.desc}`}
-                      className="block p-8 rounded-[1.75rem] glass-card transition-all duration-500 relative overflow-hidden border border-border"
-                    >
-                      {/* AI badge */}
-                      <div className="absolute top-4 right-4 z-20 px-2 py-1 rounded-full bg-card text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-                        AI Powered
+            <div className="grid grid-cols-3 gap-3 md:gap-6">
+              {musicTracks.map((track, i) => (
+                <motion.div
+                  key={track.id}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ delay: i * 0.05, duration: 0.5, ease: "easeOut" }}
+                  className="flex flex-col rounded-xl md:rounded-[1.75rem] overflow-hidden border border-border bg-card/25 backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-white/10 group relative cursor-pointer shadow-sm select-none"
+                  onClick={() => handlePlayToggle(track)}
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${track.color} opacity-0 group-hover:opacity-40 transition-opacity duration-500 z-0`} />
+                  
+                  {/* Cover Image Container */}
+                  <div className="relative aspect-[3/2] w-full overflow-hidden border-b border-border z-10">
+                    <img
+                      src={track.cover}
+                      alt={track.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    
+                    {/* Play/Pause Overlay */}
+                    <div className="absolute inset-0 bg-black/45 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                      <div className="w-8 h-8 md:w-14 md:h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg transform transition-transform duration-300 group-hover:scale-110">
+                        {playingTrackId === track.id ? (
+                          <Pause className="w-4 h-4 md:w-6 md:h-6 text-white fill-white" />
+                        ) : (
+                          <Play className="w-4 h-4 md:w-6 md:h-6 text-white fill-white ml-0.5" />
+                        )}
                       </div>
-                      {/* Gradient hover effect */}
-                      <div className={`absolute inset-0 bg-gradient-to-br ${tool.color} opacity-30 group-hover:opacity-60 transition-opacity duration-500`} />
+                    </div>
+                    
+                    {/* Playing Indicator */}
+                    {playingTrackId === track.id && (
+                      <div className="absolute bottom-2 right-2 md:bottom-3 md:right-3 bg-black/60 backdrop-blur-md border border-white/10 px-1.5 py-1 md:px-2.5 md:py-1.5 rounded-md md:rounded-lg flex gap-0.5 md:gap-1 items-end h-5 md:h-7 z-20">
+                        <span className="w-0.5 bg-cyan-400 rounded-full animate-[bounce_0.8s_infinite_100ms] h-2 md:h-3" />
+                        <span className="w-0.5 bg-cyan-400 rounded-full animate-[bounce_0.8s_infinite_300ms] h-3 md:h-4" />
+                        <span className="w-0.5 bg-cyan-400 rounded-full animate-[bounce_0.8s_infinite_200ms] h-2.5 md:h-3.5" />
+                        <span className="w-0.5 bg-cyan-400 rounded-full animate-[bounce_0.8s_infinite_400ms] h-1.5 md:h-2" />
+                      </div>
+                    )}
+                  </div>
 
-                      <div className="spotlight-glow" />
-                      <div className="relative z-10 space-y-4">
-                        <div className="w-14 h-14 rounded-2xl bg-card border border-border flex items-center justify-center group-hover:bg-card/80 group-hover:border-border/80 transition-all duration-500">
-                          <tool.icon className="w-7 h-7 text-foreground group-hover:scale-110 transition-transform duration-300" />
-                        </div>
-                        <div className="space-y-2">
-                          <h3 className="text-2xl font-medium text-foreground font-display">{tool.title}</h3>
-                          <p className="text-sm text-muted-foreground leading-relaxed">
-                            {tool.desc}
-                          </p>
-                        </div>
+                  {/* Text Info & Badges */}
+                  <div className="p-3 md:p-6 flex-1 flex flex-col justify-between relative z-10">
+                    <div>
+                      <h3 className="text-white font-medium text-xs sm:text-sm md:text-lg leading-snug group-hover:text-cyan-400 transition-colors font-display line-clamp-2">
+                        {track.title}
+                      </h3>
+                      <p className="text-white/40 text-[9px] md:text-xs font-normal mt-0.5">({track.subtitle})</p>
+                      
+                      <div className="flex items-center gap-1 text-white/50 text-[9px] md:text-[11px] mt-1.5 md:mt-2 font-medium">
+                        <Clock className="w-3 h-3 md:w-3.5 md:h-3.5" />
+                        <span>{track.duration}</span>
                       </div>
-                      <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-20 transition-opacity duration-300">
-                        <ArrowRight className="w-10 h-10 text-foreground" />
-                      </div>
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
+                    </div>
 
-              {/* Standard Tools Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {toolCards.map((tool) => (
-                  <motion.div
-                    key={tool.title}
-                    variants={{
-                      hidden: { opacity: 0, y: 40 },
-                      show: {
-                        opacity: 1,
-                        y: 0,
-                        transition: {
-                          type: "spring",
-                          stiffness: 60,
-                          damping: 18
-                        }
-                      }
-                    }}
-                    whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                    onMouseMove={(e) => {
-                      const rect = e.currentTarget.getBoundingClientRect();
-                      e.currentTarget.style.setProperty("--x", `${e.clientX - rect.left}px`);
-                      e.currentTarget.style.setProperty("--y", `${e.clientY - rect.top}px`);
-                    }}
-                    className="spotlight-card group"
-                  >
-                    <Link
-                      to={tool.to}
-                      aria-label={`Open the ${tool.title} tool: ${tool.desc}`}
-                      className="block p-6 rounded-[1.75rem] glass-card transition-all duration-500 relative overflow-hidden border border-border"
-                    >
-                      {/* Gradient hover effect */}
-                      <div className={`absolute inset-0 bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-
-                      <div className="spotlight-glow" />
-                      <div className="relative z-10 space-y-3">
-                        <div className="w-11 h-11 rounded-xl bg-card border border-border flex items-center justify-center group-hover:bg-card/80 group-hover:border-border/80 transition-all duration-500">
-                          <tool.icon className="w-5 h-5 text-foreground group-hover:scale-110 transition-transform duration-300" />
-                        </div>
-                        <div className="space-y-1.5">
-                          <h3 className="text-lg font-medium text-foreground font-display">{tool.title}</h3>
-                          <p className="text-xs text-muted-foreground leading-relaxed">
-                            {tool.desc}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-20 transition-opacity duration-300">
-                        <ArrowRight className="w-8 h-8 text-foreground" />
-                      </div>
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
+                    {/* Badges/Tags - hidden on mobile for clean fit */}
+                    <div className="hidden sm:flex flex-wrap gap-1.5 mt-4">
+                      {track.tags.slice(0, 3).map((tag) => (
+                        <span
+                          key={tag}
+                          className="inline-flex items-center gap-1 text-[9px] px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-medium"
+                        >
+                          <Tag className="w-2 h-2" />
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </section>
+
+        {/* Interactive Tools Suite Section */}
+        <section className="px-6 py-16 relative overflow-hidden border-t border-white/[0.03]">
+          {/* Background Dotted Circular Lines & Premium Floating Assets */}
+          <DottedCircle className="bottom-[-100px] right-[-100px]" />
+          <FloatingVinyl className="top-[15%] right-[8%]" delay="0.5s" />
+          <FloatingGlitterKeyboard className="bottom-[15%] right-[6%]" delay="1.2s" />
+          <FloatingTrebleClef className="bottom-[10%] left-[10%]" delay="3s" />
+          
+          {/* Central Assets - suspension between cards */}
+          <FloatingGlitterNodes className="top-[45%] left-[50%] w-24 h-24" delay="1.4s" />
+          <FloatingGlitterGuitar className="top-[55%] left-[25%] w-16 h-32 md:w-20 md:h-40" delay="0.7s" />
+          <FloatingGlitterNodes className="top-[38%] left-[75%] w-20 h-20" delay="2.1s" />
+
+          <div className="container mx-auto max-w-6xl relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14 text-left"
+            >
+              <h2 className="text-4xl md:text-5xl font-semibold tracking-tight font-display max-w-lg bg-clip-text text-transparent bg-gradient-to-r from-[#e5c060] via-[#ffffff] to-[#e5c060]">
+                Experiment with new sound.
+              </h2>
+              <p className="text-white/90 max-w-sm md:text-right font-light leading-relaxed">
+                Interactive visualization tools designed to build muscle memory, pitch precision, and deep theoretical mastery.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {toolCards.map((tool, i) => (
+                <motion.div
+                  key={tool.title}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ delay: i * 0.05, duration: 0.5, ease: "easeOut" }}
+                  className="group h-full"
+                >
+                  <Link
+                    to={tool.to}
+                    aria-label={`Open the ${tool.title} tool: ${tool.desc}`}
+                    className="block rounded-2xl md:rounded-[1.75rem] overflow-hidden border border-border bg-card/25 backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-white/10 group relative shadow-sm h-64 dark"
+                  >
+                    <div className={`absolute inset-0 bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 z-0`} />
+                    
+                    {/* Cover Image Container */}
+                    <div className="relative h-full w-full overflow-hidden z-10">
+                      <img
+                        src={tool.image}
+                        alt={tool.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      {/* Premium Dark Gradient Overlay for text readability */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/10 transition-opacity duration-500" />
+                      
+                      {/* Category Badge on Top-Left */}
+                      <div className="absolute top-4 left-4 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-[9px] uppercase tracking-wider text-white border border-white/10 font-bold flex items-center gap-1.5 shadow-md">
+                        <tool.icon className="w-3 h-3 text-cyan-400" />
+                        {tool.category}
+                      </div>
+
+                      {/* Title and Description at the bottom of the photo */}
+                      <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 text-left space-y-1">
+                        <h3 className="text-lg font-medium text-white group-hover:text-cyan-400 transition-colors font-display">
+                          {tool.title}
+                        </h3>
+                        <p className="text-xs text-white/70 leading-relaxed font-light line-clamp-2">
+                          {tool.desc}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* AI Composer Suite Section */}
+        <section className="px-6 py-16 relative overflow-hidden border-t border-white/[0.03]">
+          {/* Background Dotted Circular Lines & Premium Floating Assets */}
+          <DottedCircle className="top-[-60px] right-[40px]" />
+          <FloatingVinyl className="top-[10%] left-[8%]" delay="2.2s" />
+          <FloatingGlitterNodes className="bottom-[12%] right-[40px]" delay="2s" />
+          <FloatingTrebleClef className="bottom-[12%] right-[10%]" delay="0.8s" />
+          
+          {/* Central Assets - suspension between cards */}
+          <FloatingGlitterNodes className="top-[48%] left-[33%] w-24 h-24" delay="1.1s" />
+
+          <div className="container mx-auto max-w-6xl relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14 text-left"
+            >
+              <h2 className="text-4xl md:text-5xl font-semibold tracking-tight font-display max-w-lg bg-clip-text text-transparent bg-gradient-to-r from-[#e5c060] via-[#ffffff] to-[#e5c060]">
+                Why Musicians Choose Guitariz AI.
+              </h2>
+              <p className="text-white/90 max-w-sm md:text-right font-light leading-relaxed">
+                Calibrated specifically for precise harmonic analysis and pristine stem isolation. Isolate tracks, extract pristine vocals, and transcribe complex chord structures instantly.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
+              {featuredTools.map((tool, i) => (
+                <motion.div
+                  key={tool.title}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ delay: i * 0.05, duration: 0.5, ease: "easeOut" }}
+                  className="relative group rounded-xl md:rounded-[1.75rem] overflow-hidden border border-border h-[280px] cursor-pointer"
+                >
+                  <Link to={tool.to} className="block w-full h-full relative dark">
+                    {/* Full height background image */}
+                    <img
+                      src={tool.image}
+                      alt={tool.title}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+
+                    {/* Dark overlay gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent z-10" />
+
+                    {/* Category badge */}
+                    <div className="absolute top-4 left-4 z-20 px-2 py-0.5 rounded-md bg-card/60 backdrop-blur-sm border border-border text-[9px] font-bold text-white uppercase tracking-widest">
+                      {tool.category}
+                    </div>
+
+                    {/* Title and Description at the bottom of the photo */}
+                    <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 text-left space-y-1 z-20">
+                      <h3 className="text-lg font-medium text-white group-hover:text-cyan-400 transition-colors font-display">
+                        {tool.title}
+                      </h3>
+                      <p className="text-xs text-white/70 leading-relaxed font-light line-clamp-2">
+                        {tool.desc}
+                      </p>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <WhyChoose />
       </main>
 
       <Footer />

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Search, Calendar, User, Clock, ArrowRight, BookOpen } from "lucide-react";
 import { Breadcrumb } from "@/components/SEOContent";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
+import SupportedInstrumentsDropdown from "@/components/SupportedInstrumentsDropdown";
 
 interface BlogPost {
   slug: string;
@@ -105,16 +106,19 @@ const BlogListPage: React.FC = () => {
             )}
           </div>
 
-          {/* Search bar */}
-          <div className="relative w-full md:w-80">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 dark:text-zinc-500" />
-            <input
-              type="text"
-              placeholder="Search guides..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-zinc-100/50 dark:bg-zinc-900/40 border border-zinc-250 dark:border-zinc-800 hover:border-zinc-350 dark:hover:border-zinc-700 focus:border-rose-500/50 dark:focus:border-rose-500/50 rounded-lg pl-10 pr-4 py-2 text-sm text-zinc-800 dark:text-zinc-200 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-rose-500/30 transition-all duration-300"
-            />
+          {/* Search bar & Instrument Filter */}
+          <div className="flex flex-col sm:flex-row gap-4 items-center w-full md:w-auto">
+            <SupportedInstrumentsDropdown label="" className="min-w-[160px] w-full sm:w-44" />
+            <div className="relative w-full sm:w-64">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 dark:text-zinc-500" />
+              <input
+                type="text"
+                placeholder="Search guides..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-zinc-100/50 dark:bg-zinc-900/40 border border-zinc-250 dark:border-zinc-800 hover:border-zinc-350 dark:hover:border-zinc-700 focus:border-rose-500/50 dark:focus:border-rose-500/50 rounded-lg pl-10 pr-4 py-2 text-sm text-zinc-800 dark:text-zinc-200 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-rose-500/30 transition-all duration-300"
+              />
+            </div>
           </div>
         </div>
 
