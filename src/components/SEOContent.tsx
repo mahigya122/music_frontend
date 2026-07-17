@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 interface FAQItem {
   question: string;
@@ -85,17 +86,31 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
 
   return (
     <nav className="flex items-center gap-2 text-xs text-muted-foreground mb-8">
-      {items.map((item, idx) => (
-        <div key={idx} className="flex items-center gap-2">
-          {idx > 0 && <span className="opacity-40">/</span>}
-          <a
-            href={item.url}
-            className={idx === items.length - 1 ? "text-white font-medium" : "hover:text-white transition-colors"}
-          >
-            {item.name}
-          </a>
-        </div>
-      ))}
+      {items.map((item, idx) => {
+        const isInternal = item.url.startsWith("https://guitariz.studio");
+        const toPath = isInternal ? (item.url.replace("https://guitariz.studio", "") || "/") : item.url;
+        
+        return (
+          <div key={idx} className="flex items-center gap-2">
+            {idx > 0 && <span className="opacity-40">/</span>}
+            {isInternal ? (
+              <Link
+                to={toPath}
+                className={idx === items.length - 1 ? "text-white font-medium" : "hover:text-white transition-colors"}
+              >
+                {item.name}
+              </Link>
+            ) : (
+              <a
+                href={item.url}
+                className={idx === items.length - 1 ? "text-white font-medium" : "hover:text-white transition-colors"}
+              >
+                {item.name}
+              </a>
+            )}
+          </div>
+        );
+      })}
     </nav>
   );
 };
