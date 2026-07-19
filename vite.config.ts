@@ -185,6 +185,7 @@ export default defineConfig({
     target: "ES2020",
     minify: "esbuild",
     sourcemap: false,
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -192,6 +193,7 @@ export default defineConfig({
           ui: ["@radix-ui/react-dialog", "@radix-ui/react-tooltip", "@radix-ui/react-tabs"],
           audio: ["@/lib/chordAudio.ts", "@/lib/chordDetection.ts"],
           vocal: ["@/pages/VocalSplitterPage.tsx"],
+          three: ["three", "@react-three/fiber", "@react-three/drei"],
         },
       },
     },
