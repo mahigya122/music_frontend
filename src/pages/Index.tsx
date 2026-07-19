@@ -464,7 +464,7 @@ const Index = () => {
             </motion.div>
 
             <div 
-              className="relative group/carousel px-4 md:px-12"
+              className="relative group/carousel px-8 md:px-16"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
@@ -557,7 +557,7 @@ const Index = () => {
               {/* Navigation Arrows */}
               <button 
                 onClick={handlePrev}
-                className="absolute left-[-12px] md:left-2 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/50 hover:bg-black/75 md:bg-white/10 md:hover:bg-white/20 border border-white/15 flex items-center justify-center text-white backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer shadow-[0_0_20px_rgba(0,0,0,0.5)] opacity-100 md:opacity-0 md:group-hover/carousel:opacity-100 flex-shrink-0"
+                className="absolute left-[-12px] md:left-0 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/50 hover:bg-black/75 md:bg-white/10 md:hover:bg-white/20 border border-white/15 flex items-center justify-center text-white backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer shadow-[0_0_20px_rgba(0,0,0,0.5)] opacity-100 md:opacity-90 hover:opacity-100 flex-shrink-0"
                 aria-label="Previous tracks"
               >
                 <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
@@ -565,7 +565,7 @@ const Index = () => {
 
               <button 
                 onClick={handleNext}
-                className="absolute right-[-12px] md:right-2 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/50 hover:bg-black/75 md:bg-white/10 md:hover:bg-white/20 border border-white/15 flex items-center justify-center text-white backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer shadow-[0_0_20px_rgba(0,0,0,0.5)] opacity-100 md:opacity-0 md:group-hover/carousel:opacity-100 flex-shrink-0"
+                className="absolute right-[-12px] md:right-0 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/50 hover:bg-black/75 md:bg-white/10 md:hover:bg-white/20 border border-white/15 flex items-center justify-center text-white backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer shadow-[0_0_20px_rgba(0,0,0,0.5)] opacity-100 md:opacity-90 hover:opacity-100 flex-shrink-0"
                 aria-label="Next tracks"
               >
                 <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
