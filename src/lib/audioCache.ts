@@ -1,5 +1,5 @@
 // Cache Storage helper for storing audio blobs (fallback for IndexedDB audio caching)
-const CACHE_NAME = "guitariz-audio";
+const CACHE_NAME = "Soluna-audio";
 
 async function computeFileHash(file: File): Promise<string> {
   const arrayBuffer = await file.arrayBuffer();

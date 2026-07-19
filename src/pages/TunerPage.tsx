@@ -7,19 +7,19 @@ import SupportedInstrumentsDropdown from "@/components/SupportedInstrumentsDropd
 
 const TunerPage = () => {
     usePageMetadata({
-        title: "Online Guitar Tuner | Guitariz - Chromatic & Precision",
+        title: "Online Guitar Tuner | Soluna - Chromatic & Precision",
         description: "Free online chromatic tuner for guitar, bass, ukulele, and more. Precise real-time pitch detection using your microphone.",
-        canonicalUrl: "https://guitariz.studio/tuner",
-        ogImage: "https://guitariz.studio/logo2.png",
+        canonicalUrl: "https://Soluna.studio/tuner",
+        ogImage: "https://Soluna.studio/logo2.png",
         ogType: "website",
         jsonLd: {
             "@context": "https://schema.org",
             "@type": "WebApplication",
-            "name": "Guitariz Online Tuner",
+            "name": "Soluna Online Tuner",
             "applicationCategory": "MusicApplication",
             "operatingSystem": "Web",
             "description": "High-precision chromatic instrument tuner.",
-            "url": "https://guitariz.studio/tuner",
+            "url": "https://Soluna.studio/tuner",
             "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
         }
     });
@@ -29,8 +29,8 @@ const TunerPage = () => {
             <main className="container mx-auto px-4 md:px-6 pt-8 md:pt-12 pb-16 relative z-10">
                 <div className="max-w-4xl mx-auto">
                     <Breadcrumb items={[
-                        { name: "Home", url: "https://guitariz.studio/" },
-                        { name: "Tuner", url: "https://guitariz.studio/tuner" }
+                        { name: "Home", url: "https://Soluna.studio/" },
+                        { name: "Tuner", url: "https://Soluna.studio/tuner" }
                     ]} />
 
                     <div className="mb-12 text-center space-y-6">
@@ -66,7 +66,7 @@ const TunerPage = () => {
                             },
                             {
                                 question: "Is this tuner accurate?",
-                                answer: "Yes, Guitariz Tuner uses advanced autocorrelation algorithms to detect pitch with high precision, often within 1 cent of accuracy."
+                                answer: "Yes, Soluna Tuner uses advanced autocorrelation algorithms to detect pitch with high precision, often within 1 cent of accuracy."
                             },
                             {
                                 question: "Does it work for bass guitar?",

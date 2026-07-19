@@ -109,7 +109,7 @@ def test_vocal_separation():
 
 def main():
     print("=" * 60)
-    print("Guitariz Backend Feature Test")
+    print("Soluna Backend Feature Test")
     print("=" * 60)
     
     # Test 1: Health check

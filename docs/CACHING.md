@@ -1,4 +1,4 @@
-Caching strategy — Guitariz
+Caching strategy — Soluna
 
 Overview
 - Purpose: Cache chord analysis results locally to reduce backend load, speed up repeat analyses, and enable offline re-use.
@@ -23,6 +23,6 @@ Notes & Next steps
 - Consider adding a cache migration/versioning scheme if `AnalysisResult` shape changes.
 
 How to clear cache (dev)
-- Use browser DevTools -> Application -> IndexedDB -> `guitariz-cache` -> `analyses` -> delete keys.
+- Use browser DevTools -> Application -> IndexedDB -> `Soluna-cache` -> `analyses` -> delete keys.
 - Programmatically call `deleteCachedAnalysis(key)`.
 

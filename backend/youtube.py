@@ -217,7 +217,7 @@ def extract_audio(url: str, output_dir: Optional[Path] = None) -> Dict[str, Any]
     
     # Create output directory
     if output_dir is None:
-        output_dir = Path(tempfile.gettempdir()) / "guitariz_youtube"
+        output_dir = Path(tempfile.gettempdir()) / "Soluna_youtube"
     output_dir.mkdir(parents=True, exist_ok=True)
     
     # Generate unique filename based on video ID

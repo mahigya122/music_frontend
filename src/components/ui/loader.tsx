@@ -1,19 +1,19 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface GuitarizLoaderProps {
+interface SolunaLoaderProps {
     size?: "sm" | "md" | "lg" | "xl";
     className?: string;
     text?: string;
     fullScreen?: boolean;
 }
 
-const GuitarizLoader = ({
+const SolunaLoader = ({
     size = "lg",
     className,
     text,
     fullScreen = false
-}: GuitarizLoaderProps) => {
+}: SolunaLoaderProps) => {
 
     const sizeClasses = {
         sm: "w-6 h-6",
@@ -81,4 +81,4 @@ const GuitarizLoader = ({
     return content;
 };
 
-export default GuitarizLoader;
+export default SolunaLoader;

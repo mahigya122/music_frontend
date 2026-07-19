@@ -47,11 +47,11 @@ const PROMPT_GENRES = [
 
 export default function GenerationPage() {
   usePageMetadata({
-    title: "AI Prompt Composer | Guitariz - Generating Your Audio",
+    title: "AI Prompt Composer | Soluna - Generating Your Audio",
     description: "Watch your text prompt get transformed into structured midi arrangements and pristine MP3 audio.",
     keywords: "ai generation, prompt music, text to midi, render prompt to mp3, virtual orchestra, free midi tools",
-    canonicalUrl: "https://guitariz.studio/generation",
-    ogImage: "https://guitariz.studio/logo2.png",
+    canonicalUrl: "https://Soluna.studio/generation",
+    ogImage: "https://Soluna.studio/logo2.png",
     ogType: "website"
   });
 
@@ -80,7 +80,7 @@ export default function GenerationPage() {
   const progressIntervalRef = useRef<number | null>(null);
 
   const generationSteps = [
-    "Contacting Guitariz AI Generation cluster...",
+    "Contacting Soluna AI Generation cluster...",
     "Tokenizing semantic input prompt...",
     "Generating core chord progressions & tempo mapping...",
     "Orchestrating instrument tracks based on prompt layout...",
@@ -203,8 +203,8 @@ export default function GenerationPage() {
         <div className="max-w-5xl mx-auto">
           {/* Breadcrumb */}
           <Breadcrumb items={[
-            { name: "Home", url: "https://guitariz.studio/" },
-            { name: "AI Generation", url: "https://guitariz.studio/generation" }
+            { name: "Home", url: "https://Soluna.studio/" },
+            { name: "AI Generation", url: "https://Soluna.studio/generation" }
           ]} />
 
           {/* Header */}

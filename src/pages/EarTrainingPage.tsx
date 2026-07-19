@@ -53,20 +53,20 @@ const EarTrainingPage = () => {
     const [activeGame, setActiveGame] = useState<GameMode>(null);
 
     usePageMetadata({
-        title: "Interactive Ear Training Arcade - Relative & Perfect Pitch | Guitariz",
+        title: "Interactive Ear Training Arcade - Relative & Perfect Pitch | Soluna",
         description: "Elevate your musicality with our interactive ear training games. Master intervals, chord recognition, and perfect pitch through gamified challenges.",
         keywords: "ear training, musical intervals, pitch recognition, perfect pitch, relative pitch, music theory games, guitar ear training",
-        canonicalUrl: "https://guitariz.studio/ear-training",
-        ogImage: "https://guitariz.studio/logo.png",
+        canonicalUrl: "https://Soluna.studio/ear-training",
+        ogImage: "https://Soluna.studio/logo.png",
         ogType: "website",
         jsonLd: {
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
-            "name": "Guitariz Ear Training Arcade",
+            "name": "Soluna Ear Training Arcade",
             "applicationCategory": "EducationalApplication",
             "operatingSystem": "Web",
             "description": "Gamified ear training for musicians of all levels.",
-            "url": "https://guitariz.studio/ear-training"
+            "url": "https://Soluna.studio/ear-training"
         }
     });
 
@@ -79,8 +79,8 @@ const EarTrainingPage = () => {
             <main className="container mx-auto px-4 md:px-6 pt-8 md:pt-12 pb-16 relative z-10">
                 {activeGame === null && (
                     <Breadcrumb items={[
-                        { name: "Home", url: "https://guitariz.studio/" },
-                        { name: "Ear Training", url: "https://guitariz.studio/ear-training" }
+                        { name: "Home", url: "https://Soluna.studio/" },
+                        { name: "Ear Training", url: "https://Soluna.studio/ear-training" }
                     ]} />
                 )}
 

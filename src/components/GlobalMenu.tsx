@@ -211,10 +211,10 @@ export const GlobalMenu = () => {
                         <motion.div variants={itemVariants} className="max-w-6xl mx-auto w-full flex items-center justify-between z-10">
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-white/10 to-white/[0.03] border border-white/[0.08] flex items-center justify-center overflow-hidden">
-                                    <img src="/logo.png" alt="Guitariz" className="w-7 h-7 rounded-md" />
+                                    <img src="/logo.png" alt="Soluna" className="w-7 h-7 rounded-md" />
                                 </div>
                                 <div>
-                                    <span className="text-base font-semibold text-zinc-100 tracking-tight">Guitariz</span>
+                                    <span className="text-base font-semibold text-zinc-100 tracking-tight">Soluna</span>
                                     <span className="text-xs text-rose-500 ml-1.5 font-medium tracking-wider">STUDIO</span>
                                 </div>
                             </div>
@@ -354,7 +354,7 @@ export const GlobalMenu = () => {
                             {/* GitHub Info */}
                             <div className="flex items-center gap-4">
                                 <a
-                                    href="https://github.com/Guitariz/Guitariz"
+                                    href="https://github.com/Soluna/Soluna"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-2 text-zinc-500 hover:text-zinc-350 transition-colors"

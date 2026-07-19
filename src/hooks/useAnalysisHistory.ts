@@ -11,7 +11,7 @@ export interface HistoryEntry {
     separateVocals: boolean;
 }
 
-const STORAGE_KEY = "guitariz_analysis_history";
+const STORAGE_KEY = "Soluna_analysis_history";
 const MAX_HISTORY_ITEMS = 10;
 
 export const useAnalysisHistory = () => {

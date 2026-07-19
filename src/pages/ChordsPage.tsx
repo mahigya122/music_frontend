@@ -21,19 +21,19 @@ interface SelectedChord {
 
 const ChordsPage = () => {
   usePageMetadata({
-    title: "Chord Library & Voicings | Guitariz - Free Chord Identifier",
+    title: "Chord Library & Voicings | Soluna - Free Chord Identifier",
     description: "Explore a definitive collection of 1,000+ chord voicings. The best free chord library for guitar and piano with interactive diagrams and interval mapping.",
-    canonicalUrl: "https://guitariz.studio/chords",
-    ogImage: "https://guitariz.studio/logo2.png",
+    canonicalUrl: "https://Soluna.studio/chords",
+    ogImage: "https://Soluna.studio/logo2.png",
     ogType: "website",
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "Guitariz Chord Library",
+      "name": "Soluna Chord Library",
       "applicationCategory": "MusicApplication",
       "operatingSystem": "Web",
       "description": "Definitive collection of 1,000+ chord voicings and intervals with piano previews.",
-      "url": "https://guitariz.studio/chords",
+      "url": "https://Soluna.studio/chords",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
     }
   });
@@ -69,8 +69,8 @@ const ChordsPage = () => {
     <div className="min-h-screen bg-background relative overflow-hidden selection:bg-white/10">
       <main className="container mx-auto px-4 md:px-6 pt-8 md:pt-12 pb-16 relative z-10">
         <Breadcrumb items={[
-          { name: "Home", url: "https://guitariz.studio/" },
-          { name: "Chord Library", url: "https://guitariz.studio/chords" }
+          { name: "Home", url: "https://Soluna.studio/" },
+          { name: "Chord Library", url: "https://Soluna.studio/chords" }
         ]} />
 
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">

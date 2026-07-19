@@ -30,12 +30,12 @@ const BlogListPage = lazy(() => import("./pages/BlogListPage"));
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-import GuitarizLoader from "@/components/ui/loader";
+import SolunaLoader from "@/components/ui/loader";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const RouteFallback = () => (
-  <GuitarizLoader fullScreen text="INITIALIZING" />
+  <SolunaLoader fullScreen text="INITIALIZING" />
 );
 
 const queryClient = new QueryClient();

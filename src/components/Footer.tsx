@@ -4,17 +4,17 @@ const Footer = () => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="relative z-10 border-t border-white/5 bg-[#000000] pt-16 pb-8 text-left px-6">
+        <footer className="relative z-10 border-t border-white/5 bg-[#000000] pt-8 md:pt-16 pb-8 text-left px-6">
             <div className="container mx-auto max-w-6xl relative z-10">
                 <div className="flex flex-col md:flex-row md:justify-between items-start gap-10 mb-12">
                     {/* About Product */}
                     <div className="space-y-4 max-w-md">
                         <div className="flex items-center gap-3">
-                            <img src="/logo.png" alt="Guitariz Logo" className="w-8 h-8 object-contain" />
-                            <span className="font-bold text-white tracking-tight font-display">Guitariz Studio</span>
+                            <img src="/logo.png" alt="Soluna Logo" className="w-8 h-8 object-contain" />
+                            <span className="font-bold text-white tracking-tight font-display">Soluna Studio</span>
                         </div>
                         <p className="text-xs text-muted-foreground leading-relaxed">
-                            Guitariz Studio is an advanced AI composition suite where neural music networks meet architectural theory. Built for musicians who value absolute harmonic structure and isolation control.
+                            Soluna Studio is an advanced AI composition suite where neural music networks meet architectural theory. Built for musicians who value absolute harmonic structure and isolation control.
                         </p>
                     </div>
 
@@ -31,7 +31,7 @@ const Footer = () => {
 
                 <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
                     <p className="text-xs text-muted-foreground text-center md:text-left">
-                        © {currentYear} Guitariz Studio. MIT License.
+                        © {currentYear} Soluna Studio. MIT License.
                     </p>
                     <div className="flex items-center gap-6 text-xs text-muted-foreground">
                         <Link to="/" className="hover:text-white transition-colors">Privacy Policy</Link>

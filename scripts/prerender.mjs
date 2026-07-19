@@ -8,33 +8,33 @@ const TODAY = '2026-07-15';
 const routes = [
   {
     url: '/',
-    title: 'Guitariz - Chord AI Free, Stem Splitter AI & Music Studio Tools',
+    title: 'Soluna - Chord AI Free, Stem Splitter AI & Music Studio Tools',
     description: 'The ultimate free music studio: Chord AI free, stem splitter ai, vocal remover, interactive fretboard, and more. Professional AI music tools with no subscription.',
-    canonical: 'https://guitariz.studio/',
+    canonical: 'https://Soluna.studio/',
     jsonLd: JSON.stringify({
       '@context': 'https://schema.org',
       '@graph': [
         {
           '@type': 'WebSite',
-          '@id': 'https://guitariz.studio/#website',
-          'url': 'https://guitariz.studio/',
-          'name': 'Guitariz',
+          '@id': 'https://Soluna.studio/#website',
+          'url': 'https://Soluna.studio/',
+          'name': 'Soluna',
           'description': 'Professional music theory and AI analysis tools for musicians.',
           'inLanguage': 'en-US',
           'potentialAction': {
             '@type': 'SearchAction',
             'target': {
               '@type': 'EntryPoint',
-              'urlTemplate': 'https://guitariz.studio/search?q={search_term_string}'
+              'urlTemplate': 'https://Soluna.studio/search?q={search_term_string}'
             },
             'query-input': 'required name=search_term_string'
           }
         },
         {
           '@type': 'SoftwareApplication',
-          '@id': 'https://guitariz.studio/#app',
-          'name': 'Guitariz Studio',
-          'url': 'https://guitariz.studio/',
+          '@id': 'https://Soluna.studio/#app',
+          'name': 'Soluna Studio',
+          'url': 'https://Soluna.studio/',
           'description': 'Professional music theory and AI analysis tools for musicians.',
           'applicationCategory': 'MusicApplication',
           'operatingSystem': 'Web',
@@ -49,13 +49,13 @@ const routes = [
         },
         {
           '@type': 'Organization',
-          '@id': 'https://guitariz.studio/#org',
-          'name': 'Guitariz Studio',
-          'url': 'https://guitariz.studio/',
-          'logo': 'https://guitariz.studio/logo2.png',
+          '@id': 'https://Soluna.studio/#org',
+          'name': 'Soluna Studio',
+          'url': 'https://Soluna.studio/',
+          'logo': 'https://Soluna.studio/logo2.png',
           'sameAs': [
-            'https://x.com/GuitarizStudio',
-            'https://github.com/Guitariz/Guitariz'
+            'https://x.com/SolunaStudio',
+            'https://github.com/Soluna/Soluna'
           ]
         }
       ]
@@ -63,17 +63,17 @@ const routes = [
   },
   {
     url: '/chord-ai',
-    title: 'Chord AI Free - Audio to Chord Recognition AI | Guitariz',
+    title: 'Chord AI Free - Audio to Chord Recognition AI | Soluna',
     description: 'Extract chords, tempo, and scales from any song for free with Chord AI. Advanced AI chord recognition and harmonic transcription with no subscription.',
-    canonical: 'https://guitariz.studio/chord-ai',
+    canonical: 'https://Soluna.studio/chord-ai',
     jsonLd: JSON.stringify({
       '@context': 'https://schema.org',
       '@graph': [
         {
           '@type': 'SoftwareApplication',
-          '@id': 'https://guitariz.studio/chord-ai#app',
-          'name': 'Chord AI - Guitariz',
-          'url': 'https://guitariz.studio/chord-ai',
+          '@id': 'https://Soluna.studio/chord-ai#app',
+          'name': 'Chord AI - Soluna',
+          'url': 'https://Soluna.studio/chord-ai',
           'description': 'Advanced Chord AI: Extract chords, tempo, and scales from audio using neural networks.',
           'applicationCategory': 'MusicApplication',
           'operatingSystem': 'Web',
@@ -88,7 +88,7 @@ const routes = [
         },
         {
           '@type': 'HowTo',
-          'name': 'How to extract chords from any song using Guitariz Chord AI',
+          'name': 'How to extract chords from any song using Soluna Chord AI',
           'step': [
             { '@type': 'HowToStep', 'position': 1, 'text': 'Upload your audio file (MP3, WAV, FLAC) to the Chord AI engine.' },
             { '@type': 'HowToStep', 'position': 2, 'text': 'Enable Vocal Filter if the song has prominent vocals for better accuracy.' },
@@ -101,20 +101,20 @@ const routes = [
   },
   {
     url: '/vocal-splitter',
-    title: 'AI Vocal Splitter & Stem Splitter AI - Free Vocal Remover | Guitariz',
+    title: 'AI Vocal Splitter & Stem Splitter AI - Free Vocal Remover | Soluna',
     description: 'Separate vocals and instrumentals from any song using Stem Splitter AI. High-quality vocal remover and stem extraction for karaoke and practice.',
-    canonical: 'https://guitariz.studio/vocal-splitter',
+    canonical: 'https://Soluna.studio/vocal-splitter',
     jsonLd: JSON.stringify({
       '@context': 'https://schema.org',
       '@graph': [
         {
           '@type': 'SoftwareApplication',
-          '@id': 'https://guitariz.studio/vocal-splitter#app',
-          'name': 'Guitariz Vocal Splitter',
+          '@id': 'https://Soluna.studio/vocal-splitter#app',
+          'name': 'Soluna Vocal Splitter',
           'applicationCategory': 'MultimediaApplication',
           'operatingSystem': 'Web',
           'description': 'High-quality AI stem extraction for karaoke and remixing.',
-          'url': 'https://guitariz.studio/vocal-splitter',
+          'url': 'https://Soluna.studio/vocal-splitter',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
           'aggregateRating': {
             '@type': 'AggregateRating',
@@ -126,7 +126,7 @@ const routes = [
         },
         {
           '@type': 'HowTo',
-          'name': 'How to separate vocals using Guitariz Vocal Splitter',
+          'name': 'How to separate vocals using Soluna Vocal Splitter',
           'step': [
             { '@type': 'HowToStep', 'position': 1, 'text': 'Upload your audio file.' },
             { '@type': 'HowToStep', 'position': 2, 'text': 'Click Separate Vocals.' },
@@ -139,20 +139,20 @@ const routes = [
   },
   {
     url: '/stem-separator',
-    title: 'Stem Splitter AI - Extract Vocals, Drums, Bass, Guitar, Piano | Guitariz',
+    title: 'Stem Splitter AI - Extract Vocals, Drums, Bass, Guitar, Piano | Soluna',
     description: 'Separate any song into 6 stems with Stem Splitter AI: vocals, drums, bass, guitar, piano, and other. High-quality AI stem extraction for music production.',
-    canonical: 'https://guitariz.studio/stem-separator',
+    canonical: 'https://Soluna.studio/stem-separator',
     jsonLd: JSON.stringify({
       '@context': 'https://schema.org',
       '@graph': [
         {
           '@type': 'SoftwareApplication',
-          '@id': 'https://guitariz.studio/stem-separator#app',
-          'name': 'Guitariz Stem Separator',
+          '@id': 'https://Soluna.studio/stem-separator#app',
+          'name': 'Soluna Stem Separator',
           'applicationCategory': 'MultimediaApplication',
           'operatingSystem': 'Web',
           'description': 'Separate songs into 6 stems: vocals, drums, bass, guitar, piano, and other.',
-          'url': 'https://guitariz.studio/stem-separator',
+          'url': 'https://Soluna.studio/stem-separator',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
           'aggregateRating': {
             '@type': 'AggregateRating',
@@ -164,7 +164,7 @@ const routes = [
         },
         {
           '@type': 'HowTo',
-          'name': 'How to separate a song into 6 stems using Guitariz Stem Separator',
+          'name': 'How to separate a song into 6 stems using Soluna Stem Separator',
           'step': [
             { '@type': 'HowToStep', 'position': 1, 'text': 'Upload your audio file (MP3, WAV, FLAC, M4A) to the Stem Separator.' },
             { '@type': 'HowToStep', 'position': 2, 'text': 'Click "Separate Into 6 Stems" to start AI-powered separation.' },
@@ -178,20 +178,20 @@ const routes = [
   },
   {
     url: '/fretboard',
-    title: 'Interactive Guitar Fretboard & Scale Explorer | Guitariz',
+    title: 'Interactive Guitar Fretboard & Scale Explorer | Soluna',
     description: 'Master guitar theory with our interactive fretboard. Visualize scales, chords, and notes across the neck. Perfect for guitarists of all levels.',
-    canonical: 'https://guitariz.studio/fretboard',
+    canonical: 'https://Soluna.studio/fretboard',
     jsonLd: JSON.stringify({
       '@context': 'https://schema.org',
       '@graph': [
         {
           '@type': 'SoftwareApplication',
-          '@id': 'https://guitariz.studio/fretboard#app',
-          'name': 'Guitariz Virtual Fretboard',
+          '@id': 'https://Soluna.studio/fretboard#app',
+          'name': 'Soluna Virtual Fretboard',
           'applicationCategory': 'MusicApplication',
           'operatingSystem': 'Web',
           'description': 'Interactive instrument sandbox for guitar and piano.',
-          'url': 'https://guitariz.studio/fretboard',
+          'url': 'https://Soluna.studio/fretboard',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
           'aggregateRating': {
             '@type': 'AggregateRating',
@@ -203,7 +203,7 @@ const routes = [
         },
         {
           '@type': 'HowTo',
-          'name': 'How to visualize scales and chords on the Guitariz Fretboard',
+          'name': 'How to visualize scales and chords on the Soluna Fretboard',
           'step': [
             { '@type': 'HowToStep', 'position': 1, 'text': 'Open the Interactive Fretboard tool.' },
             { '@type': 'HowToStep', 'position': 2, 'text': 'Select a root note and scale or chord from the controls.' },
@@ -216,20 +216,20 @@ const routes = [
   },
   {
     url: '/chords',
-    title: 'Guitar Chord Library - 1000+ Diagrams & Voicings | Guitariz',
+    title: 'Guitar Chord Library - 1000+ Diagrams & Voicings | Soluna',
     description: 'Explore a comprehensive guitar chord library. Detailed diagrams, finger positions, and interactive voicings for every chord and every level.',
-    canonical: 'https://guitariz.studio/chords',
+    canonical: 'https://Soluna.studio/chords',
     jsonLd: JSON.stringify({
       '@context': 'https://schema.org',
       '@graph': [
         {
           '@type': 'SoftwareApplication',
-          '@id': 'https://guitariz.studio/chords#app',
-          'name': 'Guitariz Chord Library',
+          '@id': 'https://Soluna.studio/chords#app',
+          'name': 'Soluna Chord Library',
           'applicationCategory': 'MusicApplication',
           'operatingSystem': 'Web',
           'description': 'Comprehensive guitar chord library with interactive diagrams.',
-          'url': 'https://guitariz.studio/chords',
+          'url': 'https://Soluna.studio/chords',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
           'aggregateRating': {
             '@type': 'AggregateRating',
@@ -241,7 +241,7 @@ const routes = [
         },
         {
           '@type': 'HowTo',
-          'name': 'How to find and learn guitar chords using the Guitariz Chord Library',
+          'name': 'How to find and learn guitar chords using the Soluna Chord Library',
           'step': [
             { '@type': 'HowToStep', 'position': 1, 'text': 'Browse or search for a chord by root note (e.g. C, G, Am).' },
             { '@type': 'HowToStep', 'position': 2, 'text': 'Select a chord type (major, minor, 7th, sus4, etc.).' },
@@ -254,18 +254,18 @@ const routes = [
   },
   {
     url: '/scales',
-    title: 'Guitar Scale Explorer - Interactive Scale Patterns & Modes | Guitariz',
+    title: 'Guitar Scale Explorer - Interactive Scale Patterns & Modes | Soluna',
     description: 'Explore guitar scales and modes visually. Interactive patterns for major, minor, pentatonic, and exotic scales.',
-    canonical: 'https://guitariz.studio/scales',
+    canonical: 'https://Soluna.studio/scales',
     jsonLd: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
-      '@id': 'https://guitariz.studio/scales#app',
-      'name': 'Guitariz Scale Explorer',
+      '@id': 'https://Soluna.studio/scales#app',
+      'name': 'Soluna Scale Explorer',
       'applicationCategory': 'MusicApplication',
       'operatingSystem': 'Web',
       'description': 'Interactive guitar scale explorer for learning scale patterns.',
-      'url': 'https://guitariz.studio/scales',
+      'url': 'https://Soluna.studio/scales',
       'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
       'aggregateRating': {
         '@type': 'AggregateRating',
@@ -278,18 +278,18 @@ const routes = [
   },
   {
     url: '/theory',
-    title: 'Interactive Circle of Fifths - Music Theory Lab | Guitariz',
+    title: 'Interactive Circle of Fifths - Music Theory Lab | Soluna',
     description: 'Master functional harmony with our interactive Circle of Fifths. Visualize key relationships, modulations, and chord families.',
-    canonical: 'https://guitariz.studio/theory',
+    canonical: 'https://Soluna.studio/theory',
     jsonLd: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
-      '@id': 'https://guitariz.studio/theory#app',
-      'name': 'Guitariz Theory Lab',
+      '@id': 'https://Soluna.studio/theory#app',
+      'name': 'Soluna Theory Lab',
       'applicationCategory': 'MusicApplication',
       'operatingSystem': 'Web',
       'description': 'Interactive music theory tools featuring the Circle of Fifths.',
-      'url': 'https://guitariz.studio/theory',
+      'url': 'https://Soluna.studio/theory',
       'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
       'aggregateRating': {
         '@type': 'AggregateRating',
@@ -302,20 +302,20 @@ const routes = [
   },
   {
     url: '/jam',
-    title: 'Jam Studio - Loop Chord Progressions with AI Piano & Pads | Guitariz',
+    title: 'Jam Studio - Loop Chord Progressions with AI Piano & Pads | Soluna',
     description: 'Create and loop chord progressions with our free Jam Studio. Play along with AI-generated piano, pads, and metronome for the ultimate practice session.',
-    canonical: 'https://guitariz.studio/jam',
+    canonical: 'https://Soluna.studio/jam',
     jsonLd: JSON.stringify({
       '@context': 'https://schema.org',
       '@graph': [
         {
           '@type': 'SoftwareApplication',
-          '@id': 'https://guitariz.studio/jam#app',
-          'name': 'Guitariz Jam Studio',
+          '@id': 'https://Soluna.studio/jam#app',
+          'name': 'Soluna Jam Studio',
           'applicationCategory': 'MusicApplication',
           'operatingSystem': 'Web',
           'description': 'Loop chord progressions with piano and pad backing for practice and composition.',
-          'url': 'https://guitariz.studio/jam',
+          'url': 'https://Soluna.studio/jam',
           'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
           'aggregateRating': {
             '@type': 'AggregateRating',
@@ -327,7 +327,7 @@ const routes = [
         },
         {
           '@type': 'HowTo',
-          'name': 'How to jam with chord progressions using Guitariz Jam Studio',
+          'name': 'How to jam with chord progressions using Soluna Jam Studio',
           'step': [
             { '@type': 'HowToStep', 'position': 1, 'text': 'Select a key, scale, and tempo for your jam session.' },
             { '@type': 'HowToStep', 'position': 2, 'text': 'Build a chord progression by clicking chords from the palette.' },
@@ -340,52 +340,52 @@ const routes = [
   },
   {
     url: '/metronome',
-    title: 'Online Metronome & High-Precision Timing | Guitariz',
+    title: 'Online Metronome & High-Precision Timing | Soluna',
     description: 'Free online metronome for precise timing. Adjustable tempo, time signatures, and visual pulse for musicians.',
-    canonical: 'https://guitariz.studio/metronome',
+    canonical: 'https://Soluna.studio/metronome',
     jsonLd: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
-      '@id': 'https://guitariz.studio/metronome#app',
-      'name': 'Guitariz Online Metronome',
+      '@id': 'https://Soluna.studio/metronome#app',
+      'name': 'Soluna Online Metronome',
       'applicationCategory': 'MusicApplication',
       'operatingSystem': 'Web',
       'description': 'Free online metronome with adjustable tempo and time signatures.',
-      'url': 'https://guitariz.studio/metronome',
+      'url': 'https://Soluna.studio/metronome',
       'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' }
     })
   },
   {
     url: '/tuner',
-    title: 'Online Guitar Tuner - Chromatic Tuning Precision | Guitariz',
+    title: 'Online Guitar Tuner - Chromatic Tuning Precision | Soluna',
     description: 'Free online chromatic tuner for guitar, bass, and other instruments. High-precision pitch detection.',
-    canonical: 'https://guitariz.studio/tuner',
+    canonical: 'https://Soluna.studio/tuner',
     jsonLd: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
-      '@id': 'https://guitariz.studio/tuner#app',
-      'name': 'Guitariz Online Tuner',
+      '@id': 'https://Soluna.studio/tuner#app',
+      'name': 'Soluna Online Tuner',
       'applicationCategory': 'MusicApplication',
       'operatingSystem': 'Web',
       'description': 'Professional online chromatic tuner with high-precision detection.',
-      'url': 'https://guitariz.studio/tuner',
+      'url': 'https://Soluna.studio/tuner',
       'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' }
     })
   },
   {
     url: '/ear-training',
-    title: 'Ear Training - Level Up Your Musical Hearing | Guitariz',
+    title: 'Ear Training - Level Up Your Musical Hearing | Soluna',
     description: 'Gamified ear training for intervals, chords, and pitch recognition. Improve your musicality with our interactive tools.',
-    canonical: 'https://guitariz.studio/ear-training',
+    canonical: 'https://Soluna.studio/ear-training',
     jsonLd: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
-      '@id': 'https://guitariz.studio/ear-training#app',
-      'name': 'Guitariz Ear Training',
+      '@id': 'https://Soluna.studio/ear-training#app',
+      'name': 'Soluna Ear Training',
       'applicationCategory': 'MusicApplication',
       'operatingSystem': 'Web',
       'description': 'Interactive ear training tools for musicians.',
-      'url': 'https://guitariz.studio/ear-training',
+      'url': 'https://Soluna.studio/ear-training',
       'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' }
     })
   }
@@ -405,7 +405,7 @@ if (fs.existsSync(blogDir)) {
       const rawContent = fs.readFileSync(path.join(blogDir, file), 'utf8');
       const { data, content } = matter(rawContent);
       const htmlContent = marked(content);
-      
+
       const post = {
         slug,
         title: data.title,
@@ -418,7 +418,7 @@ if (fs.existsSync(blogDir)) {
         readTime: data.readTime || '3 min read',
         html: htmlContent
       };
-      
+
       blogPosts.push(post);
     }
   }
@@ -441,14 +441,14 @@ fs.writeFileSync(path.join(distDir, 'blog-posts.json'), JSON.stringify(blogPosts
 // Push Blog list page to routes
 routes.push({
   url: '/blog',
-  title: 'Blog - Guitariz Studio | Music Theory & AI Production Articles',
+  title: 'Blog - Soluna Studio | Music Theory & AI Production Articles',
   description: 'Learn guitar chord transcription by ear, music theory tips, circle of fifths tutorials, and AI stem separation guides.',
-  canonical: 'https://guitariz.studio/blog',
+  canonical: 'https://Soluna.studio/blog',
   jsonLd: JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Blog',
-    'name': 'Guitariz Blog',
-    'url': 'https://guitariz.studio/blog',
+    'name': 'Soluna Blog',
+    'url': 'https://Soluna.studio/blog',
     'description': 'Music theory, ear training, and AI production articles for musicians.'
   })
 });
@@ -457,16 +457,16 @@ routes.push({
 for (const post of blogPosts) {
   routes.push({
     url: `/blog/${post.slug}`,
-    title: `${post.title} | Guitariz Blog`,
+    title: `${post.title} | Soluna Blog`,
     description: post.description,
-    canonical: `https://guitariz.studio/blog/${post.slug}`,
+    canonical: `https://Soluna.studio/blog/${post.slug}`,
     htmlContent: post.html,
     jsonLd: JSON.stringify({
       '@context': 'https://schema.org',
       '@graph': [
         {
           '@type': 'BlogPosting',
-          '@id': `https://guitariz.studio/blog/${post.slug}#post`,
+          '@id': `https://Soluna.studio/blog/${post.slug}#post`,
           'headline': post.title,
           'description': post.description,
           'datePublished': post.date,
@@ -478,11 +478,11 @@ for (const post of blogPosts) {
           'image': post.coverImage,
           'publisher': {
             '@type': 'Organization',
-            '@id': 'https://guitariz.studio/#org',
-            'name': 'Guitariz Studio',
-            'logo': 'https://guitariz.studio/logo2.png'
+            '@id': 'https://Soluna.studio/#org',
+            'name': 'Soluna Studio',
+            'logo': 'https://Soluna.studio/logo2.png'
           },
-          'mainEntityOfPage': `https://guitariz.studio/blog/${post.slug}`
+          'mainEntityOfPage': `https://Soluna.studio/blog/${post.slug}`
         }
       ]
     })
@@ -495,7 +495,7 @@ for (const r of routes) {
   const isMain = r.url === '/';
   const priority = isMain ? '1.0' : (r.url.startsWith('/blog/') ? '0.6' : (r.url === '/blog' ? '0.8' : '0.8'));
   const freq = isMain ? 'weekly' : (r.url.startsWith('/blog/') ? 'monthly' : 'weekly');
-  sitemapXml += `  <url>\n    <loc>https://guitariz.studio${r.url === '/' ? '/' : r.url}</loc>\n    <lastmod>${TODAY}</lastmod>\n    <changefreq>${freq}</changefreq>\n    <priority>${priority}</priority>\n  </url>\n`;
+  sitemapXml += `  <url>\n    <loc>https://Soluna.studio${r.url === '/' ? '/' : r.url}</loc>\n    <lastmod>${TODAY}</lastmod>\n    <changefreq>${freq}</changefreq>\n    <priority>${priority}</priority>\n  </url>\n`;
 }
 sitemapXml += `</urlset>\n`;
 fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapXml);
@@ -516,7 +516,7 @@ for (const r of routes) {
   const outIndex = r.url === '/' ? path.join(distDir, 'index.html') : path.join(outDir, 'index.html');
 
   let html = baseHtml;
-  
+
   if (r.htmlContent) {
     html = html.replace('<div id="root"></div>', `<div id="root"><article class="hidden" style="display:none;">${r.htmlContent}</article></div>`);
   }
@@ -556,16 +556,16 @@ for (const r of routes) {
 
   // Ensure og:image uses logo2.png
   if (/property="og:image"/i.test(html)) {
-    html = html.replace(/<meta property="og:image"[\s\S]*?>/i, `<meta property="og:image" content="https://guitariz.studio/logo2.png" />`);
+    html = html.replace(/<meta property="og:image"[\s\S]*?>/i, `<meta property="og:image" content="https://Soluna.studio/logo2.png" />`);
   } else {
-    html = html.replace('</head>', `  <meta property="og:image" content="https://guitariz.studio/logo2.png" />\n</head>`);
+    html = html.replace('</head>', `  <meta property="og:image" content="https://Soluna.studio/logo2.png" />\n</head>`);
   }
 
   // Ensure twitter image
   if (/name="twitter:image"/i.test(html)) {
-    html = html.replace(/<meta name="twitter:image"[\s\S]*?>/i, `<meta name="twitter:image" content="https://guitariz.studio/logo2.png" />`);
+    html = html.replace(/<meta name="twitter:image"[\s\S]*?>/i, `<meta name="twitter:image" content="https://Soluna.studio/logo2.png" />`);
   } else {
-    html = html.replace('</head>', `  <meta name="twitter:image" content="https://guitariz.studio/logo2.png" />\n</head>`);
+    html = html.replace('</head>', `  <meta name="twitter:image" content="https://Soluna.studio/logo2.png" />\n</head>`);
   }
 
   // Insert page-specific JSON-LD before </head>

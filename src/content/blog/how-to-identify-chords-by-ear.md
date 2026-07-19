@@ -34,7 +34,7 @@ The secret weapon of transcribing chords is the **bass player**. In 90% of popul
 
 If you can hear the bassline, you can figure out the chord progression:
 * Use high-quality headphones.
-* If you are struggling to hear the bass, try using our [Stem Separator AI](https://guitariz.studio/stem-separator) or [Vocal Splitter](https://guitariz.studio/vocal-splitter) to isolate the bass track entirely.
+* If you are struggling to hear the bass, try using our [Stem Separator AI](https://Soluna.studio/stem-separator) or [Vocal Splitter](https://Soluna.studio/vocal-splitter) to isolate the bass track entirely.
 * Match the bass notes to the notes on your guitar neck. If the bass plays **C** -> **G** -> **A** -> **F**, those are the root notes of your chords!
 
 ---
@@ -50,7 +50,7 @@ Play the major version of the chord. If it sounds correct, you're good. If it so
 * **A Major** vs. **A Minor**
 * **F Major** vs. **F Minor**
 
-*Tip: If you're stuck, you can also run the song through our [Chord AI Free Engine](https://guitariz.studio/chord-ai) to get a visual map of the exact chord voicings in real-time.*
+*Tip: If you're stuck, you can also run the song through our [Chord AI Free Engine](https://Soluna.studio/chord-ai) to get a visual map of the exact chord voicings in real-time.*
 
 ---
 
@@ -85,6 +85,6 @@ Next time you try to learn a song, turn off the internet tab search and follow t
 1. **Hum the root note** to find the key.
 2. **Listen to the low frequencies** for the bass progression.
 3. **Analyze the mood** (Major or Minor?).
-4. **Use theory** (like the [Circle of Fifths](https://guitariz.studio/theory)) to predict what chords should come next.
+4. **Use theory** (like the [Circle of Fifths](https://Soluna.studio/theory)) to predict what chords should come next.
 
 Like any physical muscle, ear training takes consistency. Start with simple 3-chord pop and folk songs, and gradually work your way up to complex jazz or rock progressions!

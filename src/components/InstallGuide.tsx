@@ -86,13 +86,13 @@ const getInstructions = (browser: BrowserType, platform: PlatformType): Instruct
             return [
                 { icon: <MoreVertical className="w-4 h-4" />, text: "Click the three-dot menu (⋮) in the top right" },
                 { icon: <span className="text-xs">Cast, save...</span>, text: "Go to 'Cast, save, and share' submenu" },
-                { icon: <PlusSquare className="w-4 h-4" />, text: "Click 'Install Guitariz Studio'" },
+                { icon: <PlusSquare className="w-4 h-4" />, text: "Click 'Install Soluna Studio'" },
             ];
         case "brave":
             return [
                 { icon: <MoreVertical className="w-4 h-4" />, text: "Click the hamburger menu (☰) or three-dot menu" },
                 { icon: <span className="text-xs">More tools</span>, text: "Go to 'More tools'" },
-                { icon: <PlusSquare className="w-4 h-4" />, text: "Click 'Install Guitariz Studio' or look for install icon in address bar" },
+                { icon: <PlusSquare className="w-4 h-4" />, text: "Click 'Install Soluna Studio' or look for install icon in address bar" },
             ];
         case "firefox":
             return [
@@ -177,7 +177,7 @@ export const InstallGuide = ({ isOpen, onClose }: InstallGuideProps) => {
                                         )}
                                     </div>
                                     <div>
-                                        <h3 className="text-lg font-bold text-white">Install Guitariz</h3>
+                                        <h3 className="text-lg font-bold text-white">Install Soluna</h3>
                                         <div className="flex items-center gap-1.5 text-sm text-white/60">
                                             <BrowserIcon browser={browser} />
                                             <span>{browserNames[browser]}</span>

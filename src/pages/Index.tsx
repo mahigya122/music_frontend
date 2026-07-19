@@ -354,29 +354,29 @@ const Index = () => {
   };
 
   usePageMetadata({
-    title: "Guitariz - Chord AI Free, Stem Splitter AI & Music Studio Tools",
+    title: "Soluna - Chord AI Free, Stem Splitter AI & Music Studio Tools",
     description: "The ultimate free music studio: Chord AI free, stem splitter ai, vocal remover, interactive fretboard, and more. Professional AI music tools with no subscription.",
     keywords: "chord ai, chord ai free, stem splitter ai, vocal splitter, vocal remover, music theory, guitar chords, fretboard, scale explorer, music studio, free music tools",
-    canonicalUrl: "https://guitariz.studio",
-    ogUrl: "https://guitariz.studio",
-    ogImage: "https://guitariz.studio/logo.png",
+    canonicalUrl: "https://Soluna.studio",
+    ogUrl: "https://Soluna.studio",
+    ogImage: "https://Soluna.studio/logo.png",
     ogType: "website",
     jsonLd: {
       "@context": "https://schema.org",
       "@graph": [
         {
           "@type": "WebApplication",
-          "name": "Guitariz Studio",
+          "name": "Soluna Studio",
           "description": "Professional music theory and AI analysis tools for musicians.",
           "applicationCategory": "MusicApplication",
           "operatingSystem": "Any",
-          "url": "https://guitariz.studio",
-          "screenshot": "https://guitariz.studio/screenshot.png",
+          "url": "https://Soluna.studio",
+          "screenshot": "https://Soluna.studio/screenshot.png",
           "browserRequirements": "Requires JavaScript. Requires HTML5.",
           "softwareVersion": "1.7.0",
           "author": {
             "@type": "Organization",
-            "name": "Guitariz Studio"
+            "name": "Soluna Studio"
           },
           "offers": {
             "@type": "Offer",
@@ -387,7 +387,7 @@ const Index = () => {
             "@type": "SearchAction",
             "target": {
               "@type": "EntryPoint",
-              "urlTemplate": "https://guitariz.studio/search?q={search_term_string}"
+              "urlTemplate": "https://Soluna.studio/search?q={search_term_string}"
             },
             "query-input": "required name=search_term_string"
           },
@@ -399,27 +399,27 @@ const Index = () => {
         },
         {
           "@type": "WebSite",
-          "@id": "https://guitariz.studio/#website",
-          "url": "https://guitariz.studio",
-          "name": "Guitariz",
+          "@id": "https://Soluna.studio/#website",
+          "url": "https://Soluna.studio",
+          "name": "Soluna",
           "description": "Free Interactive AI Music Studio Tools",
           "potentialAction": {
             "@type": "SearchAction",
             "target": {
               "@type": "EntryPoint",
-              "urlTemplate": "https://guitariz.studio/search?q={search_term_string}"
+              "urlTemplate": "https://Soluna.studio/search?q={search_term_string}"
             },
             "query-input": "required name=search_term_string"
           }
         },
         {
           "@type": "Organization",
-          "name": "Guitariz Studio",
-          "url": "https://guitariz.studio",
-          "logo": "https://guitariz.studio/logo.png",
+          "name": "Soluna Studio",
+          "url": "https://Soluna.studio",
+          "logo": "https://Soluna.studio/logo.png",
           "sameAs": [
-            "https://x.com/GuitarizStudio",
-            "https://github.com/Guitariz/Guitariz"
+            "https://x.com/SolunaStudio",
+            "https://github.com/Soluna/Soluna"
           ]
         }
       ]
@@ -435,7 +435,7 @@ const Index = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)] light:bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.05)_100%)]" />
       </div>
 
-      <main className="pb-16 relative z-10">
+      <main className="relative z-10">
         <HeroSection />
 
         {/* AI-Generated Music Samples Section */}
@@ -682,7 +682,7 @@ const Index = () => {
               className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-6 md:mb-14 text-left"
             >
               <h2 className="text-4xl md:text-5xl font-semibold tracking-tight font-display max-w-lg bg-clip-text text-transparent bg-gradient-to-r from-[#e5c060] via-[#ffffff] to-[#e5c060]">
-                Guitariz AI Suite
+                Soluna AI Suite
               </h2>
               <p className="text-white/90 max-w-sm md:text-right font-light leading-relaxed">
                 Calibrated specifically for precise harmonic analysis and pristine stem isolation. Isolate tracks, extract pristine vocals, and transcribe complex chord structures instantly.

@@ -65,10 +65,10 @@
       "has": [
         {
           "type": "host",
-          "value": "guitariz.vercel.app"
+          "value": "Soluna.vercel.app"
         }
       ],
-      "destination": "https://guitariz.studio/$1",
+      "destination": "https://Soluna.studio/$1",
       "permanent": true
     }
   ]

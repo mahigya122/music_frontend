@@ -30,9 +30,9 @@ const BlogPostPage: React.FC = () => {
 
   // Dynamic Page Metadata hooks
   usePageMetadata({
-    title: post ? `${post.title} | Guitariz Blog` : "Loading Article...",
-    description: post ? post.description : "Guitariz music theory and AI guide article.",
-    canonicalUrl: post ? `https://guitariz.studio/blog/${post.slug}` : "https://guitariz.studio/blog",
+    title: post ? `${post.title} | Soluna Blog` : "Loading Article...",
+    description: post ? post.description : "Soluna music theory and AI guide article.",
+    canonicalUrl: post ? `https://Soluna.studio/blog/${post.slug}` : "https://Soluna.studio/blog",
   });
 
   useEffect(() => {
@@ -106,9 +106,9 @@ const BlogPostPage: React.FC = () => {
       <main ref={contentRef} className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
         <Breadcrumb
           items={[
-            { name: "Home", url: "https://guitariz.studio/" },
-            { name: "Blog", url: "https://guitariz.studio/blog" },
-            { name: post.category, url: "https://guitariz.studio/blog" },
+            { name: "Home", url: "https://Soluna.studio/" },
+            { name: "Blog", url: "https://Soluna.studio/blog" },
+            { name: post.category, url: "https://Soluna.studio/blog" },
           ]}
         />
 
@@ -193,10 +193,10 @@ const BlogPostPage: React.FC = () => {
         <div className="mt-12 bg-zinc-50 dark:bg-zinc-950/40 border border-zinc-200 dark:border-zinc-850 rounded-2xl p-6 sm:p-8 backdrop-blur-sm">
           <div className="flex items-center gap-3 mb-4">
             <BookOpen className="w-5 h-5 text-rose-500" />
-            <h3 className="text-lg font-bold text-zinc-800 dark:text-zinc-200">About Guitariz Studio</h3>
+            <h3 className="text-lg font-bold text-zinc-800 dark:text-zinc-200">About Soluna Studio</h3>
           </div>
           <p className="text-zinc-650 dark:text-zinc-400 text-sm leading-relaxed mb-6">
-            This article is brought to you by Guitariz Studio. We provide professional-grade, free tools for music theory, chord recognition, and audio stem separation. Start practicing smarter today!
+            This article is brought to you by Soluna Studio. We provide professional-grade, free tools for music theory, chord recognition, and audio stem separation. Start practicing smarter today!
           </p>
           <RelatedTools currentPath="/blog" />
         </div>

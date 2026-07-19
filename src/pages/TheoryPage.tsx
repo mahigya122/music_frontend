@@ -8,20 +8,20 @@ import { usePageMetadata } from "@/hooks/usePageMetadata";
 
 const TheoryPage = () => {
   usePageMetadata({
-    title: "Interactive Circle of Fifths - Music Theory Lab | Guitariz",
+    title: "Interactive Circle of Fifths - Music Theory Lab | Soluna",
     description: "Master functional harmony with our interactive Circle of Fifths. Visualize key relationships, modulations, and chord families.",
     keywords: "circle of fifths, music theory, functional harmony, key modulation, chord families, music theory lab",
-    canonicalUrl: "https://guitariz.studio/theory",
-    ogImage: "https://guitariz.studio/logo2.png",
+    canonicalUrl: "https://Soluna.studio/theory",
+    ogImage: "https://Soluna.studio/logo2.png",
     ogType: "website",
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "Guitariz Theory Lab",
+      "name": "Soluna Theory Lab",
       "applicationCategory": "MusicApplication",
       "operatingSystem": "Web",
       "description": "Interactive music theory tools featuring the Circle of Fifths.",
-      "url": "https://guitariz.studio/theory",
+      "url": "https://Soluna.studio/theory",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
       "aggregateRating": {
         "@type": "AggregateRating",
@@ -61,8 +61,8 @@ const TheoryPage = () => {
         </div>
 
         <Breadcrumb items={[
-          { name: "Home", url: "https://guitariz.studio/" },
-          { name: "Theory Lab", url: "https://guitariz.studio/theory" }
+          { name: "Home", url: "https://Soluna.studio/" },
+          { name: "Theory Lab", url: "https://Soluna.studio/theory" }
         ]} />
 
         <div className="glass-card rounded-[2rem] border border-border bg-card/90 shadow-2xl overflow-hidden p-4 md:p-8">

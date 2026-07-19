@@ -7,20 +7,20 @@ import SupportedInstrumentsDropdown from "@/components/SupportedInstrumentsDropd
 
 const ScalesPage = () => {
   usePageMetadata({
-    title: "Guitar Scale Explorer - Interactive Scale Patterns & Modes | Guitariz",
+    title: "Guitar Scale Explorer - Interactive Scale Patterns & Modes | Soluna",
     description: "Explore guitar scales and modes visually. Interactive patterns for major, minor, pentatonic, and exotic scales. Master improvisation and soloing.",
     keywords: "guitar scales, music modes, scale explorer, pentatonic scale, blues scale, major scale, minor scale, modal relationships",
-    canonicalUrl: "https://guitariz.studio/scales",
-    ogImage: "https://guitariz.studio/logo2.png",
+    canonicalUrl: "https://Soluna.studio/scales",
+    ogImage: "https://Soluna.studio/logo2.png",
     ogType: "website",
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "Guitariz Scale Explorer",
+      "name": "Soluna Scale Explorer",
       "applicationCategory": "MusicApplication",
       "operatingSystem": "Web",
       "description": "Mathematical approach to musical scales and modal synthesis.",
-      "url": "https://guitariz.studio/scales",
+      "url": "https://Soluna.studio/scales",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
       "aggregateRating": {
         "@type": "AggregateRating",
@@ -36,8 +36,8 @@ const ScalesPage = () => {
     <div className="min-h-screen bg-background relative overflow-hidden selection:bg-white/10">
       <main className="container mx-auto px-4 md:px-6 pt-2 md:pt-4 pb-12 relative z-10">
         <Breadcrumb items={[
-          { name: "Home", url: "https://guitariz.studio/" },
-          { name: "Scale Explorer", url: "https://guitariz.studio/scales" }
+          { name: "Home", url: "https://Soluna.studio/" },
+          { name: "Scale Explorer", url: "https://Soluna.studio/scales" }
         ]} />
 
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-4">
