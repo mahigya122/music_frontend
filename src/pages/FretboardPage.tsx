@@ -28,20 +28,20 @@ const FretboardPage = () => {
   const [highlightedNotes3D, setHighlightedNotes3D] = useState<FretNote[]>([]);
 
   usePageMetadata({
-    title: "Interactive Guitar Fretboard & Piano | Soluna - Learn Guitar Theory",
+    title: "Interactive Guitar Fretboard & Piano | SoLuna - Learn Guitar Theory",
     description: "Master guitar theory with our interactive fretboard. Visualize scales, chords, and notes across the neck. Perfect for guitarists of all levels.",
     keywords: "guitar fretboard, virtual piano, music theory, chord patterns, scale patterns, instrument simulator, interactive fretboard, 3d fretboard",
-    canonicalUrl: "https://Soluna.studio/fretboard",
-    ogImage: "https://Soluna.studio/logo2.png",
+    canonicalUrl: "https://SoLuna.studio/fretboard",
+    ogImage: "https://SoLuna.studio/logo2.png",
     ogType: "website",
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "Soluna Virtual Fretboard",
+      "name": "SoLuna Virtual Fretboard",
       "applicationCategory": "MusicApplication",
       "operatingSystem": "Web",
       "description": "Interactive instrument sandbox for guitar and piano with real-time feedback.",
-      "url": "https://Soluna.studio/fretboard",
+      "url": "https://SoLuna.studio/fretboard",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
       "aggregateRating": {
         "@type": "AggregateRating",
@@ -101,8 +101,8 @@ const FretboardPage = () => {
     <div className="min-h-screen bg-background relative overflow-hidden selection:bg-white/10">
       <main className="container mx-auto px-4 md:px-6 pt-8 md:pt-12 pb-16 relative z-10">
         <Breadcrumb items={[
-          { name: "Home", url: "https://Soluna.studio/" },
-          { name: "Virtual Fretboard", url: "https://Soluna.studio/fretboard" }
+          { name: "Home", url: "https://SoLuna.studio/" },
+          { name: "Virtual Fretboard", url: "https://SoLuna.studio/fretboard" }
         ]} />
 
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">

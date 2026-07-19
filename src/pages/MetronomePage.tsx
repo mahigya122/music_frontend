@@ -7,19 +7,19 @@ import SupportedInstrumentsDropdown from "@/components/SupportedInstrumentsDropd
 
 const MetronomePage = () => {
   usePageMetadata({
-    title: "Free Precision Metronome | Soluna - Pro Rhythm Tools",
+    title: "Free Precision Metronome | SoLuna - Pro Rhythm Tools",
     description: "Professional grade metronome with sample-accurate playback. Pro rhythm tools for free: poly-meters, tap-tempo, and visual pulse feedback.",
-    canonicalUrl: "https://Soluna.studio/metronome",
-    ogImage: "https://Soluna.studio/logo2.png",
+    canonicalUrl: "https://SoLuna.studio/metronome",
+    ogImage: "https://SoLuna.studio/logo2.png",
     ogType: "website",
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "Soluna Metronome",
+      "name": "SoLuna Metronome",
       "applicationCategory": "MusicApplication",
       "operatingSystem": "Web",
       "description": "Sample-accurate metronome with poly-meter support and visual feedback.",
-      "url": "https://Soluna.studio/metronome",
+      "url": "https://SoLuna.studio/metronome",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
     }
   });
@@ -28,8 +28,8 @@ const MetronomePage = () => {
     <div className="min-h-screen bg-background relative overflow-hidden selection:bg-white/10">
       <main className="container mx-auto px-4 md:px-6 pt-8 md:pt-12 pb-16 relative z-10">
         <Breadcrumb items={[
-          { name: "Home", url: "https://Soluna.studio/" },
-          { name: "Metronome", url: "https://Soluna.studio/metronome" }
+          { name: "Home", url: "https://SoLuna.studio/" },
+          { name: "Metronome", url: "https://SoLuna.studio/metronome" }
         ]} />
 
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">

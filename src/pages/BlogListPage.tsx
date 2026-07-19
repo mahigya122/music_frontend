@@ -19,9 +19,9 @@ interface BlogPost {
 
 const BlogListPage: React.FC = () => {
   usePageMetadata({
-    title: "Blog - Soluna Studio | Music Theory & AI Production Articles",
+    title: "Blog - SoLuna Studio | Music Theory & AI Production Articles",
     description: "Learn guitar chord transcription by ear, music theory tips, circle of fifths tutorials, and AI stem separation guides.",
-    canonicalUrl: "https://Soluna.studio/blog",
+    canonicalUrl: "https://SoLuna.studio/blog",
   });
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -64,8 +64,8 @@ const BlogListPage: React.FC = () => {
       <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
         <Breadcrumb
           items={[
-            { name: "Home", url: "https://Soluna.studio/" },
-            { name: "Blog", url: "https://Soluna.studio/blog" },
+            { name: "Home", url: "https://SoLuna.studio/" },
+            { name: "Blog", url: "https://SoLuna.studio/blog" },
           ]}
         />
 
@@ -73,7 +73,7 @@ const BlogListPage: React.FC = () => {
         <div className="mt-8 mb-16 text-center md:text-left">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-650 dark:text-zinc-400 mb-4 backdrop-blur-sm">
             <BookOpen className="w-3.5 h-3.5 text-rose-500 animate-pulse" />
-            <span>Soluna Studio Guidebook</span>
+            <span>SoLuna Studio Guidebook</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 via-zinc-850 to-zinc-700 dark:from-zinc-100 dark:via-zinc-200 dark:to-zinc-400">
             Music Theory & AI Guides

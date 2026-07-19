@@ -10,11 +10,11 @@ const Footer = () => {
                     {/* About Product */}
                     <div className="space-y-4 max-w-md">
                         <div className="flex items-center gap-3">
-                            <img src="/logo.png" alt="Soluna Logo" className="w-8 h-8 object-contain" />
-                            <span className="font-bold text-white tracking-tight font-display">Soluna Studio</span>
+                            <img src="/logo.png" alt="SoLuna Logo" className="w-8 h-8 object-contain" />
+                            <span className="font-bold text-white tracking-tight font-display">SoLuna Studio</span>
                         </div>
                         <p className="text-xs text-muted-foreground leading-relaxed">
-                            Soluna Studio is an advanced AI composition suite where neural music networks meet architectural theory. Built for musicians who value absolute harmonic structure and isolation control.
+                            SoLuna Studio is an advanced AI composition suite where neural music networks meet architectural theory. Built for musicians who value absolute harmonic structure and isolation control.
                         </p>
                     </div>
 
@@ -31,7 +31,7 @@ const Footer = () => {
 
                 <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
                     <p className="text-xs text-muted-foreground text-center md:text-left">
-                        © {currentYear} Soluna Studio. MIT License.
+                        © {currentYear} SoLuna Studio. MIT License.
                     </p>
                     <div className="flex items-center gap-6 text-xs text-muted-foreground">
                         <Link to="/" className="hover:text-white transition-colors">Privacy Policy</Link>

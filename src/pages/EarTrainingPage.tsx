@@ -53,20 +53,20 @@ const EarTrainingPage = () => {
     const [activeGame, setActiveGame] = useState<GameMode>(null);
 
     usePageMetadata({
-        title: "Interactive Ear Training Arcade - Relative & Perfect Pitch | Soluna",
+        title: "Interactive Ear Training Arcade - Relative & Perfect Pitch | SoLuna",
         description: "Elevate your musicality with our interactive ear training games. Master intervals, chord recognition, and perfect pitch through gamified challenges.",
         keywords: "ear training, musical intervals, pitch recognition, perfect pitch, relative pitch, music theory games, guitar ear training",
-        canonicalUrl: "https://Soluna.studio/ear-training",
-        ogImage: "https://Soluna.studio/logo.png",
+        canonicalUrl: "https://SoLuna.studio/ear-training",
+        ogImage: "https://SoLuna.studio/logo.png",
         ogType: "website",
         jsonLd: {
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
-            "name": "Soluna Ear Training Arcade",
+            "name": "SoLuna Ear Training Arcade",
             "applicationCategory": "EducationalApplication",
             "operatingSystem": "Web",
             "description": "Gamified ear training for musicians of all levels.",
-            "url": "https://Soluna.studio/ear-training"
+            "url": "https://SoLuna.studio/ear-training"
         }
     });
 
@@ -79,8 +79,8 @@ const EarTrainingPage = () => {
             <main className="container mx-auto px-4 md:px-6 pt-8 md:pt-12 pb-16 relative z-10">
                 {activeGame === null && (
                     <Breadcrumb items={[
-                        { name: "Home", url: "https://Soluna.studio/" },
-                        { name: "Ear Training", url: "https://Soluna.studio/ear-training" }
+                        { name: "Home", url: "https://SoLuna.studio/" },
+                        { name: "Ear Training", url: "https://SoLuna.studio/ear-training" }
                     ]} />
                 )}
 

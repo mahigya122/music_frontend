@@ -13,7 +13,7 @@ interface BeforeInstallPromptEvent extends Event {
     userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
-const STORAGE_KEY = "Soluna_install_prompt";
+const STORAGE_KEY = "SoLuna_install_prompt";
 const ENGAGEMENT_THRESHOLD = 3; // Show after 3 page navigations
 const REMIND_LATER_HOURS = 24; // Don't show again for 24 hours after dismiss
 
@@ -85,9 +85,9 @@ export const InstallPrompt = () => {
 
     // Track engagement (page loads/navigation)
     useEffect(() => {
-        const stored = sessionStorage.getItem("Soluna_engagement");
+        const stored = sessionStorage.getItem("SoLuna_engagement");
         const count = stored ? parseInt(stored, 10) + 1 : 1;
-        sessionStorage.setItem("Soluna_engagement", String(count));
+        sessionStorage.setItem("SoLuna_engagement", String(count));
         setEngagementCount(count);
     }, []);
 
@@ -186,7 +186,7 @@ export const InstallPrompt = () => {
                                 </div>
                                 <div>
                                     <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                                        Install Soluna
+                                        Install SoLuna
                                         <Sparkles className="w-4 h-4 text-amber-400" />
                                     </h3>
                                     <p className="text-sm text-white/60 mt-0.5">

@@ -1,5 +1,5 @@
 {
-  "name": "Soluna",
+  "name": "SoLuna",
   "description": "Full-stack music learning platform with AI-powered chord detection, vocal isolation, and interactive theory tools.",
   "version": "1.7.0",
   "type": "module",
@@ -8,11 +8,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Soluna/Soluna.git"
+    "url": "https://github.com/SoLuna/SoLuna.git"
   },
-  "homepage": "https://Soluna.studio",
+  "homepage": "https://SoLuna.studio",
   "bugs": {
-    "url": "https://github.com/Soluna/Soluna/issues"
+    "url": "https://github.com/SoLuna/SoLuna/issues"
   },
   "keywords": [
     "guitar",

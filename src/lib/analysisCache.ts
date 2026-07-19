@@ -6,7 +6,7 @@ type CachedAnalysis = {
   ttl?: number; // ms
 };
 
-const DB_NAME = "Soluna-cache";
+const DB_NAME = "SoLuna-cache";
 const STORE_NAME = "analyses";
 const DB_VERSION = 1;
 

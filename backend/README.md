@@ -1,5 +1,5 @@
 ---
-title: Soluna Backend
+title: SoLuna Backend
 emoji: 🎸
 colorFrom: blue
 colorTo: purple
@@ -9,7 +9,7 @@ pinned: false
 
 # Chord AI Backend
 
-FastAPI service providing `/api/analyze` for the Soluna frontend.
+FastAPI service providing `/api/analyze` for the SoLuna frontend.
 
 ## Requirements
 - Python 3.12+

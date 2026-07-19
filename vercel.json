@@ -65,10 +65,10 @@
       "has": [
         {
           "type": "host",
-          "value": "Soluna.vercel.app"
+          "value": "SoLuna.vercel.app"
         }
       ],
-      "destination": "https://Soluna.studio/$1",
+      "destination": "https://SoLuna.studio/$1",
       "permanent": true
     }
   ]

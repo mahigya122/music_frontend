@@ -6,19 +6,19 @@ import { Disc } from "lucide-react";
 
 const JamPage = () => {
     usePageMetadata({
-        title: "Jam Studio - Chord Progression Player | Soluna",
+        title: "Jam Studio - Chord Progression Player | SoLuna",
         description: "Practice soloing over looping chord progressions. Pick chords, set BPM, and improvise with scale suggestions. Free online backing track generator for guitar and piano.",
-        canonicalUrl: "https://Soluna.studio/jam",
-        ogImage: "https://Soluna.studio/logo.png",
+        canonicalUrl: "https://SoLuna.studio/jam",
+        ogImage: "https://SoLuna.studio/logo.png",
         ogType: "website",
         jsonLd: {
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
-            name: "Soluna Jam Studio",
+            name: "SoLuna Jam Studio",
             applicationCategory: "MusicApplication",
             operatingSystem: "Web",
             description: "Free chord progression player and backing track generator for improvisation practice.",
-            url: "https://Soluna.studio/jam",
+            url: "https://SoLuna.studio/jam",
             offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
         },
     });
@@ -28,8 +28,8 @@ const JamPage = () => {
             <main className="container mx-auto px-4 md:px-6 pt-8 md:pt-12 pb-16 relative z-10">
                 <Breadcrumb
                     items={[
-                        { name: "Home", url: "https://Soluna.studio/" },
-                        { name: "Jam Studio", url: "https://Soluna.studio/jam" },
+                        { name: "Home", url: "https://SoLuna.studio/" },
+                        { name: "Jam Studio", url: "https://SoLuna.studio/jam" },
                     ]}
                 />
 

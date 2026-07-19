@@ -118,7 +118,7 @@ const WhyChoose = () => {
           className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14 text-left"
         >
           <h2 className="text-4xl md:text-5xl font-semibold tracking-tight font-display max-w-lg bg-clip-text text-transparent bg-gradient-to-r from-[#e5c060] via-[#ffffff] to-[#e5c060]">
-            Why musicians choose Soluna
+            Why musicians choose SoLuna
           </h2>
           <p className="text-white/90 max-w-sm md:text-right font-light leading-relaxed">
             Stop fighting a black-box generator. Compose with a system built for structure and control.

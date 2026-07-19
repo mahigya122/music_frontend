@@ -70,7 +70,7 @@ export const usePageMetadata = ({
             ogImageElement.setAttribute("property", "og:image");
             document.head.appendChild(ogImageElement);
         }
-        ogImageElement.content = ogImage || "https://Soluna.studio/logo2.png";
+        ogImageElement.content = ogImage || "https://SoLuna.studio/logo2.png";
 
         // Set OpenGraph Type
         let ogTypeElement = document.querySelector('meta[property="og:type"]') as HTMLMetaElement | null;

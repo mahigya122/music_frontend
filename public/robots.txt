@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://Soluna.studio/sitemap.xml
+Sitemap: https://SoLuna.studio/sitemap.xml

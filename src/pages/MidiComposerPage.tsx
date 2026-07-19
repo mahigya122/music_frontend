@@ -41,11 +41,11 @@ const GENRE_TRACKS: Record<string, { title: string; audioUrl: string; duration: 
 
 export default function MidiComposerPage() {
   usePageMetadata({
-    title: "AI MIDI Composer & Arranger | Soluna - Free MIDI Completion Tool",
+    title: "AI MIDI Composer & Arranger | SoLuna - Free MIDI Completion Tool",
     description: "Complete and orchestrate your draft MIDI files using advanced neural music networks. Render raw MIDI into full instrument ensembles and high-fidelity MP3.",
     keywords: "midi completion, midi ai composer, midi arranger, render midi to mp3, virtual orchestra, free midi tools, ai music generator, songwriting assistant",
-    canonicalUrl: "https://Soluna.studio/midi-composer",
-    ogImage: "https://Soluna.studio/logo2.png",
+    canonicalUrl: "https://SoLuna.studio/midi-composer",
+    ogImage: "https://SoLuna.studio/logo2.png",
     ogType: "website"
   });
 
@@ -236,8 +236,8 @@ export default function MidiComposerPage() {
         <div className="max-w-5xl mx-auto">
           {/* Breadcrumb */}
           <Breadcrumb items={[
-            { name: "Home", url: "https://Soluna.studio/" },
-            { name: "MIDI AI Composer", url: "https://Soluna.studio/midi-composer" }
+            { name: "Home", url: "https://SoLuna.studio/" },
+            { name: "MIDI AI Composer", url: "https://SoLuna.studio/midi-composer" }
           ]} />
 
           {/* Header */}

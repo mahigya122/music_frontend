@@ -8,20 +8,20 @@ import { usePageMetadata } from "@/hooks/usePageMetadata";
 
 const TheoryPage = () => {
   usePageMetadata({
-    title: "Interactive Circle of Fifths - Music Theory Lab | Soluna",
+    title: "Interactive Circle of Fifths - Music Theory Lab | SoLuna",
     description: "Master functional harmony with our interactive Circle of Fifths. Visualize key relationships, modulations, and chord families.",
     keywords: "circle of fifths, music theory, functional harmony, key modulation, chord families, music theory lab",
-    canonicalUrl: "https://Soluna.studio/theory",
-    ogImage: "https://Soluna.studio/logo2.png",
+    canonicalUrl: "https://SoLuna.studio/theory",
+    ogImage: "https://SoLuna.studio/logo2.png",
     ogType: "website",
     jsonLd: {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "Soluna Theory Lab",
+      "name": "SoLuna Theory Lab",
       "applicationCategory": "MusicApplication",
       "operatingSystem": "Web",
       "description": "Interactive music theory tools featuring the Circle of Fifths.",
-      "url": "https://Soluna.studio/theory",
+      "url": "https://SoLuna.studio/theory",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
       "aggregateRating": {
         "@type": "AggregateRating",
@@ -61,8 +61,8 @@ const TheoryPage = () => {
         </div>
 
         <Breadcrumb items={[
-          { name: "Home", url: "https://Soluna.studio/" },
-          { name: "Theory Lab", url: "https://Soluna.studio/theory" }
+          { name: "Home", url: "https://SoLuna.studio/" },
+          { name: "Theory Lab", url: "https://SoLuna.studio/theory" }
         ]} />
 
         <div className="glass-card rounded-[2rem] border border-border bg-card/90 shadow-2xl overflow-hidden p-4 md:p-8">

@@ -54,19 +54,19 @@ const ChordAIPage = () => {
   const { history, saveToHistory, clearHistory, removeFromHistory } = useAnalysisHistory();
 
   usePageMetadata({
-    title: "Chord AI Free - Audio to Chord Recognition AI | Soluna",
+    title: "Chord AI Free - Audio to Chord Recognition AI | SoLuna",
     description: "Extract chords, tempo, and scales from any song for free with Chord AI. Advanced AI chord recognition and harmonic transcription with no subscription.",
     keywords: "chord ai, chord ai free, audio to chords, chord recognition, chord identifier, extract chords from audio, music ai, guitar chords, audio analysis",
-    canonicalUrl: "https://Soluna.studio/chord-ai",
-    ogImage: "https://Soluna.studio/logo2.png",
+    canonicalUrl: "https://SoLuna.studio/chord-ai",
+    ogImage: "https://SoLuna.studio/logo2.png",
     ogType: "website",
     jsonLd: {
       "@context": "https://schema.org",
       "@graph": [
         {
           "@type": "SoftwareApplication",
-          "name": "Chord AI - Soluna",
-          "url": "https://Soluna.studio/chord-ai",
+          "name": "Chord AI - SoLuna",
+          "url": "https://SoLuna.studio/chord-ai",
           "description": "Advanced Chord AI: Extract chords, tempo, and scales from audio using neural networks.",
           "applicationCategory": "MusicApplication",
           "operatingSystem": "Web",
@@ -81,7 +81,7 @@ const ChordAIPage = () => {
         },
         {
           "@type": "HowTo",
-          "name": "How to extract chords from any song using Soluna Chord AI",
+          "name": "How to extract chords from any song using SoLuna Chord AI",
           "step": [
             {
               "@type": "HowToStep",
@@ -394,8 +394,8 @@ const ChordAIPage = () => {
         <div className="max-w-6xl mx-auto">
 
           <Breadcrumb items={[
-            { name: "Home", url: "https://Soluna.studio/" },
-            { name: "Chord AI", url: "https://Soluna.studio/chord-ai" }
+            { name: "Home", url: "https://SoLuna.studio/" },
+            { name: "Chord AI", url: "https://SoLuna.studio/chord-ai" }
           ]} />
 
           <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-8 gap-6">
@@ -1057,8 +1057,8 @@ const ChordAIPage = () => {
               answer: "Chord AI is a neural network-powered tool that analyzes audio files to automatically detect chords, tempo, and key signatures. It uses advanced machine learning models (Madmom and Librosa) to transcribe harmonic progressions from any song, making it perfect for musicians learning songs, creating covers, or analyzing music theory.",
             },
             {
-              question: "Is Soluna Chord AI really free?",
-              answer: "Yes! Soluna Chord AI is completely free with no subscription required. Unlike other chord detection services, we provide unlimited analyses with no paywall or credits system. You can analyze as many songs as you want without any cost.",
+              question: "Is SoLuna Chord AI really free?",
+              answer: "Yes! SoLuna Chord AI is completely free with no subscription required. Unlike other chord detection services, we provide unlimited analyses with no paywall or credits system. You can analyze as many songs as you want without any cost.",
             },
             {
               question: "What does the Vocal Filter feature do?",
@@ -1090,7 +1090,7 @@ const ChordAIPage = () => {
             },
             {
               question: "Does Chord AI work on mobile devices?",
-              answer: "Yes! Soluna Chord AI works on all modern browsers including mobile Safari, Chrome, and Firefox. The interface is fully responsive and touch-optimized. However, for the best experience with large waveform visualizations, we recommend desktop browsers.",
+              answer: "Yes! SoLuna Chord AI works on all modern browsers including mobile Safari, Chrome, and Firefox. The interface is fully responsive and touch-optimized. However, for the best experience with large waveform visualizations, we recommend desktop browsers.",
             },
           ]}
         />

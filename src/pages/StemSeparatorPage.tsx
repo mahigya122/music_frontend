@@ -41,20 +41,20 @@ interface AudioNodes {
 
 const StemSeparatorPage = () => {
     usePageMetadata({
-        title: "Stem Splitter AI - Extract Vocals, Drums, Bass, Guitar, Piano | Soluna",
+        title: "Stem Splitter AI - Extract Vocals, Drums, Bass, Guitar, Piano | SoLuna",
         description: "Separate any song into 6 stems with Stem Splitter AI: vocals, drums, bass, guitar, piano, and other. High-quality AI stem extraction for music production.",
         keywords: "stem splitter ai, stem separator, music splitter, extract drums, extract bass, extract guitar, extract piano, vocal remover, music ai, audio splitter",
-        canonicalUrl: "https://Soluna.studio/stem-separator",
-        ogImage: "https://Soluna.studio/logo2.png",
+        canonicalUrl: "https://SoLuna.studio/stem-separator",
+        ogImage: "https://SoLuna.studio/logo2.png",
         ogType: "website",
         jsonLd: {
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
-            "name": "Soluna Stem Separator",
+            "name": "SoLuna Stem Separator",
             "applicationCategory": "MultimediaApplication",
             "operatingSystem": "Web",
             "description": "Separate songs into 6 stems: vocals, drums, bass, guitar, piano, and other.",
-            "url": "https://Soluna.studio/stem-separator",
+            "url": "https://SoLuna.studio/stem-separator",
             "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
             "aggregateRating": {
                 "@type": "AggregateRating",
@@ -514,8 +514,8 @@ const StemSeparatorPage = () => {
                 <div className="max-w-6xl mx-auto">
 
                     <Breadcrumb items={[
-                        { name: "Home", url: "https://Soluna.studio/" },
-                        { name: "Stem Separator", url: "https://Soluna.studio/stem-separator" }
+                        { name: "Home", url: "https://SoLuna.studio/" },
+                        { name: "Stem Separator", url: "https://SoLuna.studio/stem-separator" }
                     ]} />
 
                     {/* Header */}
@@ -767,7 +767,7 @@ const StemSeparatorPage = () => {
                         },
                         {
                             question: "Is the Stem Separator free?",
-                            answer: "Yes! The Soluna Stem Separator is completely free with no limits. You can separate as many songs as you want without any subscription or credits.",
+                            answer: "Yes! The SoLuna Stem Separator is completely free with no limits. You can separate as many songs as you want without any subscription or credits.",
                         },
                         {
                             question: "What audio formats are supported?",

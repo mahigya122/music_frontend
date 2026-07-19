@@ -87,8 +87,8 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
   return (
     <nav className="flex items-center gap-2 text-xs text-muted-foreground mb-8">
       {items.map((item, idx) => {
-        const isInternal = item.url.startsWith("https://Soluna.studio");
-        const toPath = isInternal ? (item.url.replace("https://Soluna.studio", "") || "/") : item.url;
+        const isInternal = item.url.startsWith("https://SoLuna.studio");
+        const toPath = isInternal ? (item.url.replace("https://SoLuna.studio", "") || "/") : item.url;
         
         return (
           <div key={idx} className="flex items-center gap-2">

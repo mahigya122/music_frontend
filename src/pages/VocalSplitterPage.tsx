@@ -14,22 +14,22 @@ import SupportedInstrumentsDropdown from "@/components/SupportedInstrumentsDropd
 
 const VocalSplitterPage = () => {
   usePageMetadata({
-    title: "AI Vocal Splitter & Stem Splitter AI - Free Vocal Remover | Soluna",
+    title: "AI Vocal Splitter & Stem Splitter AI - Free Vocal Remover | SoLuna",
     description: "Separate vocals and instrumentals from any song using Stem Splitter AI. High-quality vocal remover and stem extraction for karaoke and practice.",
     keywords: "vocal splitter, stem splitter ai, vocal remover, instrumental extractor, stem separation, karaoke maker, music ai, audio splitter",
-    canonicalUrl: "https://Soluna.studio/vocal-splitter",
-    ogImage: "https://Soluna.studio/logo2.png",
+    canonicalUrl: "https://SoLuna.studio/vocal-splitter",
+    ogImage: "https://SoLuna.studio/logo2.png",
     ogType: "website",
     jsonLd: {
       "@context": "https://schema.org",
       "@graph": [
         {
           "@type": "SoftwareApplication",
-          "name": "Soluna Vocal Splitter",
+          "name": "SoLuna Vocal Splitter",
           "applicationCategory": "MultimediaApplication",
           "operatingSystem": "Web",
           "description": "High-quality AI stem extraction for karaoke and remixing.",
-          "url": "https://Soluna.studio/vocal-splitter",
+          "url": "https://SoLuna.studio/vocal-splitter",
           "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
           "aggregateRating": {
             "@type": "AggregateRating",
@@ -41,11 +41,11 @@ const VocalSplitterPage = () => {
         },
         {
           "@type": "HowTo",
-          "name": "How to separate vocals and instrumentals using Soluna Vocal Splitter",
+          "name": "How to separate vocals and instrumentals using SoLuna Vocal Splitter",
           "step": [
             {
               "@type": "HowToStep",
-              "text": "Select or drag your song file into the Soluna Vocal Splitter."
+              "text": "Select or drag your song file into the SoLuna Vocal Splitter."
             },
             {
               "@type": "HowToStep",
@@ -489,8 +489,8 @@ const VocalSplitterPage = () => {
 
           {/* Breadcrumb */}
           <Breadcrumb items={[
-            { name: "Home", url: "https://Soluna.studio/" },
-            { name: "Vocal Splitter", url: "https://Soluna.studio/vocal-splitter" }
+            { name: "Home", url: "https://SoLuna.studio/" },
+            { name: "Vocal Splitter", url: "https://SoLuna.studio/vocal-splitter" }
           ]} />
 
           {/* Header */}
@@ -756,7 +756,7 @@ const VocalSplitterPage = () => {
             },
             {
               question: "Is the Vocal Splitter free to use?",
-              answer: "Yes! Soluna Vocal Splitter is completely free with no subscription or credits required. You can separate as many songs as you want without any limitations. We believe in making music production tools accessible to everyone.",
+              answer: "Yes! SoLuna Vocal Splitter is completely free with no subscription or credits required. You can separate as many songs as you want without any limitations. We believe in making music production tools accessible to everyone.",
             },
             {
               question: "What audio formats are supported?",

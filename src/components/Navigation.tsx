@@ -35,7 +35,7 @@ const Navigation = () => {
       setIsInstalled(true);
       setIsInstallable(false);
       toast("🎉 Welcome to the Studio!", {
-        description: "Soluna is now installed!",
+        description: "SoLuna is now installed!",
       });
     };
 
@@ -60,7 +60,7 @@ const Navigation = () => {
     // If already installed, just notify
     if (isInstalled) {
       toast("🎸 Already Jamming!", {
-        description: "Soluna Studio is already installed and ready to rock!",
+        description: "SoLuna Studio is already installed and ready to rock!",
       });
       return;
     }
@@ -78,7 +78,7 @@ const Navigation = () => {
           setIsInstallable(false);
           setIsInstalled(true);
           toast("🎉 Installing...", {
-            description: "Soluna Studio is being installed. Check your desktop or home screen!",
+            description: "SoLuna Studio is being installed. Check your desktop or home screen!",
           });
         }
       } catch (error) {
@@ -94,7 +94,7 @@ const Navigation = () => {
     // No prompt available - guide user to manual install
 
     toast("📍 Manual Install", {
-      description: "Use your browser menu (three dots ⋮) and select 'Install Soluna Studio' or look for an install icon in the address bar.",
+      description: "Use your browser menu (three dots ⋮) and select 'Install SoLuna Studio' or look for an install icon in the address bar.",
       duration: 6000,
     });
   };
@@ -127,18 +127,18 @@ const Navigation = () => {
             <Link
               to="/"
               className="relative flex items-center gap-3 hover:opacity-90 transition-opacity group"
-              aria-label="Soluna Studio Home"
+              aria-label="SoLuna Studio Home"
             >
               <div className="relative">
                 <img
                   src="/logo.png"
-                  alt="Soluna Logo"
+                  alt="SoLuna Logo"
                   className="w-8 h-8 object-contain relative z-10"
                 />
                 <div className="absolute inset-0 bg-white/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               <div className="flex flex-col text-left">
-                <h2 className="font-bold text-sm tracking-tight text-white leading-tight">Soluna</h2>
+                <h2 className="font-bold text-sm tracking-tight text-white leading-tight">SoLuna</h2>
                 <p className="text-[8px] uppercase tracking-widest text-white/60 font-medium">Studio</p>
               </div>
             </Link>
@@ -221,8 +221,8 @@ const Navigation = () => {
               >
                 <SheetHeader className="pb-6 border-b border-white/10">
                   <SheetTitle className="flex items-center gap-3 text-white">
-                    <img src="/logo.png" alt="Soluna Logo" className="w-8 h-8" />
-                    <span>Soluna Studio</span>
+                    <img src="/logo.png" alt="SoLuna Logo" className="w-8 h-8" />
+                    <span>SoLuna Studio</span>
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col gap-2 pt-6">

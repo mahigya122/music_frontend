@@ -19,7 +19,7 @@ window.addEventListener('vite:preloadError', () => {
 const updateSW = registerSW({ 
     onNeedRefresh() {
         toast.message("Update Available 🚀", {
-            description: "A new version of Soluna is ready.",
+            description: "A new version of SoLuna is ready.",
             action: {
                 label: "Update Now",
                 onClick: () => updateSW(true)

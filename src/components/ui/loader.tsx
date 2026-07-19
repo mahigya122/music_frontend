@@ -1,19 +1,19 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface SolunaLoaderProps {
+interface SoLunaLoaderProps {
     size?: "sm" | "md" | "lg" | "xl";
     className?: string;
     text?: string;
     fullScreen?: boolean;
 }
 
-const SolunaLoader = ({
+const SoLunaLoader = ({
     size = "lg",
     className,
     text,
     fullScreen = false
-}: SolunaLoaderProps) => {
+}: SoLunaLoaderProps) => {
 
     const sizeClasses = {
         sm: "w-6 h-6",
@@ -81,4 +81,4 @@ const SolunaLoader = ({
     return content;
 };
 
-export default SolunaLoader;
+export default SoLunaLoader;
