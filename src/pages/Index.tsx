@@ -311,6 +311,8 @@ const Index = () => {
   }, []);
 
   const [startIndex, setStartIndex] = useState(0);
+  const [toolStartIndex, setToolStartIndex] = useState(0);
+  const [featuredStartIndex, setFeaturedStartIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -351,6 +353,30 @@ const Index = () => {
     e.stopPropagation();
     const maxIndex = isMobile ? musicTracks.length - 1 : musicTracks.length - 3;
     setStartIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+  };
+
+  const handleToolPrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const maxIndex = toolCards.length - 3;
+    setToolStartIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+  };
+
+  const handleToolNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const maxIndex = toolCards.length - 3;
+    setToolStartIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+  };
+
+  const handleFeaturedPrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const maxIndex = featuredTools.length - 3;
+    setFeaturedStartIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+  };
+
+  const handleFeaturedNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const maxIndex = featuredTools.length - 3;
+    setFeaturedStartIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
   };
 
   usePageMetadata({
@@ -612,52 +638,87 @@ const Index = () => {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {toolCards.map((tool, i) => (
-                <motion.div
-                  key={tool.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ delay: i * 0.05, duration: 0.5, ease: "easeOut" }}
-                  className="group h-full"
+            <div className="relative group/carousel px-0 lg:px-0">
+              <div className="overflow-hidden py-4 w-full">
+                <div
+                  className="flex md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 transition-transform duration-500 ease-in-out md:transform-none md:transition-none"
+                  style={{
+                    transform: isMobile ? `translateX(-${toolStartIndex * 33.333}%)` : 'none',
+                    width: isMobile ? '100%' : 'auto'
+                  }}
                 >
-                  <Link
-                    to={tool.to}
-                    aria-label={`Open the ${tool.title} tool: ${tool.desc}`}
-                    className="block rounded-2xl md:rounded-[1.75rem] overflow-hidden border border-border bg-card/25 backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-white/10 group relative shadow-sm h-64 dark"
-                  >
-                    <div className={`absolute inset-0 bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 z-0`} />
-                    
-                    {/* Cover Image Container */}
-                    <div className="relative h-full w-full overflow-hidden z-10">
-                      <img
-                        src={tool.image}
-                        alt={tool.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      {/* Premium Dark Gradient Overlay for text readability */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/10 transition-opacity duration-500" />
-                      
-                      {/* Category Badge on Top-Left */}
-                      <div className="absolute top-4 left-4 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-[9px] uppercase tracking-wider text-white border border-white/10 font-bold flex items-center gap-1.5 shadow-md">
-                        <tool.icon className="w-3 h-3 text-cyan-400" />
-                        {tool.category}
-                      </div>
+                  {toolCards.map((tool, i) => (
+                    <div
+                      key={tool.title}
+                      className="w-1/3 md:w-auto flex-shrink-0 md:flex-shrink-0 px-1 md:px-0 flex flex-col"
+                    >
+                      <motion.div
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-60px" }}
+                        transition={{ delay: i * 0.05, duration: 0.5, ease: "easeOut" }}
+                        className="group h-full"
+                      >
+                        <Link
+                          to={tool.to}
+                          aria-label={`Open the ${tool.title} tool: ${tool.desc}`}
+                          className="block rounded-xl md:rounded-[1.75rem] overflow-hidden border border-border bg-card/25 backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-white/10 group relative shadow-sm h-36 sm:h-52 lg:h-64 dark"
+                        >
+                          <div className={`absolute inset-0 bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 z-0`} />
+                          
+                          {/* Cover Image Container */}
+                          <div className="relative h-full w-full overflow-hidden z-10">
+                            <img
+                              src={tool.image}
+                              alt={tool.title}
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            {/* Premium Dark Gradient Overlay for text readability */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/10 transition-opacity duration-500" />
+                            
+                            {/* Category Badge on Top-Left */}
+                            <div className="absolute top-2 left-2 sm:top-4 sm:left-4 px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-black/60 backdrop-blur-md text-[7px] sm:text-[9px] uppercase tracking-wider text-white border border-white/10 font-bold flex items-center gap-1 shadow-md">
+                              <tool.icon className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-cyan-400" />
+                              <span className="hidden sm:inline">{tool.category}</span>
+                            </div>
 
-                      {/* Title and Description at the bottom of the photo */}
-                      <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 text-left space-y-1">
-                        <h3 className="text-lg font-medium text-white group-hover:text-cyan-400 transition-colors font-display">
-                          {tool.title}
-                        </h3>
-                        <p className="text-xs text-white/70 leading-relaxed font-light line-clamp-2">
-                          {tool.desc}
-                        </p>
-                      </div>
+                            {/* Title and Description at the bottom of the photo */}
+                            <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-4 lg:p-6 text-left space-y-0.5 sm:space-y-1">
+                              <h3 className="text-[10px] sm:text-sm lg:text-lg font-medium text-white group-hover:text-cyan-400 transition-colors font-display truncate">
+                                {tool.title}
+                              </h3>
+                              <p className="text-[8px] sm:text-xs text-white/70 leading-tight sm:leading-relaxed font-light line-clamp-2">
+                                {tool.desc}
+                              </p>
+                            </div>
+                          </div>
+                        </Link>
+                      </motion.div>
                     </div>
-                  </Link>
-                </motion.div>
-              ))}
+                  ))}
+                </div>
+              </div>
+
+              {/* Navigation Arrows for Mobile/Tablet Carousel */}
+              {isMobile && (
+                <>
+                  <button 
+                    onClick={handleToolPrev}
+                    className="absolute left-[-12px] top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-black/50 border border-white/15 flex items-center justify-center text-white backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer shadow-lg"
+                    aria-label="Previous tools"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+
+                  <button 
+                    onClick={handleToolNext}
+                    className="absolute right-[-12px] top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-black/50 border border-white/15 flex items-center justify-center text-white backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer shadow-lg"
+                    aria-label="Next tools"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </section>
@@ -689,44 +750,79 @@ const Index = () => {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {featuredTools.map((tool, i) => (
-                <motion.div
-                  key={tool.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ delay: i * 0.05, duration: 0.5, ease: "easeOut" }}
-                  className="relative group rounded-xl md:rounded-[1.75rem] overflow-hidden border border-border h-[280px] cursor-pointer"
+            <div className="relative group/carousel px-0 lg:px-0">
+              <div className="overflow-hidden py-4 w-full">
+                <div
+                  className="flex md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 transition-transform duration-500 ease-in-out md:transform-none md:transition-none"
+                  style={{
+                    transform: isMobile ? `translateX(-${featuredStartIndex * 33.333}%)` : 'none',
+                    width: isMobile ? '100%' : 'auto'
+                  }}
                 >
-                  <Link to={tool.to} className="block w-full h-full relative dark">
-                    {/* Full height background image */}
-                    <img
-                      src={tool.image}
-                      alt={tool.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
+                  {featuredTools.map((tool, i) => (
+                    <div
+                      key={tool.title}
+                      className="w-1/3 md:w-auto flex-shrink-0 md:flex-shrink-0 px-1 md:px-0 flex flex-col"
+                    >
+                      <motion.div
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-60px" }}
+                        transition={{ delay: i * 0.05, duration: 0.5, ease: "easeOut" }}
+                        className="relative group rounded-xl md:rounded-[1.75rem] overflow-hidden border border-border h-40 sm:h-56 lg:h-[280px] cursor-pointer"
+                      >
+                        <Link to={tool.to} className="block w-full h-full relative dark">
+                          {/* Full height background image */}
+                          <img
+                            src={tool.image}
+                            alt={tool.title}
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
 
-                    {/* Dark overlay gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent z-10" />
+                          {/* Dark overlay gradient */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent z-10" />
 
-                    {/* Category badge */}
-                    <div className="absolute top-4 left-4 z-20 px-2 py-0.5 rounded-md bg-card/60 backdrop-blur-sm border border-border text-[9px] font-bold text-white uppercase tracking-widest">
-                      {tool.category}
+                          {/* Category badge */}
+                          <div className="absolute top-2 left-2 sm:top-4 sm:left-4 z-20 px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded-md bg-card/60 backdrop-blur-sm border border-border text-[7px] sm:text-[9px] font-bold text-white uppercase tracking-widest">
+                            {tool.category}
+                          </div>
+
+                          {/* Title and Description at the bottom of the photo */}
+                          <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-4 lg:p-6 text-left space-y-0.5 sm:space-y-1 z-20">
+                            <h3 className="text-[10px] sm:text-sm lg:text-lg font-medium text-white group-hover:text-cyan-400 transition-colors font-display truncate">
+                              {tool.title}
+                            </h3>
+                            <p className="text-[8px] sm:text-xs text-white/70 leading-tight sm:leading-relaxed font-light line-clamp-2">
+                              {tool.desc}
+                            </p>
+                          </div>
+                        </Link>
+                      </motion.div>
                     </div>
+                  ))}
+                </div>
+              </div>
 
-                    {/* Title and Description at the bottom of the photo */}
-                    <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 text-left space-y-1 z-20">
-                      <h3 className="text-lg font-medium text-white group-hover:text-cyan-400 transition-colors font-display">
-                        {tool.title}
-                      </h3>
-                      <p className="text-xs text-white/70 leading-relaxed font-light line-clamp-2">
-                        {tool.desc}
-                      </p>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
+              {/* Navigation Arrows for Mobile/Tablet Carousel */}
+              {isMobile && (
+                <>
+                  <button 
+                    onClick={handleFeaturedPrev}
+                    className="absolute left-[-12px] top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-black/50 border border-white/15 flex items-center justify-center text-white backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer shadow-lg"
+                    aria-label="Previous featured tools"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+
+                  <button 
+                    onClick={handleFeaturedNext}
+                    className="absolute right-[-12px] top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full bg-black/50 border border-white/15 flex items-center justify-center text-white backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer shadow-lg"
+                    aria-label="Next featured tools"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </section>
