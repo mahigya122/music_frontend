@@ -92,7 +92,7 @@ const REASONS = [
 
 const WhyChoose = () => {
   return (
-    <section className="px-6 py-16 relative overflow-hidden border-t border-white/[0.03]">
+    <section className="hidden md:block px-6 py-16 relative overflow-hidden border-t border-white/[0.03]">
       {/* Background Dotted Circular Lines & Premium Floating Assets */}
       <DottedCircle className="top-[-100px] left-[50px]" />
       <FloatingTrebleClef className="top-[10%] left-[8%]" />
@@ -125,7 +125,7 @@ const WhyChoose = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 gap-4 lg:gap-6">
           {REASONS.map((reason, i) => (
             <motion.div
               key={reason.title}
@@ -133,16 +133,16 @@ const WhyChoose = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ delay: i * 0.05, duration: 0.5, ease: "easeOut" }}
-              className="flex gap-4 items-start p-6 md:p-8 rounded-2xl md:rounded-[1.75rem] bg-card/45 backdrop-blur-sm border border-border relative overflow-hidden h-full text-left"
+              className="flex gap-2 lg:gap-4 items-center lg:items-start p-4 lg:p-8 rounded-2xl lg:rounded-[1.75rem] bg-card/45 backdrop-blur-sm border border-border relative overflow-hidden h-full text-left"
             >
-              <div className="flex-shrink-0 mt-1.5">
+              <div className="hidden lg:block flex-shrink-0 mt-1.5">
                 <ArrowRight className="w-5 h-5 text-foreground/80" />
               </div>
-              <div className="space-y-2">
-                <h3 className="text-lg md:text-xl font-medium text-foreground font-display">
+              <div className="space-y-1 lg:space-y-2">
+                <h3 className="text-sm lg:text-xl font-medium text-foreground font-display">
                   {reason.title}
                 </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed font-light">
+                <p className="hidden lg:block text-xs lg:text-sm text-muted-foreground leading-relaxed font-light">
                   {reason.desc}
                 </p>
               </div>
