@@ -23,7 +23,7 @@ const PromptComposer = () => {
       transition={{ delay: 0.3, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       className="max-w-3xl mx-auto w-full"
     >
-      <div id="video-prompt-bar" className="flex items-center gap-2 w-full rounded-full pl-6 pr-2 py-2">
+      <div id="video-prompt-bar" className="flex items-center gap-1.5 sm:gap-2 w-full rounded-full pl-4 sm:pl-6 pr-1.5 sm:pr-2 py-1.5 sm:py-2">
         <textarea
           ref={textareaRef}
           value={prompt}
@@ -34,19 +34,19 @@ const PromptComposer = () => {
               handleSubmit();
             }
           }}
-          placeholder="Describe the music you want to create..."
+          placeholder="Describe your music..."
           rows={1}
           id="video-prompt-input"
-          className="flex-1 outline-none ring-0 resize-none text-base font-normal leading-tight py-2"
+          className="flex-1 outline-none ring-0 resize-none text-xs sm:text-base placeholder:text-xs sm:placeholder:text-base font-normal leading-normal py-1 sm:py-2"
         />
 
         <button
           type="button"
           onClick={handleSubmit}
           id="video-prompt-button"
-          className="flex items-center gap-2 rounded-full text-sm font-medium px-5 py-2.5 transition-colors shrink-0"
+          className="flex items-center gap-1 sm:gap-2 rounded-full text-xs sm:text-sm font-medium px-3 sm:px-5 py-2 sm:py-2.5 transition-colors shrink-0"
         >
-          <Sparkles className="w-4 h-4" />
+          <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           <span id="video-prompt-button-text">Generate</span>
         </button>
       </div>
