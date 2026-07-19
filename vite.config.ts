@@ -189,12 +189,27 @@ export default defineConfig({
     chunkSizeWarningLimit: 5000,
     rollupOptions: {
       output: {
-        manualChunks: {
-          react: ["react", "react-dom"],
-          ui: ["@radix-ui/react-dialog", "@radix-ui/react-tooltip", "@radix-ui/react-tabs"],
-          audio: ["@/lib/chordAudio.ts", "@/lib/chordDetection.ts"],
-          vocal: ["@/pages/VocalSplitterPage.tsx"],
-          three: ["three", "@react-three/fiber", "@react-three/drei"],
+        manualChunks(id) {
+          const normalizedId = id.replace(/\\/g, "/");
+          if (normalizedId.includes("node_modules")) {
+            if (normalizedId.includes("react") || normalizedId.includes("scheduler") || normalizedId.includes("react-dom")) {
+              return "react-vendor";
+            }
+            if (normalizedId.includes("three") || normalizedId.includes("@react-three")) {
+              return "three-vendor";
+            }
+            if (normalizedId.includes("@radix-ui")) {
+              return "radix-vendor";
+            }
+            return "vendor";
+          }
+          if (normalizedId.includes("/src/pages/")) {
+            const parts = normalizedId.split("/src/pages/");
+            if (parts[1]) {
+              const pageName = parts[1].split(".")[0].toLowerCase();
+              return `page-${pageName}`;
+            }
+          }
         },
       },
     },
