@@ -192,14 +192,8 @@ export default defineConfig({
         manualChunks(id) {
           const normalizedId = id.replace(/\\/g, "/");
           if (normalizedId.includes("node_modules")) {
-            if (normalizedId.includes("react") || normalizedId.includes("scheduler") || normalizedId.includes("react-dom")) {
-              return "react-vendor";
-            }
-            if (normalizedId.includes("three") || normalizedId.includes("@react-three")) {
+            if (normalizedId.includes("node_modules/three/")) {
               return "three-vendor";
-            }
-            if (normalizedId.includes("@radix-ui")) {
-              return "radix-vendor";
             }
             return "vendor";
           }
