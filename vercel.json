@@ -6,9 +6,6 @@
   "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,
-  "env": {
-    "NODE_ENV": "production"
-  },
   "headers": [
     {
       "source": "/(.*)",
