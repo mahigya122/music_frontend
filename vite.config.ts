@@ -185,7 +185,7 @@ export default defineConfig({
     target: "ES2020",
     minify: "esbuild",
     sourcemap: false,
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 2000,
     rollupOptions: {
       output: {
         manualChunks: {
