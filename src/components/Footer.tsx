@@ -22,9 +22,9 @@ const Footer = () => {
                     <div className="space-y-4 md:text-right md:ml-auto">
                         <h4 className="text-sm font-semibold text-white uppercase tracking-wider font-display">Created By</h4>
                         <ul className="space-y-2 text-xs text-muted-foreground">
-                            <li className="hover:text-white transition-colors cursor-pointer">[Developer/Mahigya Dahal]</li>
-                            <li className="hover:text-white transition-colors cursor-pointer">[Developer/Daisy Rajbhandari]</li>
-                            <li className="hover:text-white transition-colors cursor-pointer">[Developer/Aashish b.k]</li>
+                            <li className="hover:text-white transition-colors cursor-pointer">Mahigya Dahal</li>
+                            <li className="hover:text-white transition-colors cursor-pointer">Daisy Rajbhandari</li>
+                            <li className="hover:text-white transition-colors cursor-pointer">Aashish B.K</li>
                         </ul>
                     </div>
                 </div>
