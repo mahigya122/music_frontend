@@ -13,7 +13,7 @@ const PromptComposer = () => {
       textareaRef.current?.focus();
       return;
     }
-    navigate(`/jam?prompt=${encodeURIComponent(prompt)}&mode=Full%20Arrangement`);
+    navigate(`/generation?prompt=${encodeURIComponent(prompt)}`);
   };
 
   return (

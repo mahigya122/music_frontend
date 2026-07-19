@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect, useCallback, useRef, useLayoutEffect } from "react";
 import { Keyboard, Info, Music, Search, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useGlobalInstrument } from "@/hooks/useGlobalInstrument";
 import { useKeyboardFretboard } from "@/hooks/useKeyboardFretboard";
 import { usePianoKeyboard } from "@/hooks/usePianoKeyboard";
 import { KeyboardHelpOverlay } from "./fretboard/KeyboardHelpOverlay";
@@ -109,6 +110,37 @@ const Fretboard = ({ initialChordVoicing }: FretboardProps) => {
   };
 
   const [pianoMode, setPianoMode] = useState(() => readJson<boolean>('piano-mode', false));
+  const [globalInstrument] = useGlobalInstrument();
+
+  useEffect(() => {
+    const name = globalInstrument.toLowerCase();
+    const isPianoInst = (
+      name.includes("piano") ||
+      name.includes("rhodes") ||
+      name.includes("clavinet") ||
+      name.includes("harpsichord") ||
+      name.includes("celesta") ||
+      name.includes("organ") ||
+      name.includes("accordion") ||
+      name.includes("harmonica") ||
+      name.includes("keyboard") ||
+      name.includes("synth") ||
+      name.includes("choir") ||
+      name.includes("voice") ||
+      name.includes("pad") ||
+      name.includes("bell") ||
+      name.includes("music box") ||
+      name.includes("glockenspiel") ||
+      name.includes("vibraphone") ||
+      name.includes("marimba") ||
+      name.includes("xylophone") ||
+      name.includes("timpani") ||
+      name.includes("dulcimer") ||
+      name.includes("harp")
+    );
+    setPianoMode(isPianoInst);
+  }, [globalInstrument]);
+
   const [pianoNotes, setPianoNotes] = useState<number[]>([]);
   const [keyboardEnabled, setKeyboardEnabled] = useState(() => readJson<boolean>('keyboard-enabled', true));
   const [keymap, setKeymap] = useState<KeymapConfig>(() => readJson<KeymapConfig>('keyboard-keymap', DEFAULT_KEYMAP));

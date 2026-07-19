@@ -37,6 +37,15 @@ const featuredTools = [
     image: "/images/Pulse musical_ abstract of sound wave, light frequencies or bright equalizer  _ Premium Photo.jpe",
     category: "Vocal AI"
   },
+  { 
+    title: "MIDI AI Completion", 
+    desc: "Complete raw draft MIDI segments into full compositions and render them directly into MP3 tracks.", 
+    icon: Music2, 
+    to: "/midi-composer",
+    color: "from-amber-500/20 to-orange-500/20",
+    image: "/images/Piano Amidst Books.jpe",
+    category: "MIDI AI"
+  },
 ];
 
 // Standard tool cards (3 per row on large screens)
@@ -673,14 +682,14 @@ const Index = () => {
               className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14 text-left"
             >
               <h2 className="text-4xl md:text-5xl font-semibold tracking-tight font-display max-w-lg bg-clip-text text-transparent bg-gradient-to-r from-[#e5c060] via-[#ffffff] to-[#e5c060]">
-                Why Musicians Choose Guitariz AI.
+                Guitariz AI Suite
               </h2>
               <p className="text-white/90 max-w-sm md:text-right font-light leading-relaxed">
                 Calibrated specifically for precise harmonic analysis and pristine stem isolation. Isolate tracks, extract pristine vocals, and transcribe complex chord structures instantly.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {featuredTools.map((tool, i) => (
                 <motion.div
                   key={tool.title}

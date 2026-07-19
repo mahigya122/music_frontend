@@ -24,6 +24,8 @@ const TheoryPage = lazy(() => import("./pages/TheoryPage"));
 const TunerPage = lazy(() => import("./pages/TunerPage"));
 const EarTrainingPage = lazy(() => import("./pages/EarTrainingPage"));
 const JamPage = lazy(() => import("./pages/JamPage"));
+const MidiComposerPage = lazy(() => import("./pages/MidiComposerPage"));
+const GenerationPage = lazy(() => import("./pages/GenerationPage"));
 const BlogListPage = lazy(() => import("./pages/BlogListPage"));
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -249,6 +251,30 @@ const App = () => {
                     <PageWrapper>
                       <main id="main-content">
                         <JamPage />
+                      </main>
+                    </PageWrapper>
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/midi-composer"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <PageWrapper>
+                      <main id="main-content">
+                        <MidiComposerPage />
+                      </main>
+                    </PageWrapper>
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/generation"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <PageWrapper>
+                      <main id="main-content">
+                        <GenerationPage />
                       </main>
                     </PageWrapper>
                   </Suspense>

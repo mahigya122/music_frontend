@@ -3,6 +3,9 @@ import { Volume2, ChevronLeft, ChevronRight } from "lucide-react";
 import ChordDiagram from "./ChordDiagram";
 import { ChordVariant } from "@/types/chordTypes";
 import { playChord } from "@/lib/chordAudio";
+import { useGlobalInstrument } from "@/hooks/useGlobalInstrument";
+
+const GUITAR_TUNING_MIDI = [40, 45, 50, 55, 59, 64]; // E2, A2, D3, G3, B3, E4
 
 interface ChordVariantCardProps {
   variant: ChordVariant;
@@ -19,8 +22,59 @@ interface ChordVariantCardProps {
 
 const ChordVariantCard = memo(({ variant, rootNote, onSelect }: ChordVariantCardProps) => {
   const [currentVoicingIndex, setCurrentVoicingIndex] = useState(0);
+  const [globalInstrument] = useGlobalInstrument();
 
   const currentVoicing = variant.voicings[currentVoicingIndex];
+
+  const layout = useMemo(() => {
+    const name = globalInstrument.toLowerCase();
+    if (
+      name.includes("piano") ||
+      name.includes("rhodes") ||
+      name.includes("clavinet") ||
+      name.includes("harpsichord") ||
+      name.includes("celesta") ||
+      name.includes("organ") ||
+      name.includes("accordion") ||
+      name.includes("harmonica") ||
+      name.includes("keyboard") ||
+      name.includes("synth") ||
+      name.includes("choir") ||
+      name.includes("voice") ||
+      name.includes("pad") ||
+      name.includes("bell") ||
+      name.includes("music box") ||
+      name.includes("glockenspiel") ||
+      name.includes("vibraphone") ||
+      name.includes("marimba") ||
+      name.includes("xylophone") ||
+      name.includes("timpani") ||
+      name.includes("dulcimer") ||
+      name.includes("harp")
+    ) {
+      return "piano";
+    }
+    if (name.includes("bass") || name.includes("contrabass") || name.includes("double bass")) {
+      return "bass";
+    }
+    return "guitar";
+  }, [globalInstrument]);
+
+  const noteList = useMemo(() => {
+    if (!currentVoicing) return [];
+    const list: string[] = [];
+    const notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+    currentVoicing.frets.forEach((fret, i) => {
+      if (fret !== -1 && i < GUITAR_TUNING_MIDI.length) {
+        const midi = GUITAR_TUNING_MIDI[i] + fret;
+        const name = notes[midi % 12];
+        const octave = Math.floor(midi / 12) - 1;
+        list.push(`${name}${octave}`);
+      }
+    });
+    return list;
+  }, [currentVoicing]);
+
   const hasMultipleVoicings = useMemo(
     () => variant.voicings.length > 1,
     [variant.voicings.length]
@@ -169,19 +223,45 @@ const ChordVariantCard = memo(({ variant, rootNote, onSelect }: ChordVariantCard
               </button>
           </div>
           
-          {/* Tablature notation - Clean modern look */}
-          <div className="w-full grid grid-cols-6 gap-2 bg-white/[0.02] p-3 rounded-xl border border-white/5">
-            {currentVoicing.frets.map((fret, i) => (
-              <div key={i} className="flex flex-col items-center">
-                <span className="text-[9px] font-bold text-muted-foreground/30 uppercase mb-1">
-                  {["E", "A", "D", "G", "B", "e"][i]}
+          {/* Notation / Tablature Section depending on Layout */}
+          {layout === "piano" ? (
+            <div className="w-full flex flex-wrap gap-2 justify-center bg-white/[0.02] p-3 rounded-xl border border-white/5">
+              {noteList.map((noteName, i) => (
+                <span
+                  key={i}
+                  className="px-2.5 py-1 text-xs font-bold bg-primary/10 border border-primary/20 text-primary rounded-lg shadow-sm"
+                >
+                  {noteName}
                 </span>
-                <span className={`text-xs font-black ${fret === -1 ? "text-muted-foreground/20" : "text-white"}`}>
-                  {fret === -1 ? "×" : fret}
-                </span>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : layout === "bass" ? (
+            <div className="w-full grid grid-cols-4 gap-2 bg-white/[0.02] p-3 rounded-xl border border-white/5">
+              {currentVoicing.frets.slice(0, 4).map((fret, i) => (
+                <div key={i} className="flex flex-col items-center">
+                  <span className="text-[9px] font-bold text-muted-foreground/30 uppercase mb-1">
+                    {["E", "A", "D", "G"][i]}
+                  </span>
+                  <span className={`text-xs font-black ${fret === -1 ? "text-muted-foreground/20" : "text-white"}`}>
+                    {fret === -1 ? "×" : fret}
+                  </span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="w-full grid grid-cols-6 gap-2 bg-white/[0.02] p-3 rounded-xl border border-white/5">
+              {currentVoicing.frets.map((fret, i) => (
+                <div key={i} className="flex flex-col items-center">
+                  <span className="text-[9px] font-bold text-muted-foreground/30 uppercase mb-1">
+                    {["E", "A", "D", "G", "B", "e"][i]}
+                  </span>
+                  <span className={`text-xs font-black ${fret === -1 ? "text-muted-foreground/20" : "text-white"}`}>
+                    {fret === -1 ? "×" : fret}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
