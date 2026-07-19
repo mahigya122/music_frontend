@@ -418,13 +418,28 @@ const ChordAIPage = () => {
             {!audioBuffer && (
               <div className="flex flex-col sm:flex-row items-end gap-4">
                 <SupportedInstrumentsDropdown label="Source Instrument" className="w-56" />
-                <Button
-                  onClick={() => fileInputRef.current?.click()}
-                  className="h-12 px-6 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-bold shadow-xl transition-all active:scale-95"
-                >
-                  <Upload className="w-4 h-4 mr-2" />
-                  Select Audio File
-                </Button>
+                <div className="flex flex-col gap-2 w-full sm:w-auto">
+                  <Button
+                    onClick={() => {
+                      setYoutubeUrl("");
+                      fileInputRef.current?.click();
+                    }}
+                    className="h-12 px-6 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-bold shadow-xl transition-all active:scale-95 w-full"
+                  >
+                    <Upload className="w-4 h-4 mr-2" />
+                    Select Audio File
+                  </Button>
+                  <Button
+                    onClick={() => setYoutubeUrl(youtubeUrl ? "" : "https://")}
+                    className={cn(
+                      "h-10 px-6 rounded-xl text-xs font-semibold shadow-md transition-all active:scale-95 w-full border border-red-500/20 flex items-center justify-center",
+                      youtubeUrl ? "bg-red-500 text-white hover:bg-red-600" : "bg-card text-foreground/80 hover:bg-card/80 border-border"
+                    )}
+                  >
+                    <Youtube className="w-4 h-4 mr-2" />
+                    YouTube URL
+                  </Button>
+                </div>
               </div>
             )}
           </div>
@@ -509,28 +524,6 @@ const ChordAIPage = () => {
                 />
                 {!audioBuffer && !result && !isYoutubeMode ? (
                   <div className="flex-1 m-4 flex flex-col gap-6">
-                    <div className="flex items-center justify-center gap-2">
-                      <button
-                        className={cn(
-                          "px-4 py-2 rounded-xl text-sm font-medium transition-all",
-                          !youtubeUrl ? "bg-primary text-primary-foreground" : "bg-card text-foreground/70 hover:bg-card/80"
-                        )}
-                        onClick={() => setYoutubeUrl("")}
-                      >
-                        <Upload className="w-4 h-4 inline mr-2" />
-                        Upload File
-                      </button>
-                      <button
-                        className={cn(
-                          "px-4 py-2 rounded-xl text-sm font-medium transition-all",
-                          youtubeUrl ? "bg-red-500 text-white" : "bg-card text-foreground/70 hover:bg-card/80"
-                        )}
-                        onClick={() => setYoutubeUrl("https://")}
-                      >
-                        <Youtube className="w-4 h-4 inline mr-2" />
-                        YouTube URL
-                      </button>
-                    </div>
 
                     {!youtubeUrl && (
                       <div
