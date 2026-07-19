@@ -3,7 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
 
-const TODAY = '2026-07-15';
+const TODAY = new Date().toISOString().split('T')[0];
 
 const routes = [
   {
