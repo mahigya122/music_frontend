@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { ArrowRight, Music2, Layers, Disc, Music, BookOpen, Bot, Wand2, Headphones, Guitar, Trophy, Mic, FileText, Play, Pause, Clock, Tag, Star } from "lucide-react";
+import { ArrowRight, Music2, Layers, Disc, Music, BookOpen, Bot, Wand2, Headphones, Guitar, Trophy, Mic, FileText, Play, Pause, Clock, Tag, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -126,65 +126,75 @@ const toolCards = [
 // AI-Generated Music Samples tracks
 const musicTracks = [
   {
-    id: "heaven-a",
-    title: "Heaven Rang in Bethlehem",
-    subtitle: "Arrangement A",
-    duration: "2:29",
-    cover: "/images/heaven_rang_cover.png",
-    audioUrl: "/musics/track1.mp3",
-    tags: ["choir-like", "harp", "violin", "uplifting", "cello"],
+    id: "gymnopedie",
+    title: "Gymnopédie No. 1",
+    subtitle: "Erik Satie (Ambient Classical)",
+    duration: "2:39",
+    cover: "/images/Piano Amidst Books.jpe",
+    audioUrl: "/musics/Gymnopedieno.1.mp3",
+    tags: ["classical", "soft-piano", "ambient", "calm", "relaxing"],
     color: "from-amber-500/10 to-yellow-500/10"
   },
   {
-    id: "heaven-b",
-    title: "Heaven Rang in Bethlehem",
-    subtitle: "Arrangement B",
-    duration: "3:31",
-    cover: "/images/Classical music for VPRO - tsjisse talsma.jpe",
-    audioUrl: "/musics/track2.mp3",
-    tags: ["choir-like", "harp", "violin", "uplifting", "cello"],
-    color: "from-amber-500/10 to-yellow-500/10"
+    id: "harry-potter",
+    title: "Harry Potter Theme",
+    subtitle: "Hedwig's Theme (Remix)",
+    duration: "0:30",
+    cover: "/images/Metronome is an installation that _creates an altar to the senses_.jpe",
+    audioUrl: "/musics/Hp.mp3",
+    tags: ["mystical", "orchestral", "celesta", "fantasy", "cinematic"],
+    color: "from-purple-500/10 to-indigo-500/10"
   },
   {
-    id: "colors-a",
-    title: "Colors of Life",
-    subtitle: "Mix A",
-    duration: "1:57",
-    cover: "/images/colors_life_cover.png",
-    audioUrl: "/musics/track3.mp3",
-    tags: ["conscious hip hop", "lyrical", "thoughtful", "meaningful", "uplifting"],
+    id: "kanye-homecoming",
+    title: "Homecoming",
+    subtitle: "Kanye West ft. Chris Martin",
+    duration: "3:28",
+    cover: "/images/Painted picture of a Jazz Band.jpe",
+    audioUrl: "/musics/KanyeWest-Homecoming(Ft.ChrisMartin).mp3",
+    tags: ["hip-hop", "piano-led", "rap", "upbeat", "melodic"],
     color: "from-cyan-500/10 to-blue-500/10"
   },
   {
-    id: "colors-b",
-    title: "Colors of Life",
-    subtitle: "Mix B",
-    duration: "2:03",
+    id: "rema-calm",
+    title: "Calm Down",
+    subtitle: "Rema (Afrobeat Pop)",
+    duration: "3:58",
     cover: "/images/Mid Century Modern Cat Jazz Band Poster, Retro Black Cats Music Illustration (Digital Download).jpe",
-    audioUrl: "/musics/track4.mp3",
-    tags: ["conscious hip hop", "lyrical", "thoughtful", "meaningful", "uplifting"],
-    color: "from-cyan-500/10 to-blue-500/10"
+    audioUrl: "/musics/Remacalm.mp3",
+    tags: ["afrobeat", "pop", "smooth-groove", "dance", "rhythm"],
+    color: "from-rose-500/10 to-pink-500/10"
   },
   {
-    id: "echoes-a",
-    title: "Fading Echoes",
-    subtitle: "Piano Solo",
-    duration: "4:00",
+    id: "sakura-uta",
+    title: "Sakura no Uta",
+    subtitle: "J-Rock Instrumental",
+    duration: "1:40",
+    cover: "/images/Classical music for VPRO - tsjisse talsma.jpe",
+    audioUrl: "/musics/SakuraNoUta.mp3",
+    tags: ["j-rock", "melodic", "anime-style", "synth", "energetic"],
+    color: "from-pink-500/10 to-rose-500/10"
+  },
+  {
+    id: "sprunki",
+    title: "Sprunki Phase 2.5",
+    subtitle: "Bonus Electronic Track",
+    duration: "2:05",
     cover: "/images/fading_echoes_cover.png",
-    audioUrl: "/musics/track5.mp3",
-    tags: ["atmospheric textures", "sad", "lo-fi", "soft piano", "minimal percussion"],
-    color: "from-violet-500/10 to-purple-500/10"
+    audioUrl: "/musics/SprunkiPhase2.5(Bonus).mp3",
+    tags: ["chiptune", "electronic", "gaming", "synth-wave", "upbeat"],
+    color: "from-violet-500/10 to-fuchsia-500/10"
   },
   {
-    id: "echoes-b",
-    title: "Fading Echoes",
-    subtitle: "Ambient Mix",
-    duration: "4:00",
+    id: "daft-technologic",
+    title: "Technologic",
+    subtitle: "Daft Punk (Robotic Remix)",
+    duration: "4:53",
     cover: "/images/Vinyls _ Poster for Shopiq_ - Joanna Gniady.jpe",
-    audioUrl: "/musics/track6.mp3",
-    tags: ["atmospheric textures", "sad", "lo-fi", "soft piano", "minimal percussion"],
-    color: "from-violet-500/10 to-purple-500/10"
-  },
+    audioUrl: "/musics/Technolgic.mp3",
+    tags: ["electronic", "synth-groove", "house", "vocoder", "rhythm"],
+    color: "from-emerald-500/10 to-teal-500/10"
+  }
 ];
 
 // Floating Musical Assets (inspired by premium origami and dandelion elements)
@@ -290,6 +300,49 @@ const Index = () => {
       }
     };
   }, []);
+
+  const [startIndex, setStartIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const maxIndex = isMobile ? musicTracks.length - 1 : musicTracks.length - 3;
+    if (startIndex > maxIndex) {
+      setStartIndex(maxIndex);
+    }
+  }, [isMobile, startIndex]);
+
+  useEffect(() => {
+    if (isHovered) return;
+    const interval = setInterval(() => {
+      setStartIndex((prev) => {
+        const maxIndex = isMobile ? musicTracks.length - 1 : musicTracks.length - 3;
+        return prev >= maxIndex ? 0 : prev + 1;
+      });
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [isHovered, isMobile]);
+
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const maxIndex = isMobile ? musicTracks.length - 1 : musicTracks.length - 3;
+    setStartIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+  };
+
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const maxIndex = isMobile ? musicTracks.length - 1 : musicTracks.length - 3;
+    setStartIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+  };
 
   usePageMetadata({
     title: "Guitariz - Chord AI Free, Stem Splitter AI & Music Studio Tools",
@@ -410,78 +463,113 @@ const Index = () => {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-3 gap-3 md:gap-6">
-              {musicTracks.map((track, i) => (
-                <motion.div
-                  key={track.id}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ delay: i * 0.05, duration: 0.5, ease: "easeOut" }}
-                  className="flex flex-col rounded-xl md:rounded-[1.75rem] overflow-hidden border border-border bg-card/25 backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-white/10 group relative cursor-pointer shadow-sm select-none"
-                  onClick={() => handlePlayToggle(track)}
+            <div 
+              className="relative group/carousel px-4 md:px-12"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              {/* Carousel Viewport */}
+              <div className="overflow-hidden py-4 w-full">
+                <div 
+                  className="flex transition-transform duration-500 ease-in-out"
+                  style={{ 
+                    transform: `translateX(-${startIndex * (isMobile ? 100 : 100 / 3)}%)` 
+                  }}
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${track.color} opacity-0 group-hover:opacity-40 transition-opacity duration-500 z-0`} />
-                  
-                  {/* Cover Image Container */}
-                  <div className="relative aspect-[3/2] w-full overflow-hidden border-b border-border z-10">
-                    <img
-                      src={track.cover}
-                      alt={track.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    
-                    {/* Play/Pause Overlay */}
-                    <div className="absolute inset-0 bg-black/45 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                      <div className="w-8 h-8 md:w-14 md:h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg transform transition-transform duration-300 group-hover:scale-110">
-                        {playingTrackId === track.id ? (
-                          <Pause className="w-4 h-4 md:w-6 md:h-6 text-white fill-white" />
-                        ) : (
-                          <Play className="w-4 h-4 md:w-6 md:h-6 text-white fill-white ml-0.5" />
-                        )}
-                      </div>
-                    </div>
-                    
-                    {/* Playing Indicator */}
-                    {playingTrackId === track.id && (
-                      <div className="absolute bottom-2 right-2 md:bottom-3 md:right-3 bg-black/60 backdrop-blur-md border border-white/10 px-1.5 py-1 md:px-2.5 md:py-1.5 rounded-md md:rounded-lg flex gap-0.5 md:gap-1 items-end h-5 md:h-7 z-20">
-                        <span className="w-0.5 bg-cyan-400 rounded-full animate-[bounce_0.8s_infinite_100ms] h-2 md:h-3" />
-                        <span className="w-0.5 bg-cyan-400 rounded-full animate-[bounce_0.8s_infinite_300ms] h-3 md:h-4" />
-                        <span className="w-0.5 bg-cyan-400 rounded-full animate-[bounce_0.8s_infinite_200ms] h-2.5 md:h-3.5" />
-                        <span className="w-0.5 bg-cyan-400 rounded-full animate-[bounce_0.8s_infinite_400ms] h-1.5 md:h-2" />
-                      </div>
-                    )}
-                  </div>
+                  {musicTracks.map((track, i) => (
+                    <div 
+                      key={track.id} 
+                      className="w-full md:w-1/3 flex-shrink-0 px-2 md:px-3 flex flex-col"
+                    >
+                      <motion.div
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-60px" }}
+                        transition={{ delay: (i % 3) * 0.05, duration: 0.5, ease: "easeOut" }}
+                        className="flex flex-col h-full rounded-xl md:rounded-[1.75rem] overflow-hidden border border-border bg-card/25 backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-white/10 group relative cursor-pointer shadow-sm select-none"
+                        onClick={() => handlePlayToggle(track)}
+                      >
+                        <div className={`absolute inset-0 bg-gradient-to-br ${track.color} opacity-0 group-hover:opacity-40 transition-opacity duration-500 z-0`} />
+                        
+                        {/* Cover Image Container */}
+                        <div className="relative aspect-[3/2] w-full overflow-hidden border-b border-border z-10">
+                          <img
+                            src={track.cover}
+                            alt={track.title}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                          
+                          {/* Play/Pause Overlay */}
+                          <div className="absolute inset-0 bg-black/45 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                            <div className="w-8 h-8 md:w-14 md:h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg transform transition-transform duration-300 group-hover:scale-110">
+                              {playingTrackId === track.id ? (
+                                <Pause className="w-4 h-4 md:w-6 md:h-6 text-white fill-white" />
+                              ) : (
+                                <Play className="w-4 h-4 md:w-6 md:h-6 text-white fill-white ml-0.5" />
+                              )}
+                            </div>
+                          </div>
+                          
+                          {/* Playing Indicator */}
+                          {playingTrackId === track.id && (
+                            <div className="absolute bottom-2 right-2 md:bottom-3 md:right-3 bg-black/60 backdrop-blur-md border border-white/10 px-1.5 py-1 md:px-2.5 md:py-1.5 rounded-md md:rounded-lg flex gap-0.5 md:gap-1 items-end h-5 md:h-7 z-20">
+                              <span className="w-0.5 bg-cyan-400 rounded-full animate-[bounce_0.8s_infinite_100ms] h-2 md:h-3" />
+                              <span className="w-0.5 bg-cyan-400 rounded-full animate-[bounce_0.8s_infinite_300ms] h-3 md:h-4" />
+                              <span className="w-0.5 bg-cyan-400 rounded-full animate-[bounce_0.8s_infinite_200ms] h-2.5 md:h-3.5" />
+                              <span className="w-0.5 bg-cyan-400 rounded-full animate-[bounce_0.8s_infinite_400ms] h-1.5 md:h-2" />
+                            </div>
+                          )}
+                        </div>
 
-                  {/* Text Info & Badges */}
-                  <div className="p-3 md:p-6 flex-1 flex flex-col justify-between relative z-10">
-                    <div>
-                      <h3 className="text-white font-medium text-xs sm:text-sm md:text-lg leading-snug group-hover:text-cyan-400 transition-colors font-display line-clamp-2">
-                        {track.title}
-                      </h3>
-                      <p className="text-white/40 text-[9px] md:text-xs font-normal mt-0.5">({track.subtitle})</p>
-                      
-                      <div className="flex items-center gap-1 text-white/50 text-[9px] md:text-[11px] mt-1.5 md:mt-2 font-medium">
-                        <Clock className="w-3 h-3 md:w-3.5 md:h-3.5" />
-                        <span>{track.duration}</span>
-                      </div>
-                    </div>
+                        {/* Text Info & Badges */}
+                        <div className="p-3 md:p-6 flex-1 flex flex-col justify-between relative z-10">
+                          <div>
+                            <h3 className="text-white font-medium text-xs sm:text-sm md:text-lg leading-snug group-hover:text-cyan-400 transition-colors font-display line-clamp-2">
+                              {track.title}
+                            </h3>
+                            <p className="text-white/40 text-[9px] md:text-xs font-normal mt-0.5">({track.subtitle})</p>
+                            
+                            <div className="flex items-center gap-1 text-white/50 text-[9px] md:text-[11px] mt-1.5 md:mt-2 font-medium">
+                              <Clock className="w-3 h-3 md:w-3.5 md:h-3.5" />
+                              <span>{track.duration}</span>
+                            </div>
+                          </div>
 
-                    {/* Badges/Tags - hidden on mobile for clean fit */}
-                    <div className="hidden sm:flex flex-wrap gap-1.5 mt-4">
-                      {track.tags.slice(0, 3).map((tag) => (
-                        <span
-                          key={tag}
-                          className="inline-flex items-center gap-1 text-[9px] px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-medium"
-                        >
-                          <Tag className="w-2 h-2" />
-                          {tag}
-                        </span>
-                      ))}
+                          {/* Badges/Tags - hidden on mobile for clean fit */}
+                          <div className="hidden sm:flex flex-wrap gap-1.5 mt-4">
+                            {track.tags.slice(0, 3).map((tag) => (
+                              <span
+                                key={tag}
+                                className="inline-flex items-center gap-1 text-[9px] px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-medium"
+                              >
+                                <Tag className="w-2 h-2" />
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+                  ))}
+                </div>
+              </div>
+
+              {/* Navigation Arrows */}
+              <button 
+                onClick={handlePrev}
+                className="absolute left-[-12px] md:left-2 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/50 hover:bg-black/75 md:bg-white/10 md:hover:bg-white/20 border border-white/15 flex items-center justify-center text-white backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer shadow-[0_0_20px_rgba(0,0,0,0.5)] opacity-100 md:opacity-0 md:group-hover/carousel:opacity-100 flex-shrink-0"
+                aria-label="Previous tracks"
+              >
+                <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+              </button>
+
+              <button 
+                onClick={handleNext}
+                className="absolute right-[-12px] md:right-2 top-1/2 -translate-y-1/2 z-30 w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/50 hover:bg-black/75 md:bg-white/10 md:hover:bg-white/20 border border-white/15 flex items-center justify-center text-white backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer shadow-[0_0_20px_rgba(0,0,0,0.5)] opacity-100 md:opacity-0 md:group-hover/carousel:opacity-100 flex-shrink-0"
+                aria-label="Next tracks"
+              >
+                <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+              </button>
             </div>
           </div>
         </section>
